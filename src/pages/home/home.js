@@ -1,4 +1,4 @@
-import Header from "../component/header/header.js";
+import Header from "../../component/header/header.js";
 
 function Home() {
     return (
