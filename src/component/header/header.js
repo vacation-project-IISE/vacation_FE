@@ -1,17 +1,26 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./header.css";
 
 function Header() {
+  const navigate = useNavigate()
   const [isActive, setIsActive] = useState(false);
 
   const handleMenuClick = () => {
     setIsActive(!isActive);
   };
+
+  const GoToHome = () => {
+    navigate("/")
+  }
+  const GoToLogin = () => {
+    navigate("/login")
+  }
   return (
     <header>
       <div className="NavWrap">
         <div className="logo">
-          <img src="img/monami_logo.png" alt="monami_logo"></img>
+          <img src="img/monami_logo.png" alt="monami_logo" onClick={GoToHome}></img>
         </div>
         <div className="nav">
           <div className="NavSection">
@@ -65,6 +74,7 @@ function Header() {
       </div>
 
       <div className="HeaderBtn">
+        <button className="LoginBtn" onClick={GoToLogin}>로그인</button>
         <div className="Search">
           <img src="img/search.png" alt="search"></img>
         </div>
