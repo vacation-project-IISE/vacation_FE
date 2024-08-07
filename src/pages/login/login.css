@@ -1,0 +1,4 @@
+.responsive-image {
+    width: 100%; /* 페이지 너비에 맞게 이미지 크기 조정 */
+    height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+  }
