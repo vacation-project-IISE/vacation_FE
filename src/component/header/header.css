@@ -1,65 +1,177 @@
 @font-face {
-    font-family: 'Pretendard-ExtraLight';
-    src: url('../../fonts/Pretendard-ExtraLight.otf') format('woff');
+  font-family: "Pretendard-ExtraLight";
+  src: url("../../fonts/Pretendard-ExtraLight.otf") format("woff");
+}
+@font-face {
+  font-family: "Pretendard-Light";
+  src: url("../../fonts/Pretendard-Light.otf") format("woff");
+}
+html {
+  width: 100%;
+  height: 100%;
 }
 
+/* 헤더 전체 */
 header {
-    height: 100px;
-    display: flex;
-    align-items: center;
-    background-color: aliceblue;
-    font-family: 'Pretendard-ExtraLight';
-    justify-content: center;
-    
-    padding:0 50px;
-    gap: 850px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  font-family: "Pretendard-ExtraLight";
+  justify-content: center;
+  z-index: 10;
+  padding: 0 50px;
+  gap: 850px;
 }
 
-
-.logo img{
-    width: 160px;
+.logo img {
+  width: 160px;
+  margin: auto;
+  cursor: pointer;
 }
+/* 왼쪽 네비게이션 */
 .NavWrap {
-    display: flex;
-    gap: 50px;
+  display: flex;
+  gap: 100px;
+  height: 100%;
+  align-items: center;
 }
+
+/* 모나미소개, 모나미제품 */
 .nav {
-    display: flex;
-    gap: 50px;
-    width: 300px;
-    justify-content: center;
-    align-items: center;
-
+  display: flex;
+  gap: 50px;
+  width: 350px;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  cursor: pointer;
 }
 
+.nav p {
+  width: 100%;
+}
+
+p > span {
+  position: relative;
+}
+
+/* 호버 시 밑줄 */
+p > span::after {
+  content: "";
+  position: absolute;
+  left: -34px;
+  top: 100%;
+  width: 150px;
+  height: 2px;
+  margin-top: 36px;
+  background-color: rgb(213, 0, 0);
+  transform: scale(0);
+}
+p:hover > span:hover:after {
+  transform: scale(1);
+}
+.NavSection {
+  position: relative;
+}
+.NavSection p span {
+  transition: color 0.2s ease-in-out;
+}
+/* 호버 시 글씨 색상 변화 */
+.nav span:hover {
+  color: rgb(213, 0, 0);
+}
+ul,
+li {
+  list-style: none;
+}
+/* 네비게이션 드롭다운 메뉴 */
+.Dropdown {
+  display: none;
+  position: absolute;
+  top: 77px;
+  left: -28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  z-index: 10;
+}
+
+.Dropdown li {
+  width: 136px;
+  color: rgb(104, 104, 104);
+  padding: 20px 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid #e1e1e1;
+}
+.Dropdown li:last-child {
+  border-bottom: none;
+}
+/* 네비게이션 호버 시 드롭다운 메뉴 출력 */
+.NavSection:hover .Dropdown {
+  display: block;
+}
+
+/* 로그인 버튼, 검색버튼, 전체 메뉴 버튼 */
 .HeaderBtn {
-    display: flex;
+  display: flex;
+  gap: 30px;
 }
 
+.LoginBtn{
+  font-family: "Pretendard-ExtraLight";
+  font-size: 16px;
+  width: 80px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.Search {
+  margin: auto;
+}
 .Search img {
-    width: 25px;
+  width: 25px;
+}
+/* 전체 메뉴 버튼 */
+.AllMenuBtn {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  display: flex;
+  padding-top: 10px;
+}
+/* 전체 메뉴 */
+.AllMenu {
+  z-index: 20;
+  position: absolute;
+  top: 100px;
+  display: flex;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1), 0 1px 0 #ddd inset;
+  width: 100%;
+  justify-content: center;
 }
 /* 햄버거 메뉴 애니메이션 */
-.menu-trigger,
-.menu-trigger span {
+.menuTrigger,
+.menuTrigger span {
   display: inline-block;
   transition: all 0.4s;
   box-sizing: border-box;
+}
 
-}
-.Allmenu {
-    width: 30px;
-    height: 30px;
-}
-.menu-trigger {
+.menuTrigger {
   position: relative;
-  width: 50px;
-  height: 44px;
+  width: 30px;
+  height: 30px;
+ padding-top: 5px;
 }
 
-.menu-trigger span {
+.menuTrigger span {
   position: absolute;
-  left: 0;
   width: 100%;
   height: 3px;
   background-color: rgb(37, 37, 37);
@@ -67,28 +179,62 @@ header {
   width: 25px;
 }
 
-.menu-trigger span:nth-of-type(1) {
+.menuTrigger span:nth-of-type(1) {
   top: 0;
 }
 
-.menu-trigger span:nth-of-type(2) {
+.menuTrigger span:nth-of-type(2) {
   top: 7px;
 }
 
-.menu-trigger span:nth-of-type(3) {
+.menuTrigger span:nth-of-type(3) {
   top: 14px;
 }
 
 /* 2th bar 사라지고,  1st 3rd bar 회전하며 X  */
 
-.menu-trigger.active-1 span:nth-of-type(1) {
-  transform: translateY(20px) rotate(-45deg);
+.menuTrigger.active-1 span:nth-of-type(1) {
+  transform: translateY(9px) rotate(-45deg);
 }
 
-.menu-trigger.active-1 span:nth-of-type(2) {
+.menuTrigger.active-1 span:nth-of-type(2) {
   opacity: 0;
 }
 
-.menu-trigger.active-1 span:nth-of-type(3) {
-  transform: translateY(-20px) rotate(45deg);
+.menuTrigger.active-1 span:nth-of-type(3) {
+  transform: translateY(-5px) translateX(1px) rotate(45deg);
+}
+
+
+/* 전체 메뉴의 각 카테고리별 메뉴 */
+.MenuBox {
+  padding: 50px;
+}
+
+.MenuBox h2 {
+  height: 50px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #303030;
+  font-family: "Pretendard-Light";
+}
+.MenuBox h2::after {
+  display: block;
+  content: "";
+  width: 19px;
+  height: 2px;
+  margin: 20px 0;
+  background: #cd0600;
+}
+.MenuBox ul {
+  padding: 0%;
+}
+.MenuBox ul li {
+  margin-bottom: 15px;
+}
+
+.MenuBox ul li a {
+  display: block;
+  font-size: 16px;
+  color: #6e6e6e;
 }
