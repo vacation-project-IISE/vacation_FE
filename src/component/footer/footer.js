@@ -45,7 +45,9 @@ function Footer() {
               카카오톡 문의
             </a>
           </div>
-          <div className="FamSite"></div>
+                  <div className="FamSite">
+                      <a>FAMILY SITE</a>
+          </div>
         </div>
       </div>
     </div>
