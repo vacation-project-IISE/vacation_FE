@@ -1,0 +1,38 @@
+.Footer {
+  width: 100%;
+  position: relative;
+  background: #111;
+  padding: 60px 0 65px;
+}
+
+.Foot {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.FootPop {
+  display: none;
+}
+
+.FootTop {
+  width: 100%;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.FootTop h1 {
+  float: left;
+}
+.FootTop .Fm {
+  overflow: hidden;
+  float: right;
+}
+.FootTop .Fm li {
+  float: left;
+  padding-right: 11px;
+  margin-right: 10px;
+}
+
+.FootTop .Fm li a {
+    color: rgba(255,255,255,0.5);
+}
