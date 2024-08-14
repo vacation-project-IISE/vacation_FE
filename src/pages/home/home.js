@@ -4,7 +4,7 @@ function Home() {
     return (
         <div>
             <Header/>
-            <h1>메인페이지입니다!</h1>
+            <img src="img/monami_background.png"></img>
         </div>
     )
 }
