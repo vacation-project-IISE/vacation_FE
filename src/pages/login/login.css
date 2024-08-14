@@ -1,0 +1,39 @@
+.responsive-image {
+    width: 100%; /* 페이지 너비에 맞게 이미지 크기 조정 */
+    height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display:flex;
+  }
+  .square-box {
+    width: 500px;  /* 가로 길이 */
+    height: 400px; /* 세로 길이 */
+    background-color: white; /* 배경색 */
+    color: black;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* 화면에 고정 */
+    top: 60%; /* 수직 중앙 정렬 */
+    left: 50%; /* 수평 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙으로 위치 이동 */
+    z-index: 1000; /* 다른 요소들보다 위에 나타나도록 설정 */
+  }
+  .monamilogo{
+    width: 600px;  /* 가로 길이 */
+    height: 400px; /*세로 길이 */ 
+    background-color: white; /* 배경색*/
+    color: black;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* 화면에 고정 */
+    top: 60%; /* 수직 중앙 정렬 */
+    left: 50%; /* 수평 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙으로 위치 이동 */
+    z-index: 1000; /* 다른 요소들보다 위에 나타나도록 설정 */
+  }
