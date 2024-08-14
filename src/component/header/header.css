@@ -13,6 +13,7 @@ html {
 
 /* 헤더 전체 */
 header {
+  position: relative;
   height: 100px;
   display: flex;
   align-items: center;
@@ -21,7 +22,9 @@ header {
   justify-content: center;
   z-index: 10;
   padding: 0 50px;
-  gap: 850px;
+  gap: 700px;
+  width: 90%;
+  margin: auto;
 }
 
 .logo img {
@@ -32,7 +35,6 @@ header {
 /* 왼쪽 네비게이션 */
 .NavWrap {
   display: flex;
-  gap: 100px;
   height: 100%;
   align-items: center;
 }
@@ -49,56 +51,66 @@ header {
 }
 
 .nav p {
-  width: 100%;
+  line-height: 70px;
 }
 
 p > span {
   position: relative;
+  
 }
 
 /* 호버 시 밑줄 */
 p > span::after {
   content: "";
   position: absolute;
-  left: -34px;
+  left: -30px;
   top: 100%;
-  width: 150px;
+  width: 140px;
   height: 2px;
   margin-top: 36px;
   background-color: rgb(213, 0, 0);
   transform: scale(0);
 }
-p:hover > span:hover:after {
+
+p:hover > span:after,
+.NavSection.hover p > span:after {
   transform: scale(1);
 }
+
 .NavSection {
   position: relative;
+  height: 100px;
 }
+
 .NavSection p span {
   transition: color 0.2s ease-in-out;
 }
+
 /* 호버 시 글씨 색상 변화 */
-.nav span:hover {
+.nav span:hover,
+.NavSection.hover span {
   color: rgb(213, 0, 0);
 }
+
 ul,
 li {
   list-style: none;
 }
+
 /* 네비게이션 드롭다운 메뉴 */
 .Dropdown {
   display: none;
   position: absolute;
-  top: 77px;
-  left: -28px;
+  top: 83px;
   list-style: none;
-  margin: 0;
+  left:-34%;
   padding: 0;
-  width: 200px;
   z-index: 10;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .Dropdown li {
+  display: block;
   width: 136px;
   color: rgb(104, 104, 104);
   padding: 20px 0px;
@@ -107,13 +119,21 @@ li {
   cursor: pointer;
   border-bottom: 1px solid #e1e1e1;
 }
+
 .Dropdown li:last-child {
   border-bottom: none;
 }
+
+.Dropdown li:hover {
+  color: rgb(213, 0, 0);
+}
+
 /* 네비게이션 호버 시 드롭다운 메뉴 출력 */
-.NavSection:hover .Dropdown {
+.NavSection:hover .Dropdown,
+.NavSection.hover .Dropdown {
   display: block;
 }
+
 
 /* 로그인 버튼, 검색버튼, 전체 메뉴 버튼 */
 .HeaderBtn {
@@ -121,7 +141,7 @@ li {
   gap: 30px;
 }
 
-.LoginBtn{
+.LoginBtn {
   font-family: "Pretendard-ExtraLight";
   font-size: 16px;
   width: 80px;
@@ -146,7 +166,7 @@ li {
 }
 /* 전체 메뉴 */
 .AllMenu {
-  z-index: 20;
+  z-index: 10;
   position: absolute;
   top: 100px;
   display: flex;
@@ -154,7 +174,15 @@ li {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1), 0 1px 0 #ddd inset;
   width: 100%;
   justify-content: center;
+  overflow: hidden; /* 자식 요소가 부모의 영역을 넘어가지 않도록 설정 */
+  height: 0; /* 초기 높이를 0으로 설정 */
+  transition: height 0.5s ease-in-out; /* 높이 변경 시 애니메이션 적용 */
+
 }
+.AllMenu.active {
+  height: 420px; /* 활성화되었을 때의 높이 설정 (적절히 조정) */
+}
+
 /* 햄버거 메뉴 애니메이션 */
 .menuTrigger,
 .menuTrigger span {
@@ -167,7 +195,7 @@ li {
   position: relative;
   width: 30px;
   height: 30px;
- padding-top: 5px;
+  padding-top: 5px;
 }
 
 .menuTrigger span {
@@ -205,7 +233,6 @@ li {
   transform: translateY(-5px) translateX(1px) rotate(45deg);
 }
 
-
 /* 전체 메뉴의 각 카테고리별 메뉴 */
 .MenuBox {
   padding: 50px;
@@ -238,3 +265,4 @@ li {
   font-size: 16px;
   color: #6e6e6e;
 }
+
