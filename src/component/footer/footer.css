@@ -41,6 +41,7 @@
 .FootTop .Fm li a {
   color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
+  text-decoration: none;
 }
 
 .FootTop .Fm li a.PrivacyPop {

@@ -12,7 +12,13 @@ function Conduct() {
       <div className="BtnBox">
         <NavBtn SelectedIndex={3} />
       </div>
+      <div className="Contents">
+      <h3 className="Title1">
+          CEO <span>MESSAGE</span>
+        </h3>
+      </div>
     </div>
+    
   );
 }
 

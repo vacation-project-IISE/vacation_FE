@@ -13,7 +13,8 @@ html {
 
 /* 헤더 전체 */
 header {
-  position: relative;
+  position: fixed;
+  top: 0;
   height: 100px;
   display: flex;
   align-items: center;
@@ -23,8 +24,9 @@ header {
   z-index: 10;
   padding: 0 50px;
   gap: 700px;
-  width: 90%;
-  margin: auto;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid #ddd;
 }
 
 .logo img {
@@ -139,6 +141,7 @@ li {
 .HeaderBtn {
   display: flex;
   gap: 30px;
+  padding-right: 50px;
 }
 
 .LoginBtn {

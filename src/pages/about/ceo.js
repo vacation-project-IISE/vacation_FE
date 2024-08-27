@@ -4,6 +4,9 @@ import Footer from "../../component/footer/footer";
 import "./about.css";
 
 function Ceo() {
+  const MoveToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   return (
     <div className="AboutPage">
       <Header />
@@ -99,7 +102,7 @@ function Ceo() {
             </p>
           </div>
               </div>
-              <div className="BtnTop">
+              <div className="BtnTop" onClick={MoveToTop}>
                   <img src="/img/BtnTop.gif" alt="페이지 상단으로"></img>
               </div>
           </div>
