@@ -257,7 +257,7 @@
   color: #767676;
   border: 1px solid #ddd;
   background: #fff;
-  transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.1s;
   position: relative;
   line-height: 1;
   text-decoration: none;
@@ -521,4 +521,137 @@
 }
 .History .HistoryBox:nth-child(2n + 1) .HistoryImg img {
   min-width: 600px;
+}
+
+/* 윤리강령 */
+/*  */
+/*  */
+
+.ConDiscript {
+  font-family: "Pretendard-ExtraLight";
+  word-break: keep-all;
+  margin-bottom: 25px;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: justify;
+}
+.ConductBox {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 찾아오시는 길 */
+/*  */
+/*  */
+
+.Location {
+  overflow: hidden;
+    width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 150px;
+}
+
+.Location .MapInfo {
+  overflow: hidden;
+  display: flex;
+}
+
+.Location .MapInfo .TxtArea {
+  background: #363636;
+  width: 34.9%;
+  height: 600px;
+  padding-left: 5%;
+}
+.LocationTit {
+  margin: 70px 0 0;
+}
+.LocationTit h4{
+  font-family: "Pretendard-ExtraLight";
+  font-size: 23px;
+  color: #fff;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.LocationTit h4::after {
+  display: block;
+    content: "";
+    width: 25px;
+    height: 3px;
+    margin: 10px 0 35px;
+    background: #fff;
+}
+
+.Locationtxt {
+  display: flex;
+  color: #fff;
+  font-family: "Pretendard-ExtraLight";
+  gap: 20px;
+  height: 70px;
+}
+
+.Locationtxt .TxtTitle{
+  font-family: "Pretendard-Light";
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Locationtxt .TxtContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.LocationImg{
+  width: 540px;
+  margin-top: 46px;
+}
+
+.Location .Traffic {
+  overflow: hidden;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.Location .Traffic .Tit {
+  padding-top: 60px;
+    width: 200px;
+    text-align: center;
+    font-size: 15px;
+    color: #c40f39;
+    font-weight: 500;
+    font-family: "Pretendard-Light";
+}
+.Location .Traffic >div {
+  overflow: hidden;
+    float: left;
+    width: 50%;
+    display: flex;
+    padding: 30px 0%;
+}
+.Location .Traffic .Car {
+  border-right:  1px solid #ddd;
+}
+.Location .Traffic .Car .Tit {
+background: url(/public/img/LocationCar.gif) no-repeat center top;;
+}
+.Location .Traffic .Public .Tit {
+  background: url(/public/img/LocationPublic.gif) no-repeat center top;;
+  }
+
+.Location .Traffic .Info {
+  width: 80%;
+  height: 82px;
+    display: table;
+    line-height: 180%;
+    font-size: 14px;
+}
+
+.Location .Traffic .Info ul li {
+  padding-left: 10px;
+  background: url(/public/img/ListDot.gif) no-repeat left 11px;
+  line-height: 180%;
+    font-size: 14px;
+    color: #777;
 }

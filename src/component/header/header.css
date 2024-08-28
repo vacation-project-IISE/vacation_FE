@@ -21,7 +21,7 @@ header {
   background-color: white;
   font-family: "Pretendard-ExtraLight";
   justify-content: center;
-  z-index: 10;
+  z-index: 100;
   padding: 0 50px;
   gap: 700px;
   width: 100%;

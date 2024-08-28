@@ -22,6 +22,18 @@ function Header() {
   const GoToAbout = () => {
     navigate("/about/ceo");
   };
+  const GoToCompany = () => {
+    navigate("/about/company");
+  };
+  const GoToHistory = () => {
+    navigate("/about/history");
+  };
+  const GoToConduct = () => {
+    navigate("/about/conduct");
+  };
+  const GoToLocation = () => {
+    navigate("/about/location");
+  };
 
   const handleMouseEnter = index => {
     setHoverIndex(index);
@@ -46,24 +58,24 @@ function Header() {
               className={`NavSection ${hoverIndex === 0 ? "hover" : ""}`}
               onMouseEnter={() => handleMouseEnter(0)}
               onMouseLeave={handleMouseLeave}
-            onClick={GoToAbout}>
-              <p>
+            >
+              <p onClick={GoToAbout}>
                 <span>모나미소개</span>
               </p>
               <ul className={`Dropdown ${hoverIndex === 0 ? "hover" : ""}`}>
                 <li>
-                  <a>CEO 메시지</a>
+                  <a onClick={GoToAbout}>CEO 메시지</a>
                 </li>
-                <li>
-                  <a>회사정보</a>
+                <li onClick={GoToCompany}>
+                  <a >회사정보</a>
                 </li>
-                <li>
+                <li onClick={GoToHistory}>
                   <a>회사연혁</a>
                 </li>
-                <li>
+                <li onClick={GoToConduct}>
                   <a>윤리강령</a>
                 </li>
-                <li>
+                <li onClick={GoToLocation}>
                   <a>찾아오시는 길</a>
                 </li>
               </ul>
