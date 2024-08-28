@@ -81,7 +81,8 @@ function Location() {
       <div className="BtnTop" onClick={MoveToTop}>
                   <img src="/img/BtnTop.gif" alt="페이지 상단으로"></img>
       </div>
-      <Footer/>
+      <Footer />
+      {/*  */}
     </div>
   );
 }
