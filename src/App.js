@@ -1,13 +1,14 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home/home.js";
 import Login from "./pages/login/login.js";
-import Ceo from './pages/about/ceo.js';
-import Company from './pages/about/company.js';
-import History from './pages/about/history.js';
-import Conduct from './pages/about/conduct.js';
-import Location from './pages/about/location.js';
+import Ceo from "./pages/about/ceo.js";
+import Company from "./pages/about/company.js";
+import History from "./pages/about/history.js";
+import Conduct from "./pages/about/conduct.js";
+import Location from "./pages/about/location.js";
+import Product from "./pages/product/product.js";
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/about/history" element={<History />}></Route>
         <Route path="/about/conduct" element={<Conduct />}></Route>
         <Route path="/about/location" element={<Location />}></Route>
+        <Route path="/product" element={<Product />}></Route>
       </Routes>
     </Router>
   );

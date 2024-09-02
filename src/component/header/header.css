@@ -172,7 +172,7 @@ li {
   z-index: 10;
   position: absolute;
   /* 전체메뉴 드롭다운 메인 페이지에서 보이도록 수정하기 */
-  /* top: 100px; */
+  top: 100px;
   display: flex;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1), 0 1px 0 #ddd inset;
