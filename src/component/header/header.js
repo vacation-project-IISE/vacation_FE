@@ -34,8 +34,8 @@ function Header() {
   const GoToLocation = () => {
     navigate("/about/location");
   };
-  const GoToProduct = () => {
-    navigate("/product");
+  const GoToProduct = (code) => {
+    navigate(`/product/product_list/${code}`);
   };
 
   const handleMouseEnter = index => {
@@ -86,28 +86,26 @@ function Header() {
               className={`NavSection ${hoverIndex === 1 ? "hover" : ""}`}
               onMouseEnter={() => handleMouseEnter(1)}
               onMouseLeave={handleMouseLeave}>
-              <p onClick={GoToProduct}>
+              <p  onClick={() => GoToProduct('005')}>
                 <span>모나미제품</span>
               </p>
               <ul className={`Dropdown ${hoverIndex === 1 ? "hover" : ""}`}>
-                <li onClick={GoToProduct}>
+                <li  onClick={() => GoToProduct('005')}>
                   <a>프리미엄 펜</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('003')}>
                   <a>펜·펜슬</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('004')}>
                   <a>마카·컬러링</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('002')}>
                   <a>노트·사무용품</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('001')}>
                   <a>잉크·리필</a>
                 </li>
-                <li>
-                  <a>카탈로그</a>
-                </li>
+               
               </ul>
             </div>
           </div>
@@ -171,9 +169,7 @@ function Header() {
             <li>
               <a>잉크·리필</a>
             </li>
-            <li>
-              <a>카탈로그</a>
-            </li>
+           
           </ul>
         </div>
       </div>

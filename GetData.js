@@ -11,11 +11,17 @@ const GetData = async url => {
     const $productList = $("div.product_list ul li");
 
     $productList.each(function (i, elem) {
+      const href = $(this).find("a").attr("href");
+      const ccodeMatch = href.match(/ccode=(\d{3})/); // ccode 뒤의 세 자리 숫자 추출
+      const idxMatch = href.match(/idx=(\d+)/); // idx 뒤의 숫자 추출
+
       ulList[i] = {
         name: $(this).find("div.info div.product_name").text().trim(),
         url: "https://www.monami.com" + $(this).find("a").attr("href"),
         image_url: $(this).find("div.thum img").attr("src"),
         image_alt: $(this).find("div.info div.product_name").text(),
+        code: ccodeMatch ? ccodeMatch[1] : null, // ccode 값이 있으면 할당, 없으면 null
+        idx: idxMatch ? idxMatch[1] : null, // idx 값이 있으면 할당, 없으면 null
       };
     });
 

@@ -6,7 +6,7 @@ import "./product.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function Product() {
+function PremiumPen() {
   // 카테고리별 코드로 페이지 이동
     const { code } = useParams();
     const [productData, setProductData] = useState(null);
@@ -14,7 +14,6 @@ function Product() {
     const [error, setError] = useState(null);
   
     useEffect(() => {
-        console.log("Current code from URL:", code);
         fetch("/MonamiData.json")
           .then((response) => {
             if (!response.ok) {
@@ -25,35 +24,31 @@ function Product() {
             .then((data) => {
                 // 디버깅을 위한 코드: 데이터 fetch 확인
                 console.log("Fetched data:", data); 
+                console.log("Current code from URL:", code);
 
-                let foundProducts = [];
-                
-            // code에 따라 제품 찾기
-            for (const key in data) {
-                if (data.hasOwnProperty(key)) {
-                  const products = data[key];
-                  // Filter products that match the code
-                  const matchingProducts = products.filter((product) => product.code === code);
-                  foundProducts = [...foundProducts, ...matchingProducts];
-                }
-              }
+            // 코드에 따라 제품 찾기
+              const productKey = Object.keys(data).find(
+                  (key) => data[key].code === code
+                );
                   // 디버깅을 위한 코드: 데이터 find 확인
-                  console.log("Found product:", foundProducts);
+                console.log("Found product key:", productKey);
                 
-                  if (foundProducts) {
-                    setProductData(foundProducts);
-                  
-                  } else {
-                    setError("제품을 찾지 못했습니다");
-                  }
-                  setLoading(false);
-                })
-                .catch((error) => {
-                  setError(error.message);
-                  console.error("Error fetching data:", error);
-                  setLoading(false);
-                });
-            }, [code]); // 코드가 바뀔 때마다 실행
+            if (productKey) {
+                setProductData(data[productKey]);
+
+                // 디버깅을 위한 코드: set 데이터 확인
+                console.log("Product data set:", data[productKey]);
+            } else {
+              setError("제품을 찾지 못했습니다");
+            }
+            setLoading(false);
+          })
+          .catch((error) => {
+              setError(error.message);
+              console.error("Error fetching data:", error);
+            setLoading(false);
+          });
+      }, [code]); // 코드가 바뀔 때마다 실행
     
       if (loading) return <div>Loading...</div>;
       if (error) return <div>Error: {error}</div>;
@@ -69,15 +64,13 @@ function Product() {
         <NavBtn2 SelectedIndex={0} />
           </div>
           <div>
-          {productData.length > 0 ? (
-          productData.map((product, index) => (
-            <div key={index}>
-              <h1>{product.name}</h1>
-              <img src={product.image_url} alt={product.image_alt} />
-            </div>
-          ))
-        ) : (
-          <p>Product data not found.</p>
+      {productData ? (
+        <div>
+          <h1>{productData.name}</h1>
+          <img src={productData.image_url} alt={productData.image_alt} />
+        </div>
+      ) : (
+        <p>Product data not found.</p>
       )}
     </div>
       <Footer />
@@ -85,4 +78,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default PremiumPen;

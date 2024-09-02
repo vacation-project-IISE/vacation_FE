@@ -12,7 +12,7 @@ function NavBtn2({ SelectedIndex }) {
 
     const handleClick = (e) => {
         setSelect(e.target.value);
-        navigate(`/product_list/code=${ButtonLink[e.target.value]}`);
+        navigate(`/product/product_list/${ButtonLink[e.target.value]}`);
     };
 
   return (

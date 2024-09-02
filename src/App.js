@@ -9,6 +9,7 @@ import History from "./pages/about/history.js";
 import Conduct from "./pages/about/conduct.js";
 import Location from "./pages/about/location.js";
 import Product from "./pages/product/product.js";
+
 function App() {
   return (
     <Router>
@@ -20,7 +21,8 @@ function App() {
         <Route path="/about/history" element={<History />}></Route>
         <Route path="/about/conduct" element={<Conduct />}></Route>
         <Route path="/about/location" element={<Location />}></Route>
-        <Route path="/product" element={<Product />}></Route>
+        <Route path="/product/product_list/:code" element={<Product />}></Route>
+        {/* <Route path="/product/product_list/code=005" element={<PremiumPen />}></Route> */}
       </Routes>
     </Router>
   );
