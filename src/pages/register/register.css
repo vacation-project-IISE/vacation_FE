@@ -1,0 +1,119 @@
+.signup{
+    position: absolute;
+    bottom: 84%;
+    left: 37%;
+    width: 100px;
+    font-size: 21px;
+    font-weight: bold;
+    z-index: 1500;
+
+}
+.signup-id{
+    width:200px;
+    position: absolute;
+    font-size: 13px;
+    bottom: 72%;
+    font-weight: bold;
+    z-index: 1000;
+    left: 18%;
+}
+.sginput-id{
+    position: absolute;
+    bottom:68%;
+    left: 18%;
+    z-index: 1000;
+    width: 200px;
+    border-style: hidden;
+    font-size: 10px;
+} 
+.line-id{
+    width:220px;
+    z-index: 2000;
+    position:absolute;
+    left:18%;
+    bottom: 66%;
+  }  
+.signup-email{
+    width: 100px;
+    bottom:59%;
+    left: 18%;
+    font-size: 13px;
+    position: absolute;
+    font-weight: bold;
+}
+.input-email{
+    position: absolute;
+    left:18%;
+    z-index: 1400;
+    bottom:53%;
+    width: 200px;
+    border-style: hidden;
+    font-size: 10px;
+}
+.line-email{
+    width:220px;
+    z-index: 2000;
+    position:absolute;
+    left:18%;
+    bottom: 52%;
+  }  
+.signup-password{
+    width:200px;
+    left: 18%;
+    z-index: 1401;
+    position: absolute;
+    font-size: 13px;
+    font-weight: bold;
+    bottom:44%;
+}
+.input-password{
+    width: 200px;
+    position: absolute;
+    bottom:40%;
+    left:18%;
+    border-style: hidden;
+    font-size: 10px;
+}
+.line-pw{
+    width:220px;
+    z-index: 2000;
+    position:absolute;
+    left:18%;
+    bottom: 39%;
+  }  
+.signup-checkpw{
+    width: 200px;
+    font-size: 13px;
+    position: absolute;
+    z-index: 1401;
+    bottom: 32%;
+    left:18%;
+    font-weight: bold;
+}
+.input-checkpw{
+    width: 200px;
+    position: absolute;
+    bottom:26%;
+    left:18%;
+    border-style: hidden;
+    font-size: 10px;
+}
+.line-checkpw{
+    width:220px;
+    z-index: 2001;
+    position:absolute;
+    left:18%;
+    /* bottom: 30%; */
+    bottom: 25%;
+  } 
+.signup-button{
+    position: absolute;
+    bottom: 12%;
+    left:35%;
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+}

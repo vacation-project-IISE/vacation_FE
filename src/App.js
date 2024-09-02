@@ -8,6 +8,9 @@ import Company from './pages/about/company.js';
 import History from './pages/about/history.js';
 import Conduct from './pages/about/conduct.js';
 import Location from './pages/about/location.js';
+import Register from "./pages/register/register.js";
+import Registerconfirm from "./pages/register/registerconfirm.js";
+
 function App() {
   return (
     <Router>
@@ -19,6 +22,8 @@ function App() {
         <Route path="/about/history" element={<History />}></Route>
         <Route path="/about/conduct" element={<Conduct />}></Route>
         <Route path="/about/location" element={<Location />}></Route>
+        <Route path="/signup" element={<Register />}></Route>
+        <Route path='/signup/success' element={<Registerconfirm/>}></Route>
       </Routes>
     </Router>
   );
