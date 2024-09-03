@@ -34,6 +34,9 @@ function Header() {
   const GoToLocation = () => {
     navigate("/about/location");
   };
+  const GoToProduct = (code) => {
+    navigate(`/product/product_list/${code}`);
+  };
 
   const handleMouseEnter = index => {
     setHoverIndex(index);
@@ -57,8 +60,7 @@ function Header() {
             <div
               className={`NavSection ${hoverIndex === 0 ? "hover" : ""}`}
               onMouseEnter={() => handleMouseEnter(0)}
-              onMouseLeave={handleMouseLeave}
-            >
+              onMouseLeave={handleMouseLeave}>
               <p onClick={GoToAbout}>
                 <span>모나미소개</span>
               </p>
@@ -67,7 +69,7 @@ function Header() {
                   <a onClick={GoToAbout}>CEO 메시지</a>
                 </li>
                 <li onClick={GoToCompany}>
-                  <a >회사정보</a>
+                  <a>회사정보</a>
                 </li>
                 <li onClick={GoToHistory}>
                   <a>회사연혁</a>
@@ -84,28 +86,26 @@ function Header() {
               className={`NavSection ${hoverIndex === 1 ? "hover" : ""}`}
               onMouseEnter={() => handleMouseEnter(1)}
               onMouseLeave={handleMouseLeave}>
-              <p>
+              <p  onClick={() => GoToProduct('005')}>
                 <span>모나미제품</span>
               </p>
               <ul className={`Dropdown ${hoverIndex === 1 ? "hover" : ""}`}>
-                <li>
+                <li  onClick={() => GoToProduct('005')}>
                   <a>프리미엄 펜</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('003')}>
                   <a>펜·펜슬</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('004')}>
                   <a>마카·컬러링</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('002')}>
                   <a>노트·사무용품</a>
                 </li>
-                <li>
+                <li onClick={() => GoToProduct('001')}>
                   <a>잉크·리필</a>
                 </li>
-                <li>
-                  <a>카탈로그</a>
-                </li>
+               
               </ul>
             </div>
           </div>
@@ -134,19 +134,19 @@ function Header() {
         <div className="MenuBox">
           <h2>모나미소개</h2>
           <ul>
-            <li>
+            <li onClick={GoToAbout} style={{ cursor: "pointer" }}>
               <a>CEO 메시지</a>
             </li>
-            <li>
+            <li onClick={GoToCompany} style={{ cursor: "pointer" }}>
               <a>회사정보</a>
             </li>
-            <li>
+            <li onClick={GoToHistory} style={{ cursor: "pointer" }}>
               <a>회사연혁</a>
             </li>
-            <li>
+            <li onClick={GoToConduct} style={{ cursor: "pointer" }}>
               <a>윤리강령</a>
             </li>
-            <li>
+            <li onClick={GoToLocation} style={{ cursor: "pointer" }}>
               <a>찾아오시는 길</a>
             </li>
           </ul>
@@ -169,9 +169,7 @@ function Header() {
             <li>
               <a>잉크·리필</a>
             </li>
-            <li>
-              <a>카탈로그</a>
-            </li>
+           
           </ul>
         </div>
       </div>

@@ -14,7 +14,6 @@
 .AboutPage {
   position: relative;
   width: 100%;
-  margin-top: 100px;
 }
 .AboutTop {
   display: flex;
@@ -25,6 +24,7 @@
   background-repeat: no-repeat;
   background-position: 50%;
   flex-direction: column;
+  padding-top: 100px;
 }
 
 .AboutTop h2 {
@@ -53,6 +53,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
+  top: 400px;
 }
 
 .Title1 {
