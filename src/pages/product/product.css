@@ -56,3 +56,57 @@
     top: 400px;
   }
   
+  .CategoryBtn {
+  text-align: center;
+  }
+
+  .CategoryBtn button {
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #777;
+    border: none;
+    border-bottom: 2px solid #dcdcdc;
+    background-color: white;
+    width: 130px;
+    margin: 0 7px;
+  }
+  .ProductWrap {
+    margin: auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 45px auto 0;
+    gap: 10px;
+  }
+
+  .ProductBox {
+    width: 19%;
+    border: 1px solid #ddd;
+  }
+
+  .ProductBox img{
+   width: 100%;
+  }
+
+  .ProductInfo{
+    height: auto;
+    padding: 30px;
+  }
+  .ProductCategory{
+    margin: 0px 0 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #b3b3b3;
+  }
+
+  .ProductName {
+    font-family: 'Pretendard-Regular';
+    font-weight: 600;
+    font-size: 15px;
+    color: #000;
+    font-weight: 600;
+  }
