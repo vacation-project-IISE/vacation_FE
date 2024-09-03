@@ -12,15 +12,15 @@
     width:200px;
     position: absolute;
     font-size: 13px;
-    bottom: 72%;
+    bottom: 298px;
     font-weight: bold;
     z-index: 1000;
-    left: 18%;
+    left: 63px;
 }
 .sginput-id{
     position: absolute;
-    bottom:68%;
-    left: 18%;
+    bottom:274px;
+    left: 66px;
     z-index: 1000;
     width: 200px;
     border-style: hidden;
@@ -30,13 +30,13 @@
     width:220px;
     z-index: 2000;
     position:absolute;
-    left:18%;
-    bottom: 66%;
+    left:66px;
+    bottom: 266px;
   }  
 .signup-email{
     width: 100px;
-    bottom:59%;
-    left: 18%;
+    bottom:233px;
+    left: 63px;
     font-size: 13px;
     position: absolute;
     font-weight: bold;
@@ -54,23 +54,23 @@
     width:220px;
     z-index: 2000;
     position:absolute;
-    left:18%;
-    bottom: 52%;
+    left:66px;
+    bottom: 205px;
   }  
 .signup-password{
     width:200px;
-    left: 18%;
+    left: 63px;
     z-index: 1401;
     position: absolute;
     font-size: 13px;
     font-weight: bold;
-    bottom:44%;
+    bottom:173px;
 }
 .input-password{
     width: 200px;
     position: absolute;
-    bottom:40%;
-    left:18%;
+    bottom:156px;
+    left:66px;
     border-style: hidden;
     font-size: 10px;
 }
@@ -78,23 +78,23 @@
     width:220px;
     z-index: 2000;
     position:absolute;
-    left:18%;
-    bottom: 39%;
+    left:66px;
+    bottom: 151px;
   }  
 .signup-checkpw{
     width: 200px;
     font-size: 13px;
     position: absolute;
     z-index: 1401;
-    bottom: 32%;
-    left:18%;
+    bottom: 120px;
+    left:63px;
     font-weight: bold;
 }
 .input-checkpw{
     width: 200px;
     position: absolute;
     bottom:26%;
-    left:18%;
+    left:66px;
     border-style: hidden;
     font-size: 10px;
 }
@@ -102,7 +102,7 @@
     width:220px;
     z-index: 2001;
     position:absolute;
-    left:18%;
+    left:66px;
     /* bottom: 30%; */
     bottom: 25%;
   } 
@@ -117,3 +117,33 @@
     height: 30px;
     cursor: pointer;
 }
+.error-idmessage {
+    color: red; /* 오류 메시지를 빨간색으로 표시 */
+    position: absolute;
+    bottom: 244px;
+    font-size: 9px;
+    left:70px;
+
+  }
+  .error-pwmessage {
+    color: red; /* 오류 메시지를 빨간색으로 표시 */
+    position: absolute;
+    bottom: 130px;
+    font-size: 9px;
+    left:70px;
+  }
+  .error-emailmessage {
+    color: red; /* 오류 메시지를 빨간색으로 표시 */
+    position: absolute;
+    bottom: 183px;
+    font-size: 9px;
+    left:70px;
+  }
+  .error-checkpwmessage {
+    color: red; /* 오류 메시지를 빨간색으로 표시 */
+    position: absolute;
+    bottom: 79px;
+    font-size: 9px;
+    left:70px;
+    z-index: 1400;
+  }

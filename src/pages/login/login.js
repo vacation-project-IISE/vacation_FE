@@ -1,7 +1,14 @@
 import Header from "../../component/header/header.js"
 import "./login.css";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+      navigate('/'); //home으로 이동
+    };
+
   return (
       <div>
           <Header/>
@@ -19,7 +26,7 @@ function Login() {
         <img src={'img/line.png'} alt="sns라인" className="line4"/>
         <img src={'img/welcome.png'} alt="상단웰컴" className="welcome"/>
         <img src={'img/line3 (1).png'} alt="상단라인" className="line3"/>
-        <button className="login-button">로그인</button>
+        <button className="login-button" onClick={handleLoginClick}>로그인</button>
         <div className="text-options">
           <a href="/signup" className="link">회원가입</a>
           <a href="/find-id" className="link">아이디 찾기</a>
