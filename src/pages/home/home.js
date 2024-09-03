@@ -5,6 +5,9 @@ function Home() {
         <div>
             <Header/>
             <img src="img/monami_background.png"></img>
+            <div>
+
+    </div>
         </div>
     )
 }
