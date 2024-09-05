@@ -230,6 +230,10 @@
   height: 330px;
 }
 
+.CompanyImg img {
+  width: 100%;
+}
+
 .CompanyTxt {
   padding: 35px;
 }

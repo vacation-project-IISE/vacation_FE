@@ -7,8 +7,15 @@ const GetData = async url => {
   try {
     const response = await axios.get(url);
     const $ = cheerio.load(response.data);
+    let cateList = [];
     let ulList = [];
+
+    const $categoryList = $("ul.subcate li");
     const $productList = $("div.product_list ul li");
+
+    $categoryList.each(function (i, elem) {
+      cateList[i] = $(this).find("a").text().trim();
+    });
 
     $productList.each(function (i, elem) {
       const href = $(this).find("a").attr("href");
@@ -16,6 +23,7 @@ const GetData = async url => {
       const idxMatch = href.match(/idx=(\d+)/); // idx 뒤의 숫자 추출
 
       ulList[i] = {
+        category: $(this).find("div.info div.cate1").text(),
         name: $(this).find("div.info div.product_name").text().trim(),
         url: "https://www.monami.com" + $(this).find("a").attr("href"),
         image_url: $(this).find("div.thum img").attr("src"),
@@ -25,11 +33,11 @@ const GetData = async url => {
       };
     });
 
-    // 이름이 있는 제품 가져오기
-    return ulList.filter(n => n.name);
+    // 카테고리 및 제품 목록 반환
+    return { categories: cateList, products: ulList.filter(n => n.name) };
   } catch (error) {
     console.log(error);
-    return [];
+    return { categories: [], products: [] };
   }
 };
 
@@ -68,21 +76,46 @@ const fetchAndSaveData = async () => {
     "https://www.monami.com/product/product_list.php?ccode=001",
   ];
 
+  const cateurls = [
+    "https://www.monami.com/product/product_list.php?ccode=005",
+    "https://www.monami.com/product/product_list.php?ccode=003",
+    "https://www.monami.com/product/product_list.php?ccode=004",
+    "https://www.monami.com/product/product_list.php?ccode=002",
+    "https://www.monami.com/product/product_list.php?ccode=001",
+  ];
+
   // 전체 데이터 저장 변수
-  let allData = {};
+  let allCategories = {};
+  let allProducts = {};
+
+  // 각 URL fetch
+  for (let i = 0; i < cateurls.length; i++) {
+    const { categories } = await GetData(cateurls[i]);
+
+    allCategories[`data${i + 1}`] = categories;
+  }
 
   // 각 URL fetch
   for (let i = 0; i < urls.length; i++) {
-    const data = await GetData(urls[i]);
-    allData[`data${i + 1}`] = data; //data1, data2, ... 로 저장
+    const { products } = await GetData(urls[i]);
+
+    allProducts[`data${i + 1}`] = products;
   }
 
   // 하나의 json 파일로 저장
-  fs.writeFile("MonamiData.json", JSON.stringify(allData, null, 2), err => {
-    if (err) throw err;
-    console.log("MonamiData.json 저장 완료!");
-  });
-};
+  const result = {
+    category: allCategories,
+    product: allProducts,
+  };
 
+  fs.writeFile(
+    "public/MonamiData.json",
+    JSON.stringify(result, null, 2),
+    err => {
+      if (err) throw err;
+      console.log("MonamiData.json 저장 완료!");
+    }
+  );
+};
 
 fetchAndSaveData();
