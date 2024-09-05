@@ -6,6 +6,7 @@ function Header() {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [hoverIndex, setHoverIndex] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   const handleMenuClick = () => {
     setIsActive(!isActive);
@@ -34,7 +35,8 @@ function Header() {
   const GoToLocation = () => {
     navigate("/about/location");
   };
-  const GoToProduct = (code) => {
+  const GoToProduct = (code, index) => {
+    setSelectedIndex(index);
     navigate(`/product/product_list/${code}`);
   };
 
@@ -86,23 +88,23 @@ function Header() {
               className={`NavSection ${hoverIndex === 1 ? "hover" : ""}`}
               onMouseEnter={() => handleMouseEnter(1)}
               onMouseLeave={handleMouseLeave}>
-              <p  onClick={() => GoToProduct('005')}>
+              <p  onClick={() => GoToProduct('005', 0)}>
                 <span>모나미제품</span>
               </p>
               <ul className={`Dropdown ${hoverIndex === 1 ? "hover" : ""}`}>
-                <li  onClick={() => GoToProduct('005')}>
+              <li onClick={() => GoToProduct("005", 0)}>
                   <a>프리미엄 펜</a>
                 </li>
-                <li onClick={() => GoToProduct('003')}>
+                <li onClick={() => GoToProduct("003", 1)}>
                   <a>펜·펜슬</a>
                 </li>
-                <li onClick={() => GoToProduct('004')}>
+                <li onClick={() => GoToProduct("004", 2)}>
                   <a>마카·컬러링</a>
                 </li>
-                <li onClick={() => GoToProduct('002')}>
+                <li onClick={() => GoToProduct("002", 3)}>
                   <a>노트·사무용품</a>
                 </li>
-                <li onClick={() => GoToProduct('001')}>
+                <li onClick={() => GoToProduct("001", 4)}>
                   <a>잉크·리필</a>
                 </li>
                
@@ -154,19 +156,19 @@ function Header() {
         <div className="MenuBox">
           <h2>모나미제품</h2>
           <ul>
-            <li>
+          <li onClick={() => GoToProduct("005", 0)}>
               <a>프리미엄 펜</a>
             </li>
-            <li>
+            <li onClick={() => GoToProduct("003", 1)}>
               <a>펜·펜슬</a>
             </li>
-            <li>
+            <li onClick={() => GoToProduct("004", 2)}>
               <a>마카·컬러링</a>
             </li>
-            <li>
+            <li onClick={() => GoToProduct("002", 3)}>
               <a>노트·사무용품</a>
             </li>
-            <li>
+            <li onClick={() => GoToProduct("001", 4)}>
               <a>잉크·리필</a>
             </li>
            

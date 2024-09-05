@@ -11,6 +11,7 @@ function Product() {
   const { code } = useParams();
   const [productData, setProductData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -34,6 +35,31 @@ function Product() {
         return [];
     }
   };
+
+  // 카테고리 이름과 같지 않아도 포함되는 제품을 출력할 수 있도록 매핑
+  const categoryMapping = {
+    고급볼펜: ["프리미엄펜", "프리미엄 펜"],
+    수성펜: ["사인펜", "수성마카", "수성 마카"],
+    "연필·샤프": ["샤프", "샤프/샤프심", "연필"],
+    생활마카: ["마카", "보드마카", "유성매직", "유성매직 트윈 109"],
+    "컬러링·브러쉬펜": ["워터브러쉬", "수성마카", "수성펜"],
+    "색연필·물감": [
+      "모니주 어린이 문구 선물세트",
+      "크레파스",
+      "색연필",
+      "샤프식 색연필",
+      "그림물감",
+    ],
+    "LOBDA(롭다)": ["사무용품"],
+    "노트·다이어리": ["노트"],
+    "풀·접착용품": ["풀"],
+    "지우개·수정용품": ["수정테이프", "기타"],
+    "볼펜 리필": ["수성펜", "유성볼펜", "FX700", "프리미엄펜"],
+    병잉크: ["수성마카", "만년필"],
+  };
+
+  const inkCartridgeProducts = ["잉크 카트리지"];
+  const converterProduct = ["모나미 컨버터"];
 
   useEffect(() => {
     fetch("/MonamiData.json")
@@ -74,6 +100,11 @@ function Product() {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
+
+    // 카테고리 필터와 페이지 리셋
+    // 리셋을 안하면 해당 정보가 다른 코드에도 그대로 넘겨져서 다른 제품을 보여줄 수 없음!!
+    setSelectedCategory(null);
+    setCurrentPage(1);
   }, [code]); // code가 바뀔때마다(페이지를 이동할 때마다) 데이터를 새로 불러옴
 
   if (loading) return <div>Loading...</div>;
@@ -81,16 +112,45 @@ function Product() {
 
   const handlePageChange = pageNumber => {
     setCurrentPage(pageNumber);
-    // window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0 });
   };
+
+  // 카테고리 선택 시 필터
+  const handleCategoryClick = category => {
+    setSelectedCategory(category);
+  };
+
+  // 카테고리 선택시 필터링
+  const filteredProducts = selectedCategory
+    ? productData.filter(product => {
+        const categoryGroup = categoryMapping[selectedCategory] || [
+          selectedCategory,
+        ];
+
+        // 잉크 카트리지 제품 필터링되게
+        if (
+          selectedCategory === "잉크 카트리지" &&
+          inkCartridgeProducts.includes(product.name)
+        ) {
+          return true;
+        }
+        // 컨버터 제품 필터링 되게
+        if (
+          selectedCategory === "컨버터" &&
+          converterProduct.includes(product.name)
+        ) {
+          return true;
+        }
+        return categoryGroup.includes(product.category);
+      })
+    : productData;
 
   // 현재 페이지 계산
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProducts = productData.slice(startIndex, endIndex);
-  console.log("Current products:", currentProducts);
+  const currentProducts = filteredProducts.slice(startIndex, endIndex); // console.log("Current products:", currentProducts);
   // 전체 페이지 계산
-  const totalPages = Math.ceil(productData.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   const MoveToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -113,7 +173,11 @@ function Product() {
       <div className="CategoryBtn">
         {categoryData.length > 0 ? (
           categoryData.map((category, index) => (
-            <button key={index}>{category}</button>
+            <button
+              onClick={() => handleCategoryClick(category)}
+              className={selectedCategory === category ? "ActiveCategory" : ""}>
+              {category}
+            </button>
           ))
         ) : (
           <p>카테고리를 찾을 수 없습니다.</p>
@@ -124,6 +188,12 @@ function Product() {
           currentProducts.map((product, index) => (
             <div className="ProductBox" key={index}>
               <img src={product.image_url} alt={product.image_alt} />
+              <div className="Ondiv">
+                <div className="BtnPlus">
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
               <div className="ProductInfo">
                 <p className="ProductCategory">{product.category}</p>
                 <p className="Productname">{product.name}</p>
@@ -143,10 +213,8 @@ function Product() {
           <img src="/img/PagePrev.gif" alt="PagePrev" />
         </a>
         <strong>
-          {/* Render page numbers */}
           {Array.from({ length: totalPages }, (_, index) => (
             <button
-              key={index + 1}
               className={currentPage === index + 1 ? "active" : ""}
               onClick={() => handlePageChange(index + 1)}>
               {index + 1}

@@ -32,17 +32,3 @@ function NavBtn({ SelectedIndex }) {
 }
 
 export default NavBtn;
-
-// function NavBtn() {
-//     return (
-//         <div className="NavBtnWrap">
-//             <button>CEO 메시지</button>
-//             <button>회사정보</button>
-//             <button>회사연혁</button>
-//             <button>윤리강령</button>
-//             <button>찾아오시는 길</button>
-//        </div>
-//     )
-// }
-
-// export default NavBtn;
