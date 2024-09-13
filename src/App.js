@@ -3,12 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home/home.js";
 import Login from "./pages/login/login.js";
+
 import Ceo from './pages/about/ceo.js';
 import Company from './pages/about/company.js';
 import History from './pages/about/history.js';
 import Conduct from './pages/about/conduct.js';
 import Location from './pages/about/location.js';
+
 import Product from "./pages/product/product.js";
+import ProductDetail from "./pages/product/productDetail.js";
 
 import Register from "./pages/register/register.js";
 import Registerconfirm from "./pages/register/registerconfirm.js";
@@ -24,7 +27,7 @@ function App() {
         <Route path="/about/conduct" element={<Conduct />}></Route>
         <Route path="/about/location" element={<Location />}></Route>
         <Route path="/product/product_list/:code" element={<Product />}></Route>
-        {/* <Route path="/product/product_list/code=005" element={<PremiumPen />}></Route> */}
+        <Route path="/product/product_view/:idx" element={<ProductDetail />}></Route>
         <Route path="/signup" element={<Register />}></Route>
         <Route path='/signup/success' element={<Registerconfirm/>}></Route>
       </Routes>

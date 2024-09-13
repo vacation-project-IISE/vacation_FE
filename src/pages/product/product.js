@@ -3,12 +3,13 @@ import Footer from "../../component/footer/footer";
 import NavBtn2 from "../../component/buttons/navBtn2";
 import "./product.css";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Product() {
   // 카테고리별 코드로 페이지 이동
-  const { code } = useParams();
+  const { code, idx } = useParams();
+  const navigate = useNavigate();
   const [productData, setProductData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -73,7 +74,7 @@ function Product() {
         // 디버깅을 위한 코드: code에 따른 카테고리 설정과 데이터 fetch 확인
         const selectedCategories = getCategoryByCode(code, data);
         setCategoryData(selectedCategories);
-        console.log("Fetched category data:", selectedCategories);
+        // console.log("Fetched category data:", selectedCategories);
 
         let foundProducts = [];
 
@@ -148,7 +149,7 @@ function Product() {
   // 현재 페이지 계산
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProducts = filteredProducts.slice(startIndex, endIndex); // console.log("Current products:", currentProducts);
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
   // 전체 페이지 계산
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -156,6 +157,9 @@ function Product() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const GotoDetail = (idx) => {
+    navigate(`/product/product_view/${idx}`);
+  }
   return (
     <div className="ProductPage">
       <Header />
@@ -188,7 +192,7 @@ function Product() {
           currentProducts.map((product, index) => (
             <div className="ProductBox" key={index}>
               <img src={product.image_url} alt={product.image_alt} />
-              <div className="Ondiv">
+              <div className="Ondiv"  onClick={()=>GotoDetail(product.idx, product.code)}>
                 <div className="BtnPlus">
                   <div></div>
                   <div></div>

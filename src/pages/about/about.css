@@ -163,7 +163,7 @@
   position: fixed;
   right: 3%;
   bottom: 30%;
-  z-index: 1000;
+  z-index: 10;
   border: 2px solid #c40f39;
   cursor: pointer;
 }
