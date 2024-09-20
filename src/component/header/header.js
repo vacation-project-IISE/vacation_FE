@@ -39,6 +39,9 @@ function Header() {
     setSelectedIndex(index);
     navigate(`/product/product_list/${code}`);
   };
+  const GoToShopping = () => {
+    navigate(`/shopping/cart`);
+  };
 
   const handleMouseEnter = index => {
     setHoverIndex(index);
@@ -117,6 +120,9 @@ function Header() {
           <button className="LoginBtn" onClick={GoToLogin}>
             로그인
           </button>
+          <div className="ShoppingCart" onClick={GoToShopping}>
+            <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>
+          </div>
           <div className="Search">
             <img src="/img/search.png" alt="search"></img>
           </div>

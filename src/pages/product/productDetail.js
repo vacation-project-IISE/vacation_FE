@@ -82,7 +82,7 @@ function ProductDetail() {
 
   // 이미지 List 넘기기
   const handleNextClick = () => {
-    const newPosition = Math.max(scrollPosition - 100, -200); // Adjust scroll increment size as needed
+    const newPosition = Math.max(scrollPosition - 100, -200); 
     setScrollPosition(newPosition);
     if (listRef.current) {
       listRef.current.style.transform = `translateX(${newPosition}px)`;
@@ -90,7 +90,7 @@ function ProductDetail() {
   };
 
   const handlePrevClick = () => {
-    const newPosition = Math.min(scrollPosition + 100, 0); // Prevent scrolling beyond start
+    const newPosition = Math.min(scrollPosition + 100, 0); 
     setScrollPosition(newPosition);
     if (listRef.current) {
       listRef.current.style.transform = `translateX(${newPosition}px)`;

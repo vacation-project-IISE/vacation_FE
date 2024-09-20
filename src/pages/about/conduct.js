@@ -1,5 +1,6 @@
 import Header from "../../component/header/header";
 import NavBtn from "../../component/buttons/navBtn";
+import Footer from "../../component/footer/footer";
 import "./about.css";
 function Conduct() {
   const MoveToTop = () => {
@@ -373,6 +374,7 @@ function Conduct() {
                   <img src="/img/BtnTop.gif" alt="페이지 상단으로"></img>
               </div>
       </div>
+      <Footer/>
     </div>
   );
 }

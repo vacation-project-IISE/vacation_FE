@@ -153,8 +153,18 @@ li {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.ShoppingCart {
+  margin: auto;
+  cursor: pointer;
+}
+
+.ShoppingCart img{
+  width: 25px;
+}
 .Search {
   margin: auto;
+  cursor: pointer;
 }
 .Search img {
   width: 25px;
@@ -169,7 +179,7 @@ li {
 }
 /* 전체 메뉴 */
 .AllMenu {
-  z-index: 10;
+  z-index: 200;
   position: absolute;
   /* 전체메뉴 드롭다운 메인 페이지에서 보이도록 수정하기 */
   top: 100px;
