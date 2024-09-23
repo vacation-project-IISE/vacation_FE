@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home/home.js";
 import Login from "./pages/login/login.js";
+import Search from "./pages/search/search.js";
 
 import Ceo from './pages/about/ceo.js';
 import Company from './pages/about/company.js';
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/search" element={<Search />}></Route>
         <Route path="/about/ceo" element={<Ceo />}></Route>
         <Route path="/about/company" element={<Company />}></Route>
         <Route path="/about/history" element={<History />}></Route>
