@@ -20,6 +20,10 @@ function Header() {
     navigate("/login");
   };
 
+  const GoToSearch = () => {
+    navigate("/search");
+  };
+
   const GoToAbout = () => {
     navigate("/about/ceo");
   };
@@ -123,7 +127,7 @@ function Header() {
           <div className="ShoppingCart" onClick={GoToShopping}>
             <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>
           </div>
-          <div className="Search">
+          <div className="Search" onClick={GoToSearch}>
             <img src="/img/search.png" alt="search"></img>
           </div>
           <div className="AllMenuBtn">

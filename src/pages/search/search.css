@@ -1,0 +1,90 @@
+.SearchWrap {
+    width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 140px;
+}
+
+.SearchBar {
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    padding: 45px 55px;
+}
+
+.SearchBar .Clear {
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    gap: 85px;
+}
+
+.SearchBar .Clear .Tit {
+    float: left;
+}
+
+.SearchBar .Clear .Tit .Kr {
+    font-size: 29px;
+    color: #c40f39;
+    font-family: "Pretendard-Light";
+}
+
+.SearchBar .Clear .Tit .En{
+    font-family: 'Montserrat';
+    font-size: 14px;
+    color: #666;
+}
+
+.SearchBar .Clear .SearchContent {
+    width: calc(100% - 85px - 149px);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.SearchBar .Clear .SearchContent input {
+    width: calc(100% - 10px - 130px);
+    box-sizing: border-box;
+    height: 46px;
+    padding: 0 20px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    background: #fff;
+    outline: 0;
+    font-family: "Pretendard-ExtraLight";
+
+}
+
+.SearchBar .Clear .SearchContent button {
+    display: inline-block;
+    vertical-align: top;
+    width: 130px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+    background: #c40f39;
+    color: #fff;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    border: none;
+}
+
+.SearchWrap .Total {
+    margin-top: 50px;
+    /* margin-bottom: -25px; */
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    font-size: 15px;
+    font-family: "Pretendard-ExtraLight";
+}
+
+.SearchWrap .ProductList {
+    max-width: 1400px;
+    margin: 45px auto ;
+}
+
+.ProductList ul {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+}
