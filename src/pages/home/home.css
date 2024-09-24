@@ -3,117 +3,286 @@ header {
     z-index: 2000; /* 헤더가 다른 요소 위에 위치하도록 설정 */
 }
 
-.home-top{
+.home-top {
     position: relative;
-    bottom: 600px;
     width: 100%;
     height: 500px;
-    z-index: 10;
-    top: 100px;
-
-
+    z-index: 1400;
+    top: 100px; /* 'bottom: 600px;'은 혼란을 줄 수 있어 제거함 */
 }
-/* .new h2{
+
+.new h2 {
     position: absolute;
-    left: 0;
-    top:1000px;
-} */
-.new h2{
-    height: 90px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 32px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: #000;
-    line-height: 120%;
-    z-index: 1500;
-    position: absolute;
-    margin-top: 10%;
-    left: 180px;
+   margin-top: 9%; /* margin-top 대신 top 값을 사용하여 더 간결하게 위치 조정 */
+    margin-left: 18%; /* margin-left 대신 left를 사용 */
 }
-/* .home-background{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: -1; 
-    object-fit: cover;
-    overflow: hidden;
-} */
- .new h2::after{
+.new h2::after{
     content: "";
     display: block;
     width: 26px;
     height: 4px;
     margin: 10px 0 0;
     background: #c40f39;
-
 }   
- .new p{
-    font-size: 20px;
-    color: #6e6e6e;
-    top:740px;
-    left: 180px;
-    position: absolute;
-    z-index: 1400;
- }
- .home-box2{
-    width: 100%;            /* 박스 너비 */
-    height: 952.2px;           /* 박스 높이 */
-    background-color: whitesmoke;  /* 회색 배경 */
-    top: 1600px;
-    /* left: 900px; */
-    position: absolute;
-    z-index: 1500;
-}
-.pen-collect{
+.newarrival {
     display: flex;
-    flex-wrap: wrap; /* 이미지가 부모 컨테이너의 너비를 초과하면 자동으로 줄바꿈 */
     justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
-
+    align-items: center;     /* 세로 중앙 정렬 */
+    height: 100vh;  
 }
-.home-zpen{
-    position:absolute;
+
+.home-zpen {
+    position: absolute;
     width: 392px;
     height: 205px;
-    top:800px;
-    left: 180px;
+    margin-bottom: 3%;
+    margin-right: 40%;
     z-index: 1500;
+    border-radius: 20px;
 }
+
 .home-pluspen{
-    position:absolute;
-    width: 392px;
-    height: 292px;
-    top:1030px;
-    left: 180px;
+    display:block;
+    margin-top: 500px;
+    margin-right: 610px;
     z-index: 1500;
+    width: 392px;
+    height:292px;
+    border-radius: 20px;
 }
 .home-note{
     position:absolute;
     width: 786px;
     height: 360px;
-    top:645px;
+    margin-left: 80px;
+    margin-bottom: 200px;
     left: 600px;
     z-index: 1500;
+    border-radius: 20px;
 }
 .home-153pen{
     position:absolute;
     width: 450px;
     height: 439px;
     top:1030px;
-    left: 600px;
+    left: 680px;
     z-index: 1500;
+    border-radius: 20px;
 }
 .home-pluspen2{
     position:absolute;
     width: 314px;
     height: 292px;
     top:1030px;
-    left: 1070px;
+    left: 1150px;
+    z-index: 1500;
+    border-radius: 20px;
+}
+.home-box2{
+    width: 100%;           
+    height: 952.2px;          
+    background-color: whitesmoke;  
+    top: 1600px;
+    /* left: 900px; */
+    position: absolute;
     z-index: 1500;
 }
-.pen-collect img {
-    max-width: 100%; /* 이미지의 최대 너비를 컨테이너 너비에 맞게 조정 */
-    height: auto; /* 이미지 높이를 비율에 맞게 자동 조절 */
-    object-fit: contain; /* 이미지가 비율을 유지하면서 컨테이너에 맞게 조절됨 */
+.tit{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #000;
+    line-height: 120%;
+    text-align: center;
+    margin-top: 30px;;
+}
+.tit:after{
+    content: "";
+    display: block;
+    width: 26px;
+    height: 4px;
+    margin: 10px auto;
+    background: #c40f39;
+    /* margin-left: 750px; */
+}  
+.tit_btn{
+    color: #555;
+    /* font-family: "Noto Sans KR", "돋움", dotum, sans-serif; */
+    font-size: 13.5px;
+    font-weight: normal;
+    text-align: center;
+    font-weight: bold;
+}
+.tit .p_tabs ul li.on a{
+    border:2px solid #c40f39;
+    color: red;
+    
+}
+
+.p_tabs ul li a{
+    display: block;
+    width: 153px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    font-size: 14px;
+    color: #898989;
+    border: 2px solid #bcbcbc;
+    border-radius: 50px;
+    transition: all ease-in-out 0.3s;
+}
+.p_tabs ul li :hover{
+    color:red;
+    border: 2px solid red;
+}
+.p_tabs ul {
+    display: flex; /* flexbox 사용 */
+    list-style-type: none; /* 기본 목록 스타일 제거 */
+    margin-left: 400px;
+}
+.p_tabs {
+    position: relative;
+    z-index: 1; /* 비디오보다 앞에 위치하도록 설정 */
+    margin-bottom: 20px; /* 비디오와의 간격을 확보 */
+  }
+
+.p_tabs ul li:last-child {
+    margin-right: 0; /* 마지막 요소의 오른쪽 마진 제거 */
+} 
+.p_lists {
+    padding: 20px;
+    overflow-x: auto; /* 창 크기가 작아졌을 때 수평 스크롤 생성 */
+    
+}
+
+.wrapper_ul {
+    display: flex;
+    gap: 20px; /* 아이템 간 간격 */
+    list-style-type: none; /* 기본 리스트 스타일 제거 */
+    padding: 0;
+    flex-wrap: nowrap; /* 아이템이 한 줄에 모두 나열되도록 고정 */
+}
+
+.wrapper_ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 266px; /* 아이템 고정 너비 */
+    flex-shrink: 0; /* 창 크기가 줄어들어도 아이템 크기 줄어들지 않도록 설정 */
+}
+
+.wrapper_ul li img {
+    margin-bottom: 10px;
+    border-radius: 30px;
+}
+
+.video{
+    position: relative;
+    width: 100%;
+    height: 570px; /* 비디오의 고정된 높이를 설정 */
+    overflow: hidden; /* 비디오가 부모 영역을 벗어나지 않도록 */
+}
+.player {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 비디오가 부모 요소에 맞게 채워지도록 설정 */
+    z-index: 0; /* 비디오가 다른 요소보다 뒤에 있도록 설정 */
+  }
+  .bbs .news{
+    float: left;
+    width:650px;
+    height: 310px;
+    padding-right: 49px;
+    border-right: 1px solid whitesmoke;
+  }
+  .bbs .news .tit h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    line-height: 120%;
+    text-align: left;
+    margin-left: 40px;
+}
+.bbs .news .tit a {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 11px;
+    color: #3d3e38;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #3d3e38;
+}
+  .bbs .inquiry{
+      float: left;
+      width: 349px;
+      height: 355px;
+      /* background: url(public\img\inquiry_tit_bg.png) no-repeat; */
+      border-right: 1px solid #ddd;
+      text-align: center;
+    }
+.bbs .inquiry p {
+    color: #6a6a6a;
+    line-height: 160%;
+    margin-bottom: 45px;
+}
+.bbs .inquiry .tit h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    line-height: 120%;
+}
+.bbs .inquiry a {
+    display: block;
+    width: 167px;
+    height: 35px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 35px;
+    font-family: 'Montserrat', sans-serif;
+    color: #c40f39;
+    font-weight: 500;
+    border: 2px solid #c40f39;
+    transition: all 0.6s;
+    border-radius: 50px;
+}
+.bbs .shop .tit h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000;
+    line-height: 120%;
+}
+.bbs .shop p {
+    color: #6a6a6a;
+    line-height: 160%;
+    margin-bottom: 45px;
+}
+.bbs .shop a {
+  display: block;
+  width: 167px;
+  height: 35px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 35px;
+  font-family: 'Montserrat', sans-serif;
+  color: #c40f39;
+  font-weight: 500;
+  border: 2px solid #c40f39;
+  transition: all 0.6s;
+  border-radius: 50px;
+}
+.bbs .shop {
+    float: left;
+    width: 349px;
+    height: 355px;
+    border-right: 1px solid #ddd;
+    text-align: center;
+}
+.danwhapen{
+    width: 164px;
+    height: 116px;
 }
