@@ -148,14 +148,14 @@
   height: auto;
   padding: 30px;
 }
-.ProductCategory {
+.ProductInfo .ProductCategory {
   margin: 0px 0 5px;
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   color: #b3b3b3;
 }
 
-.ProductName {
+.ProductInfo .ProductName {
   font-family: "Pretendard-Regular";
   font-weight: 600;
   font-size: 15px;

@@ -210,8 +210,12 @@ margin-right: 5px;
   color: #c40f39;
   font-weight: 500;
   margin-bottom: 7px;
+  text-align: left;
 }
 
+.ProductDetails .PInfoList .tit::after {
+  display: none;
+}
 .ProductDetails .PInfoList .KeyFeatures {
   font-size: 15px;
   color: #777;
