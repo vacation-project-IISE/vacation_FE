@@ -74,8 +74,84 @@ label {
   height: 500px;
   border: 1px solid #ececec;
   border-radius: 20px;
+  max-height: 100%;
 }
 
+.ShoppingContent .CartContent .Shoppingwrap {
+  display: flex;
+  flex-direction: column;
+  width: 960px;
+  margin: 20px;
+  gap: 10px;
+  /* 넘어가면 스크롤바가 생기게 */
+  max-height: 460px;
+  overflow-y: auto;
+}
+
+.Shoppingwrap .ShoppingBox {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  justify-content: space-between;
+}
+
+.Shoppingwrap .ShoppingBox .CheckBtn {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+.Shoppingwrap .ShoppingBox .CheckBtn input[type="checkbox"] {
+  display: none;
+}
+.Shoppingwrap .ShoppingBox .CheckBtn label {
+  background-image: url(/public/img/greyCheck.png);
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+.Shoppingwrap .ShoppingBox .ProductImg img {
+  width: 100px;
+}
+.Shoppingwrap .ShoppingBox .ProductInfo {
+  padding: 20px;
+}
+.Shoppingwrap .ShoppingBox .ProductName {
+  font-size: 22px;
+}
+.Shoppingwrap .ShoppingBox .ProductCate {
+  font-size: 14px;
+  font-family: "Pretendard-ExtraLight";
+  color: #787878;
+}
+.Shoppingwrap .ShoppingBox .ProductPrice {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Pretendard-Regular";
+  padding: 20px;
+  margin-left: auto;
+  float: right;
+}
+.Shoppingwrap .ShoppingBox .QuantityBtn {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+.Shoppingwrap .ShoppingBox .QuantityBtn button {
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.Shoppingwrap .ShoppingBox .QuantityBtn span {
+  font-size: 20px;
+  font-family: "Pretendard-ExtraLight";
+}
 .ShoppingContent .PayContent {
   background-color: #fff;
   width: 300px;
@@ -91,33 +167,51 @@ label {
   font-weight: 600;
   border-bottom: 1px solid #787878;
 }
-.ShoppingContent .PayContent ul{
-    margin:15px 0;
-    padding: 0;
-    font-family: "Pretendard-ExtraLight";
-    font-size: 20px;
-    color: grey;
+.ShoppingContent .PayContent .PayInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0;
+  font-family: "Pretendard-ExtraLight";
+  font-size: 20px;
+  color: grey;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.ShoppingContent .PayContent .PayDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 0;
+  font-family: "Pretendard-ExtraLight";
+  font-weight: 600;
+  font-size: 20px;
+  color: #000;
+  text-align: right;
 }
 .ShoppingContent .PayContent ul li {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .ShoppingContent .PayContent .PayBottom {
-    padding-top: 20px;
-    font-size: 24px;
-    font-family: "Pretendard-ExtraLight";
-    font-weight: 600;
-    border-top: 1px solid #787878;
+  padding-top: 20px;
+  font-size: 24px;
+  font-family: "Pretendard-ExtraLight";
+  font-weight: 600;
+  border-top: 1px solid #787878;
 }
 .ShoppingContent .PayContent .PayBtn {
-    width: 300px;
-    height: 60px;
-    margin-top: 30px;
-    background-color: #c40f39;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 26px;
-    font-family: "Pretendard-ExtraLight";
-    cursor: pointer;
+  width: 300px;
+  height: 60px;
+  margin-top: 30px;
+  background-color: #c40f39;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 26px;
+  font-family: "Pretendard-ExtraLight";
+  cursor: pointer;
 }

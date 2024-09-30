@@ -16,6 +16,7 @@ function Search() {
   const itemsPerPage = 10;
 
   useEffect(() => {
+    
     fetch("/MonamiData.json")
       .then(response => {
         if (!response.ok) {
