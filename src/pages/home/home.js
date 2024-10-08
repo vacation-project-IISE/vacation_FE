@@ -90,7 +90,7 @@ function Home() {
                         <li className="first">
                             <div className="thum"></div>
                             <div className="txt">
-                                <img src="img/danwha.jpg" className="danwhapen"></img>
+                                <img src="/img/danhwa.jpg" className="danwhapen"></img>
                              <a href="https://www.monami.com/board/board.php?bo_table=bodo&idx=186">
                              <div className="sbj">모나미 X Danha 153 볼펜 세트 출시</div>
                              <p>

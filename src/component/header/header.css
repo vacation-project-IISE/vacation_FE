@@ -23,7 +23,7 @@ header {
   justify-content: center;
   z-index: 100;
   padding: 0 50px;
-  gap: 700px;
+  gap: 600px;
   width: 100%;
   margin: 0 auto;
   border-bottom: 1px solid #ddd;
@@ -103,7 +103,7 @@ li {
 .Dropdown {
   display: none;
   position: absolute;
-  top: 83px;
+  top: 102px;
   list-style: none;
   left:-34%;
   padding: 0;
@@ -140,7 +140,7 @@ li {
 /* 로그인 버튼, 검색버튼, 전체 메뉴 버튼 */
 .HeaderBtn {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   padding-right: 50px;
 }
 
