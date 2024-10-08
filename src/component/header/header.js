@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./header.css";
+import LoginBtn from "../buttons/loginBtn/loginBtn";
+import MypageBtn from "../buttons/mypageBtn/mypageBtn";
 
 function Header() {
   const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [hoverIndex, setHoverIndex] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  // user토큰이 아직 확인 안되므로 기본 설정을 로그인 상태로 둠
+  // const [isLogin, setIsLogin] = useState(false); 가 기본 상태(로그인안된 상태)
+
+  const [isLogin, setIsLogin] = useState(true);
+
+  useEffect(() => {
+    // user 토큰 확인
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      setIsLogin(true); // 토큰이 확인되면 로그인 상태로 변경
+    }
+  }, []);
 
   const handleMenuClick = () => {
     setIsActive(!isActive);
@@ -18,6 +32,9 @@ function Header() {
 
   const GoToLogin = () => {
     navigate("/login");
+  };
+  const GoToMypage = () => {
+    navigate("/mypage");
   };
 
   const GoToSearch = () => {
@@ -121,10 +138,8 @@ function Header() {
         </div>
 
         <div className="HeaderBtn">
-          <button className="LoginBtn" onClick={GoToLogin}>
-            로그인
-          </button>
-          <div className="ShoppingCart" onClick={GoToShopping}>
+          <LoginBtn onClick={GoToLogin}/>
+          {isLogin && <MypageBtn onClick={GoToMypage} />}          <div className="ShoppingCart" onClick={GoToShopping}>
             <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>
           </div>
           <div className="Search" onClick={GoToSearch}>
