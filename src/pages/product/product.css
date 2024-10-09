@@ -1,0 +1,222 @@
+@font-face {
+  font-family: "Pretendard-ExtraLight";
+  src: url("../../fonts/Pretendard-ExtraLight.otf") format("woff");
+}
+@font-face {
+  font-family: "Pretendard-Light";
+  src: url("../../fonts/Pretendard-Light.otf") format("woff");
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("../../fonts/Pretendard-Regular.otf") format("woff");
+}
+
+.ProductPage {
+  position: relative;
+  width: 100%;
+}
+.ProductTop {
+  display: flex;
+  width: 100%;
+  height: 342px;
+  text-align: center;
+  background-image: url("/public/img/ProductImg.jpg");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  flex-direction: column;
+  padding-top: 100px;
+}
+
+.ProductTop h2 {
+  color: white;
+  font-family: "Pretendard-Light";
+  font-size: 34px;
+  padding-top: 120px;
+  margin: 0px;
+}
+
+.ProductTop h2::after {
+  display: block;
+  content: "";
+  width: 30px;
+  height: 4px;
+  margin: 5px auto 10px;
+  background: #c40f39;
+}
+
+.ProductTop p {
+  color: white;
+  font-family: "Pretendard-ExtraLight";
+  margin: 0px;
+}
+.BtnBox {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 400px;
+}
+
+.CategoryBtn {
+  text-align: center;
+}
+
+.CategoryBtn button {
+  text-align: center;
+  height: 32px;
+  line-height: 32px;
+  font-weight: 500;
+  font-size: 15px;
+  color: #777;
+  border: none;
+  border-bottom: 2px solid #dcdcdc;
+  background-color: white;
+  width: 130px;
+  margin: 0 7px;
+  font-family: "Pretendard-Light";
+  cursor: pointer;
+}
+.CategoryBtn .ActiveCategory {
+  color: #c40f39;
+  border-bottom: 2px solid #c40f39;
+}
+.ProductWrap {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 45px auto 0;
+  gap: 10px;
+}
+
+.ProductBox {
+  width: 19%;
+  border: 1px solid #ddd;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ProductBox img {
+  width: 100%;
+  display: block;
+}
+.ProductBox:hover .Ondiv {
+  opacity: 1;
+}
+.ProductBox .Ondiv {
+  display: block;
+    position: relative;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 75%;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex; /* Center .BtnPlus in .Ondiv */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.ProductBox .Ondiv .BtnPlus {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.8);
+}
+.ProductBox .Ondiv .BtnPlus div:nth-child(1) {
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    height: 1px;
+    margin-left: -25%;
+    background: rgba(196, 15, 57, 0.7);
+}
+.ProductBox .Ondiv .BtnPlus div:nth-child(2) {
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1px;
+    height: 50%;
+    margin-top: -25%;
+    background: rgba(196, 15, 57, 0.7);
+}
+.ProductInfo {
+  height: auto;
+  padding: 30px;
+}
+.ProductCategory {
+  margin: 0px 0 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.ProductName {
+  font-family: "Pretendard-Regular";
+  font-weight: 600;
+  font-size: 15px;
+  color: #000;
+  font-weight: 600;
+}
+
+.Paging {
+  margin: 60px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Paging a {
+  display: inline-block;
+  vertical-align: top;
+  width: 38px;
+  height: 38px;
+  text-align: center;
+  line-height: 38px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  color: #a8a8a8;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+.Paging strong button {
+  display: inline-block;
+  vertical-align: top;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  color: #a8a8a8;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 0px;
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.Paging strong button.active {
+  display: inline-block;
+  vertical-align: top;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  background-color: white;
+  color: #c40f39;
+  font-weight: 500;
+  border: 1px solid #c40f39;
+}
+.Paging a.PagePrev {
+  margin-right: 30px;
+}
+.Paging a.PageNext {
+  margin-left: 30px;
+}
