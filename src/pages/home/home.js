@@ -176,8 +176,8 @@ function Home() {
                         <li className="first">
                             <div className="thum"></div>
                             <div className="txt">
-                                <img src="img/danwha.jpg" className="danwhapen"></img>
-                             <a>
+                                <img src="/img/danhwa.jpg" className="danwhapen"></img>
+                             <a href="https://www.monami.com/board/board.php?bo_table=bodo&idx=186">
                              <div className="sbj">모나미 X Danha 153 볼펜 세트 출시</div>
                              <p>
                                 "K- 아티스트 손잡고 한국의 아름다움을 알린다... 모나미 X 볼펜 세트 출시- 특색 있는 국내 아티스트 발굴 .."

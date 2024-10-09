@@ -82,7 +82,7 @@ function ProductDetail() {
 
   // 이미지 List 넘기기
   const handleNextClick = () => {
-    const newPosition = Math.max(scrollPosition - 100, -200); 
+    const newPosition = Math.max(scrollPosition - 100, -200);
     setScrollPosition(newPosition);
     if (listRef.current) {
       listRef.current.style.transform = `translateX(${newPosition}px)`;
@@ -90,7 +90,7 @@ function ProductDetail() {
   };
 
   const handlePrevClick = () => {
-    const newPosition = Math.min(scrollPosition + 100, 0); 
+    const newPosition = Math.min(scrollPosition + 100, 0);
     setScrollPosition(newPosition);
     if (listRef.current) {
       listRef.current.style.transform = `translateX(${newPosition}px)`;
@@ -104,8 +104,10 @@ function ProductDetail() {
   const showModal = (text, img) => {
     setModalText(text);
     setModalOpen(true);
-    setModalImg(img)
-};
+    setModalImg(img);
+  };
+
+  const hasPrice = productDetail?.price && productDetail.price !== "";
 
   return (
     <div>
@@ -161,30 +163,53 @@ function ProductDetail() {
               </div>
 
               <div className="ProductDetails">
-              {modalOpen && <Modal setModalOpen={setModalOpen} text={modalText} img={modalImg}  />}
+                {modalOpen && (
+                  <Modal
+                    setModalOpen={setModalOpen}
+                    text={modalText}
+                    img={modalImg}
+                  />
+                )}
                 <div className="PTop">
                   <div className="PTitle">
                     <div className="PName">{productData.name}</div>
                     <div className="PCate">{productData.category}</div>
                   </div>
                   <div className="PPrice">
-                    <div> {productDetail.price}원</div>
                     <div>
-                      <button className="WishBtn" onClick={()=>showModal("위시리스트에 담겼습니다!","/img/heartIcon.png" )}>
-                        <img
-                          src="/img/heartIcon.png"
-                          alt="WishBtn"
-                          ></img>
-                        Wish
-                      </button>
-                      <button className="CartBtn" onClick={()=>showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png")}>
-                        <img
-                          src="/img/cartIcon.png"
-                          alt="CartBtn"
-                         ></img>
-                        Cart
-                      </button>
-                     
+                      {/* 가격 정보가 없으면 가격이 '구매 불가'로 뜨도록 */}
+                      {productDetail.price
+                        ? `${productDetail.price}원`
+                        : "구매 불가"}
+                    </div>
+                    <div>
+                      {/* 가격 정보가 없으면 위시, 장바구니 버튼이 안뜨도록 */}
+                      {hasPrice && (
+                        <>
+                          <button
+                            className="WishBtn"
+                            onClick={() =>
+                              showModal(
+                                "위시리스트에 담겼습니다!",
+                                "/img/heartIcon.png"
+                              )
+                            }>
+                            <img src="/img/heartIcon.png" alt="WishBtn"></img>
+                            Wish
+                          </button>
+                          <button
+                            className="CartBtn"
+                            onClick={() =>
+                              showModal(
+                                "장바구니에 담겼습니다!",
+                                "/img/redCartIcon.png"
+                              )
+                            }>
+                            <img src="/img/cartIcon.png" alt="CartBtn"></img>
+                            Cart
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

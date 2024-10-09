@@ -1,0 +1,86 @@
+.left-box{
+    background-color: black;
+    width: 380px;
+    height: 1014px;
+    
+
+}
+.mypageicon{
+    position:relative;
+    margin-top: 200px;
+    margin-left:120px;
+}
+.left-box .myname p{
+    /* position: a; */
+    color: aliceblue;
+    margin-left: 160px;
+    font-size: 20px;
+}
+.left-box .my-email p{
+    color:white;
+    margin-top: 90px;
+    margin-left: 160px;
+    font-size: 20px;
+}
+.wishlist p{
+    position: relative; 
+    bottom: 920px;
+    left: 400px;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+.paylist p{
+    position: relative;
+    bottom: 670px;
+    left: 400px;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+/* Paylist 스타일 */
+.paylist {
+    position: relative;
+    margin-top: 20px;
+    bottom: 400px;
+    left: 400px;
+    margin-bottom: 200px;
+    
+    width: 1200px;
+
+}
+
+.excel-paylist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.excel-paylist li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.paylist-header {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+.paylist-item span {
+    flex: 1; /* 각 열이 균등하게 나눠짐 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+}
+
+.paylist-item span:nth-child(1) {
+    flex: 2; /* 주문번호 열을 좀 더 넓게 */
+}
+
+.paylist-item span:nth-child(2) {
+    flex: 3; /* 상품 이름을 가장 넓게 */
+}
+
+.paylist-item span:nth-child(3), .paylist-item span:nth-child(4) {
+    flex: 2; /* 결제금액과 처리상태 열 */
+}
