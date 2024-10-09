@@ -5,76 +5,53 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Mypage() {
-  const { code, idx } = useParams();
-  const navigate = useNavigate();
-  const [productData, setProductData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
-  useEffect(() => {
-    
-    fetch("/MonamiData.json")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("데이터를 로드하지 못했습니다");
-        }
-        return response.json();
-      })
-      .then(data => {
-        let foundProducts = [];
-
-        // 모든 제품을 가져오기
-        for (const key in data.product) {
-          if (data.product.hasOwnProperty(key)) {
-            const products = data.product[key];
-            foundProducts = [...foundProducts, ...products]; // 필터링하지 않고 모든 제품을 가져옴
-          }
-        }
-
-        if (foundProducts.length > 0) {
-          setProductData(foundProducts);
-        } else {
-          setError("제품을 찾지 못했습니다");
-        }
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error.message);
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      });
-
-    setCurrentPage(1);
-  }, []);
-
- 
-
-  
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  const handlePageChange = pageNumber => {
-    setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0 });
-  };
-
- 
-  const MoveToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const GotoDetail = idx => {
-    navigate(`/product/product_view/${idx}`);
-  };
 
   return (
     <div>
       <Header />
-      
+      <div>
+            <div className="left-box">
+                <img src="img/mypageicon.png" className="mypageicon" alt="마이페이지아이콘"></img>
+                <div className="myname">
+                    <p>이름</p>
+                </div>
+                <div className="my-email">
+                    <p>Email</p>
+                </div>
+            </div>
+            
+            <div className="wishlist">
+                <p>위시리스트</p>
+            </div>
+            
+            <div className="paylist">
+                <p>결제내역</p>
+                <ul className="excel-paylist">
+                    {/* 헤더 행 (주문번호, 상품이름, 결제금액, 처리상태) */}
+                    <li className="paylist-header">
+                        <span>주문번호</span>
+                        <span>상품이름</span>
+                        <span>결제금액</span>
+                        <span>처리상태</span>
+                    </li>
+
+                    {/* 실제 데이터 행 (예시) */}
+                    <li className="paylist-item">
+                        <span>#12345</span>
+                        <span>Product 1</span>
+                        <span>₩100,000</span>
+                        <span>배송 중</span>
+                    </li>
+                    <li className="paylist-item">
+                        <span>#12346</span>
+                        <span>Product 2</span>
+                        <span>₩150,000</span>
+                        <span>결제 완료</span>
+                    </li>
+                  
+                </ul>
+            </div>
+        </div>
       <Footer />
     </div>
   );

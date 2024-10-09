@@ -22,6 +22,8 @@ import ShoppingList from "./pages/shopping/shoppingList.js";
 import Pay from "./pages/shopping/pay.js";
 import PayComplete from "./pages/shopping/paycomplete.js";
 
+
+
 function App() {
   return (
     <Router>
@@ -42,6 +44,7 @@ function App() {
         <Route path='/shopping/cart' element={<ShoppingList/>}></Route>
         <Route path='/shopping/pay' element={<Pay/>}></Route>
         <Route path='/shopping/complete' element={<PayComplete/>}></Route>
+        <Route path="/Mypage" element={<Mypage/>}></Route>
       </Routes>
     </Router>
   );

@@ -1,3 +1,4 @@
+import Footer from "../../component/footer/footer.js";
 import Header from "../../component/header/header.js";
 import "./home.css";
 
@@ -6,7 +7,46 @@ function Home() {
     <div>
       <Header />
       <img src="img/hometop.jpg" className="home-top" alt="Home Top Image" />
-      
+      <div className="visual">
+        
+        <div className="textarea">
+                <h3>
+                    어쩌면 삶은
+                    <br/>
+                    인생이라는 종이 위에
+                    <br/>
+                    써내려가는
+                    <br/>
+                    펜의 기록 같습니다
+                    <br/>
+                </h3>
+                <p>
+                    "그 중에서도 지우고 싶은 기록이 있습니다"
+                    <br/>
+                    "모나미는 언제나 당신의 행복한 기록과 함께"
+                </p>
+        </div>
+
+      </div>
+      <div className="l-popup__buttons">
+        <span>
+            <img src="img/l-popup_img_1.png" alt="모나미몰"></img>
+        </span>
+        <span>
+            "브랜드"
+            <em>스토어</em>    
+        </span>
+        <a className="l-popup-btn-1" href="https://brand.naver.com/monami" target="_blank">
+            <span className="btn_go">
+                "바로가기"
+            </span>
+            </a>
+         <a className="l-popup-btn-2" href="/customer/inquiry.php?bluk=10" target="_blank">
+            <span className="btn_inquiry">
+                "대량 구매 문의"
+            </span>
+         </a>  
+      </div>
       <div className="new">
         <h2>NEW <br /> ARRIVALS</h2>
         <p>가장 먼저 만나는 설레는 기다림</p>
@@ -36,40 +76,86 @@ function Home() {
         <div className="p_lists">
                         <ul className="wrapper_ul">
                             <li>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
                                 <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040136001_file6_1713138750ujw6qaj97g.jpg" alt width={266} height={390}></img>
-                                <a>프리미엄 펜</a>
-                                <a> 프러스펜 3000프라임</a>
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">프리미엄 펜</div>
+                                        <div className="name">프러스펜 3000프라임</div>
+                                    </div>
+                                </a>
                             </li>
                             <li>
-                                <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/8801067962537_file6_16993368522ze8t9y6ul.jpg" alt width={266} height={390}></img>
-                                <a>프리미엄 펜</a>
-                                <a> 153 리스펙트 리파인</a>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
+                                    <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/8801067962537_file6_16993368522ze8t9y6ul.jpg" alt width={266} height={390}></img>
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">프리미엄 펜</div>
+                                        <div className="name">153 리스펙트 리파인</div>
+                                    </div>
+                                </a>
                             </li>
                             <li>
-                                <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048020_file6_1681086837wink3y4zfr.jpg" alt width={266} height={390}></img>
-                                <a>만년필</a>
-                                <a> 153 아이디 만년필</a>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
+                                    <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048020_file6_1681086837wink3y4zfr.jpg" alt width={266} height={390}></img>
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">만년필</div>
+                                        <div className="name">153 아이디 만년필</div>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
+                                    <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048012_file6_1583298386d4wy0fw22t.jpg" alt width={266} height={390}></img>
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">만년필</div>
+                                        <div className="name">153 네오 만년필 EF</div>
+                                    </div>
+                                </a>
                             </li>
                             <li>
-                                <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048012_file6_1583298386d4wy0fw22t.jpg" alt width={266} height={390}></img>
-                                <a>만년필</a>
-                                <a> 153 네오 만년필 EF</a>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
+                                    <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2010209001_file6_15106474920b1lr1fhnf.jpg" alt width={266} height={390}></img>
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">프리미엄펜</div>
+                                        <div className="name">153 블랙 & 화이트</div>
+                                    </div>
+                                </a>
                             </li>
                             <li>
-                                <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048012_file6_1583298386d4wy0fw22t.jpg" alt width={266} height={390}></img>
-                                <a>프리미엄펜</a>
-                                <a> 153 블랙 & 화이트</a>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
+                                    <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/0file6_15106488276b3copnqua.jpg" alt width={266} height={390}></img>
+                               
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">프리미엄펜</div>
+                                        <div className="name">153 골드</div>
+                                    </div>
+                                </a>
                             </li>
                             <li>
-                                <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048012_file6_1583298386d4wy0fw22t.jpg" alt width={266} height={390}></img>
-                                <a>프리미엄펜</a>
-                                <a> 153 골드</a>
+                                <a href="href=/product/product_view.php?idx=202&ccode=003005">
+                                    <div className="thum">
+                                    <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048012_file6_1583298386d4wy0fw22t.jpg" alt width={266} height={390}></img>
+                               
+                                    </div>
+                                    <div className="info">
+                                        <div className="cate">프리미엄펜</div>
+                                        <div className="name">153 네오 만년필 EF</div>
+                                    </div>
+                                </a>
                             </li>
-                            <li>
-                                <img src="https://dfrkkcv2hg1jc.cloudfront.net/data/product/2040048012_file6_1583298386d4wy0fw22t.jpg" alt width={266} height={390}></img>
-                                <a>프리미엄펜</a>
-                                <a> 153 네오 만년필 EF</a>
-                            </li>
+
                         </ul>
                     </div>
         <div className="video">
@@ -101,11 +187,11 @@ function Home() {
                             </div>
                         </li>
                         <li>
-                            <a href="/board/board.php?bo_table=bodo&idx=182">- 모나미, 산업 특화형 전문 마카 ' 프로캡 드라이 펜슬 맡카 ..</a>
+                            <a>- 모나미, 산업 특화형 전문 마카 ' 프로캡 드라이 펜슬 맡카 ..</a>
                             <span className="date">2024-09-19</span>
                         </li>
                         <li>
-                            <a href="/board/board.php?bo_table=bodo&idx=181">- 모나미, LG트윈스 팬시 굿즈 출시</a>
+                            <a>- 모나미, LG트윈스 팬시 굿즈 출시</a>
                             <span className="date">2024-09-09</span>
                         </li>
                         <li>
@@ -142,6 +228,7 @@ function Home() {
         </div>
       </div>
     </div>
+    
   );
 }
 
