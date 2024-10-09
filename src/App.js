@@ -20,6 +20,8 @@ import Registerconfirm from "./pages/register/registerconfirm.js";
 import ShoppingList from "./pages/shopping/shoppingList.js";
 import Pay from "./pages/shopping/pay.js";
 import PayComplete from "./pages/shopping/paycomplete.js";
+import Mypage from "./pages/Mypage/mypage.js";
+
 
 function App() {
   return (
@@ -40,6 +42,7 @@ function App() {
         <Route path='/shopping/cart' element={<ShoppingList/>}></Route>
         <Route path='/shopping/pay' element={<Pay/>}></Route>
         <Route path='/shopping/complete' element={<PayComplete/>}></Route>
+        <Route path="/Mypage" element={<Mypage/>}></Route>
       </Routes>
     </Router>
   );

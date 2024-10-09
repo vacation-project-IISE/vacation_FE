@@ -19,7 +19,9 @@ function Header() {
   const GoToLogin = () => {
     navigate("/login");
   };
-
+  const GotoMypage =() =>{
+    navigate("/Mypage");
+  }
   const GoToSearch = () => {
     navigate("/search");
   };
@@ -123,6 +125,9 @@ function Header() {
         <div className="HeaderBtn">
           <button className="LoginBtn" onClick={GoToLogin}>
             로그인
+          </button>
+          <button className="MypageBtn" onClick={GotoMypage}>
+            마이페이지
           </button>
           <div className="ShoppingCart" onClick={GoToShopping}>
             <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>

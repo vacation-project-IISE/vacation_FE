@@ -7,10 +7,17 @@ header {
     position: relative;
     width: 100%;
     height: 500px;
-    z-index: 1400;
-    top: 100px; /* 'bottom: 600px;'은 혼란을 줄 수 있어 제거함 */
+    z-index: 100;
+    top: 100px; 
 }
-
+l-popup__buttons .l-popup-btn-2 {
+    display: block;
+    width: 100%;
+    margin-top: 13px;
+    text-align: left;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    padding-top: 10px;
+}
 .new h2 {
     position: absolute;
    margin-top: 9%; /* margin-top 대신 top 값을 사용하여 더 간결하게 위치 조정 */
@@ -29,7 +36,18 @@ header {
     justify-content: center; /* 가로 중앙 정렬 */
     align-items: center;     /* 세로 중앙 정렬 */
     height: 100vh;  
+    /* display: table; */
+    /* position: absolute; */
+    /* left: 15px; */
+    /* top: 15px; */
+    /* background: #c40f39; */
+    /* text-align: center; */
+    /* opacity: 0; */
+    /* transition: all 0.6s; */
+    /* border-radius: 24px; */
+    
 }
+
 
 .home-zpen {
     position: absolute;
@@ -133,8 +151,9 @@ header {
     transition: all ease-in-out 0.3s;
 }
 .p_tabs ul li :hover{
-    color:red;
-    border: 2px solid red;
+    color:#c40f39;
+    border: 2px solid #c40f39;
+    cursor: pointer;
 }
 .p_tabs ul {
     display: flex; /* flexbox 사용 */
@@ -227,6 +246,7 @@ header {
     color: #6a6a6a;
     line-height: 160%;
     margin-bottom: 45px;
+    cursor: pointer;
 }
 .bbs .inquiry .tit h2 {
     font-family: 'Montserrat', sans-serif;
@@ -274,6 +294,7 @@ header {
   border: 2px solid #c40f39;
   transition: all 0.6s;
   border-radius: 50px;
+  cursor: pointer;
 }
 .bbs .shop {
     float: left;
@@ -285,4 +306,82 @@ header {
 .danwhapen{
     width: 164px;
     height: 116px;
+}
+/* .sbj{
+    overflow: hidden;
+     width: 500px;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+     word-wrap: normal;
+} */
+.bbs .news .news_lists li.first {
+    overflow: hidden;
+    border-bottom: 1px solid #bbb;
+    padding: 10px 0 20px;
+    margin-bottom: 15px;
+
+}
+
+.bbs .news ul li .txt {
+    display: flex;
+    gap: 20px;
+}
+.bbs .news .news_lists li.first .txt p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 15px;
+    word-break: keep-all;
+}
+.bbs .news .news_lists li.first .txt .sbj {
+    font-size: 21px;
+    color: #000;
+    margin-bottom: 5px;
+}
+.bbs .news .news_lists li .date {
+    position: absolute;
+    right: 20;
+    top: 20;
+    color: #888;
+    /* font-size: 40px; */
+}
+.visual {
+    position: relative; /* 부모 요소에 relative를 추가 */
+    z-index: 1500; /* home-top보다 큰 값으로 설정 */
+}
+
+.visual .textarea {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1400px;
+    height: 100%;
+    margin-left: -700px;
+    z-index: 1600; /* home-top의 z-index보다 크게 설정 */
+}
+
+.visual .textarea h3 {
+    position: absolute;
+    bottom: 40px;;
+    font-size: 50px;
+    color: white;
+    line-height: 120%;
+    font-weight: 200;
+    margin: 0 0 0 100px;
+    z-index: 1700; /* h3 요소도 이미지보다 높은 z-index를 가짐 */
+    font-family: "Noto Sans KR", "돋움", dotum, sans-serif;
+
+}
+.visual .textarea h3:before {
+    display: block;
+    content: "";
+    width: 80px;
+    height: 1px;
+    background: #fff;
+    margin: 157px 0 10px 0;
+}
+.visual .textarea p{
+
+    color: white;
+    margin-left: 120px;
+    font-family: "Noto Sans KR", "돋움", dotum, sans-serif;
 }
