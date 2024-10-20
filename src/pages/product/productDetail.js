@@ -19,8 +19,12 @@ function ProductDetail() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalImg, setModalImg] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token"); //로그인 확인
+    setIsLogin(!!token);
+
     setLoading(true);
     Promise.all([fetch("/MonamiData.json"), fetch("/productDetails.json")])
       .then(async ([responseMonami, responseProductDetail]) => {
@@ -107,6 +111,23 @@ function ProductDetail() {
     setModalImg(img);
   };
 
+  const handleWishClick = () => {
+    if (!isLogin) {
+      showModal("로그인을 해주세요!", ""); 
+      navigate("/login"); 
+    } else {
+      showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
+    }
+  };
+
+  const handleCartClick = () => {
+    if (!isLogin) {
+      showModal("로그인을 해주세요!", ""); 
+      navigate("/login"); 
+    } else {
+      showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png");
+    }
+  };
   const hasPrice = productDetail?.price && productDetail.price !== "";
 
   return (
@@ -186,25 +207,13 @@ function ProductDetail() {
                       {/* 가격 정보가 없으면 위시, 장바구니 버튼이 안뜨도록 */}
                       {hasPrice && (
                         <>
-                          <button
-                            className="WishBtn"
-                            onClick={() =>
-                              showModal(
-                                "위시리스트에 담겼습니다!",
-                                "/img/heartIcon.png"
-                              )
-                            }>
+                          <button className="WishBtn" onClick={handleWishClick}>
                             <img src="/img/heartIcon.png" alt="WishBtn"></img>
                             Wish
                           </button>
                           <button
                             className="CartBtn"
-                            onClick={() =>
-                              showModal(
-                                "장바구니에 담겼습니다!",
-                                "/img/redCartIcon.png"
-                              )
-                            }>
+                            onClick={handleCartClick}>
                             <img src="/img/cartIcon.png" alt="CartBtn"></img>
                             Cart
                           </button>

@@ -12,28 +12,28 @@ function Login() {
   // 로그인 버튼 클릭 시 호출되는 함수
   const handleLoginClick = async () => {
     try {
-      const response = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ user_id: email, user_pwd: password }),
-      });
+        const response = await fetch("http://localhost:4000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id: email, user_pwd: password }), // email을 그대로 전송
+        });
 
-      if (response.ok) {
-        // 로그인 성공 시 home으로 이동
-        navigate("/");
-      } else if (response.status === 401) {
-        // 로그인 실패 시
-        alert("아이디 또는 비밀번호가 잘못되었습니다.");
-      } else {
-        alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-      }
+        if (response.ok) {
+            // 로그인 성공 시 home으로 이동
+            navigate("/");
+        } else if (response.status === 401) {
+            // 로그인 실패 시
+            alert("아이디 또는 비밀번호가 잘못되었습니다.");
+        } else {
+            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+        }
     } catch (error) {
-      console.error("로그인 요청 실패:", error);
-      setErrorMessage("서버와의 연결에 실패했습니다.");
+        console.error("로그인 요청 실패:", error);
+        setErrorMessage("서버와의 연결에 실패했습니다.");
     }
-  };
+};
 
   return (
     <div>

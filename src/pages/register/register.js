@@ -4,7 +4,6 @@ import "./register.css";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -37,45 +36,40 @@ function Register() {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
+    // 프론트엔드에서 입력된 폼 데이터 확인
+    console.log("회원가입 폼 데이터:", formData);
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    setIsSubmitting(true);
-    const token = localStorage.getItem("authToken");
 
     try {
-      const response = await fetch("/api/signup", {
-        // 현재 백엔드 proxy 서버 port 번호 4000은 프론트 package.json에 proxy로 추가
+      const response = await fetch("http://localhost:4000/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // 토큰을 Authorization header에 전달
         },
         body: JSON.stringify(formData),
       });
 
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("서버에서 올바르지 않은 응답을 받았습니다.");
-      }
-
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(
-          errorData.message || "회원가입에 실패했습니다. 다시 시도해주세요."
-        );
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const data = await response.json();
+          throw new Error(data.message || "회원가입 실패");
+        } else {
+          throw new Error("서버에서 올바른 JSON 응답을 받지 못했습니다.");
+        }
       }
 
-      // 유효성 검사를 통과하면 성공 페이지로 이동
+      alert("회원가입 성공!");
       navigate("/signup/success");
     } catch (error) {
-      console.error("Error:", error.message);
-
-    }
-    finally {
-      setIsSubmitting(false);
+      console.error("Error:", error);
+      alert("회원가입 중 오류가 발생했습니다: " + error.message);
     }
   };
 
@@ -119,7 +113,7 @@ function Register() {
         />
         {errors.email && <p className="error-emailmessage">{errors.email}</p>}
         <img
-          src={errors.email ? "/img/redline.png" : "/img/line.png"} //삼항연산자 true면 line false면 redline
+          src={errors.email ? "/img/redline.png" : "/img/line.png"}
           alt="이메일 라인"
           className="line-email"
         />
@@ -128,7 +122,7 @@ function Register() {
         <input
           type="password"
           name="password"
-          placeholder="영문, 숫자 조합  8자리이상"
+          placeholder="영문, 숫자 조합 8자리 이상"
           className="input-password"
           value={formData.password}
           onChange={handleInputChange}
@@ -142,7 +136,7 @@ function Register() {
           className="line-pw"
         />
 
-        <label className="signup-checkpw">비밀번호확인</label>
+        <label className="signup-checkpw">비밀번호 확인</label>
         <input
           type="password"
           name="confirmPassword"
