@@ -61,7 +61,13 @@ function Header() {
     navigate(`/product/product_list/${code}`);
   };
   const GoToShopping = () => {
-    navigate(`/shopping/cart`);
+    if (isLogin) {
+      navigate(`/shopping/cart`);
+    } else {
+      // 로그인 상태가 아닐 때, 로그인을 먼저 하도록
+      alert("로그인을 먼저 해주세요!");
+      navigate("/login");
+    }
   };
 
   const handleMouseEnter = index => {

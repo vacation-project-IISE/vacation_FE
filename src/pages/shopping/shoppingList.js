@@ -10,6 +10,7 @@ function ShoppingList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState({});
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [quantities, setQuantities] = useState({});
@@ -30,32 +31,56 @@ function ShoppingList() {
         const monamiData = await responseMonami.json();
         const productDetailData = await responseProductDetail.json();
 
-        // 전체 제품 데이터를 하나의 어레이로 저장
-        const allProducts = Object.keys(monamiData.product).reduce(
-          (acc, key) => {
-            return acc.concat(monamiData.product[key]);
-          },
-          []
-        );
-        // 가격 데이터가 포함된 MergeProducts
-        const mergedProducts = allProducts.map(product => {
-          const productDetail = productDetailData.find(
-            detail => detail.idx === product.idx
-          );
+        const allProducts = Object.keys(monamiData.product).reduce((acc, key) => acc.concat(monamiData.product[key]), []);
+        const mergedProducts = allProducts.map((product) => {
+          const productDetail = productDetailData.find(detail => detail.idx === product.idx);
           return {
             ...product,
             price: productDetail ? productDetail.price : "N/A",
           };
         });
+
         setAllProducts(mergedProducts);
+
+        // Retrieve cart items from localStorage or state
+        const savedCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartProducts = mergedProducts.filter(product => savedCartItems.includes(product.idx));
+
+        setCartItems(cartProducts);  // Set only the cart items
         setLoading(false);
       })
       .catch(error => {
         setError(error.message);
-        console.error("Error fetching data:", error);
         setLoading(false);
       });
   }, []);
+
+        // 전체 제품 데이터를 하나의 어레이로 저장
+        // const allProducts = Object.keys(monamiData.product).reduce(
+        //   (acc, key) => {
+        //     return acc.concat(monamiData.product[key]);
+        //   },
+        //   []
+        // );
+        // 가격 데이터가 포함된 MergeProducts
+  //       const mergedProducts = allProducts.map(product => {
+  //         const productDetail = productDetailData.find(
+  //           detail => detail.idx === product.idx
+  //         );
+  //         return {
+  //           ...product,
+  //           price: productDetail ? productDetail.price : "N/A",
+  //         };
+  //       });
+  //       setAllProducts(mergedProducts);
+  //       setLoading(false);
+  //     })
+  //     .catch(error => {
+  //       setError(error.message);
+  //       console.error("Error fetching data:", error);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   // 어떤 제품을 체크했는지
   const handleCheckboxChange = productIdx => {
@@ -184,8 +209,8 @@ function ShoppingList() {
           {allProducts.length > 0 && (
             <div className="CartContent">
               <div className="Shoppingwrap">
-                {/* 일달 8개까지 뜨도록 제한해둠 */}
-                {allProducts.slice(0, 30).map(product => (
+              {cartItems.map((product) => (
+                // {allProducts.slice(0, 30).map(product => (
                   <div key={product.idx} className="ShoppingBox">
                     <div style={{ display: "flex" }}>
                       <div className="CheckBtn">
