@@ -114,15 +114,15 @@ function ProductDetail() {
   const addToWishlist = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/shopping/wish", {
+      const response = await fetch("http://localhost:4000/api/shopping/wish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          productname: productData.name,
-          category: productData.category,
+          product_name: productData.name,
+          category_name: productData.category,
         }),
       });
 
@@ -139,16 +139,16 @@ function ProductDetail() {
   const addToCart = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("/api/shopping/cart", {
+      const response = await fetch("http://localhost:4000/api/shopping/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          productname: productData.name,
+          product_name: productData.name,
           price: Number(productDetail.price),
-          category: productData.category,
+          category_name: productData.category,
         }),
       });
 
@@ -164,8 +164,9 @@ function ProductDetail() {
 
   const handleWishClick = () => {
     if (!isLogin) {
-      showModal("로그인을 해주세요!", "");
-      navigate("/login");
+      // showModal("로그인을 해주세요!", "");
+      // navigate("/login");
+      console.log("로그인안됨");
     } else {
       addToWishlist();
     }
@@ -173,8 +174,9 @@ function ProductDetail() {
 
   const handleCartClick = () => {
     if (!isLogin) {
-      showModal("로그인을 해주세요!", "");
-      navigate("/login");
+      // showModal("로그인을 해주세요!", "");
+      // navigate("/login");
+      console.log("로그인안됨");
     } else {
       addToCart();
       showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png");

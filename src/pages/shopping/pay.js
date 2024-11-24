@@ -6,6 +6,7 @@ import "./pay.css";
 import { useLocation } from "react-router-dom";
 import DaumPostcode from "react-daum-postcode";
 import KakaoPay from "../../component/payments/payments";
+import axios from "axios";
 
 function Pay() {
   const location = useLocation();
@@ -15,6 +16,8 @@ function Pay() {
   const [zonecode, setZonecode] = useState(""); // 선택한 우편번호
   const [buildingName, setBuildingName] = useState(""); // 선택한 우편번호
   const [result, setResult] = useState(0);
+  const [productIdxArray, setProductIdxArray] = useState([]);
+
   const handleModalOpen = () => {
     setIsModalOpen(true); // 모달 열림
   };
@@ -44,17 +47,90 @@ function Pay() {
       }
     };
     calculateTotalPrice();
+
+    if (selectedProducts && selectedProducts.length > 0) {
+      const idxArray = selectedProducts.map((product) => product.idx);
+      // 전체 주문 상품 idx를 Array로 저장
+      setProductIdxArray(idxArray);
+    }
+    
   }, [totalPrice]); // totalPrice가 변경될 때마다 계산
+
+ 
+
 
   const handlePayment = () => {
     if (!address || !zonecode) {
       alert("주소를 먼저 입력해 주세요!");
     } else {
-        // 결제 처리 로직, KakaoPay 컴포넌트의 onclickPay 호출
-        document.querySelector(".KakaopayBtn").click();
-      }
+      // 결제 처리 로직, KakaoPay 컴포넌트의 onclickPay 호출
+      document.querySelector(".KakaopayBtn").click();
+
+      sendOrderData();
+    }
   };
 
+  // 백엔드로 데이터 전송하는 코드
+  const sendOrderData = async () => {
+    try {
+      const token = localStorage.getItem("userToken");
+      if (!token) {
+        alert("로그인 후 결제를 진행해 주세요!");
+        return;
+      }
+
+      const response = await fetch("http://localhost:4000/api/login", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("유저 정보를 받아오지 못했습니다.");
+      }
+
+      const userData = await response.json();
+      const username = userData.username;
+
+      // 결제 시각 계산
+      const currentDate = new Date();
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // 월
+      const day = String(currentDate.getDate()).padStart(2, "0"); // 일
+      const hour = String(currentDate.getHour()).padStart(2, "0"); // 시
+      const minute = String(currentDate.getMinutes()).padStart(2, "0"); // 분
+      const orders_number = `${month}${day}${hour}${minute}${username}`;
+
+      // 주문 데이터 생성 (추후 값으로 채워야 함)
+      const orderData = {
+        orders_number: orders_number,
+        user_id: username,
+        product_number:
+          selectedProducts.length > 0 ? selectedProducts[0].idx : "",
+        product_amount: totalQuantity,
+        total_price: result,
+        user_address: `${address} ${buildingName}`,
+      };
+
+      const orderResponse = await fetch("http://localhost:4000/shopping/pay", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!orderResponse.ok) {
+        throw new Error("주문 데이터 전달에 실패했습니다");
+      }
+
+      alert("주문 데이터 전송이 완료되었습니다!");
+    } catch (error) {
+      console.error("데이터 전송에 실패했습니다", error);
+    }
+  };
   return (
     <div>
       <Header />
@@ -89,7 +165,6 @@ function Pay() {
                     placeholder="상세 주소를 입력해주세요."></input>
                 </div>
               </div>
-             
             </div>
 
             {/* 주소 찾기 모달 */}
@@ -103,8 +178,6 @@ function Pay() {
                 </div>
               </div>
             )}
-
-           
           </div>
           <div className="PayConfirm">
             <div className="PayTop">주문상품 {totalQuantity}개</div>

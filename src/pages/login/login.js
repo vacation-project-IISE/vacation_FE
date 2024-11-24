@@ -12,12 +12,12 @@ function Login() {
   // 로그인 버튼 클릭 시 호출되는 함수
   const handleLoginClick = async () => {
     try {
-        const response = await fetch("http://localhost:4000/login", {
+        const response = await fetch("http://localhost:4000/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ user_id: email, user_pwd: password }), // email을 그대로 전송
+            body: JSON.stringify({ username: email, email: email, password: password }), // email을 그대로 전송
         });
 
         if (response.ok) {

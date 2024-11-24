@@ -104,6 +104,7 @@ function ShoppingList() {
   
       return newCheckedState;
     });
+    console.log(checkedProducts)
   };
 
   // 전체선택 버튼 클릭
@@ -122,6 +123,32 @@ function ShoppingList() {
     setIsAllSelected(!isAllSelected);
   };
 
+  const DeleteChecked = () => {
+    setCartItems(prevCartItems => {
+      const remainingItems = prevCartItems.filter(
+        product => !checkedProducts[product.idx]
+      );
+  
+      localStorage.setItem('cartItems', JSON.stringify(remainingItems.map(item => item.idx)));
+  
+      // 장바구니 리스트에서 체크된 상품 삭제
+      setCheckedProducts(prev => {
+        const newCheckedState = { ...prev };
+        Object.keys(checkedProducts).forEach(idx => {
+          if (checkedProducts[idx]) {
+            delete newCheckedState[idx];
+          }
+        });
+        return newCheckedState;
+      });
+  
+      console.log('남은 장바구니 상품:', remainingItems);
+      return remainingItems;
+    });
+  };
+  useEffect(() => {
+    console.log('Updated cartItems:', cartItems);
+  }, [cartItems]);
   // 체크된 상품만 계산
   const checkedProductCount = Object.keys(checkedProducts).reduce(
     (total, productIdx) => {
@@ -166,14 +193,15 @@ function ShoppingList() {
 
   const totalPrice = selectedProducts.reduce((total, product) => {
     const price = parseInt(product.price.replace("원", ""), 10);
-    const quantity = quantities[product.idx] || 0; // Default to 0 if undefined
-    return total + (isNaN(price) ? 0 : price * quantity); // Calculate total price
+    const quantity = quantities[product.idx] || 0; // 디폴트 = 0
+    return total + (isNaN(price) ? 0 : price * quantity); // 전체 금액 계산
   }, 0).toLocaleString();
     
     // 장바구니 단계에서 체크된 상품, (개별 개수를 포함한) 총 개수, 총 금액 전달
     // '주문결제'단계로 체크된 상품 정보 전달
     navigate("/shopping/pay", { state: { selectedProducts, totalQuantity, totalPrice } });  };
 
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -201,7 +229,7 @@ function ShoppingList() {
             <div className="OptionName">전체선택</div>
           </div>
           <div style={{ color: "#ddd", fontSize: "15px" }}>|</div>
-          <div className="OptionName">선택삭제</div>
+          <div className="OptionDelete" onClick={DeleteChecked}>선택삭제</div>
         </div>
         <div className="ShoppingContent">
           {loading && <div>Loading...</div>}
@@ -209,8 +237,11 @@ function ShoppingList() {
           {allProducts.length > 0 && (
             <div className="CartContent">
               <div className="Shoppingwrap">
-              {cartItems.map((product) => (
-                // {allProducts.slice(0, 30).map(product => (
+                {/* {cartItems.length === 0 ? (
+                  <p>장바구니가 비었습니다.</p>) : (cartItems.map((product) => ( */}
+                
+                {allProducts.length === 0 ? (
+                  <p>장바구니가 비었습니다.</p>) : (allProducts.slice(0, 30).map(product => (
                   <div key={product.idx} className="ShoppingBox">
                     <div style={{ display: "flex" }}>
                       <div className="CheckBtn">
@@ -257,7 +288,7 @@ function ShoppingList() {
                       </div>
                     </div>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
           )}

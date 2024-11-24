@@ -42,7 +42,7 @@ function KakaoPay({ productName, totalQuantity, totalPrice, address, postcode })
         };
 
         axios
-          .post("http://localhost:4000/api/pay", payData)
+          .post("http://localhost:4000/shopping/pay", payData)
           .then((response) => {
             console.log("결제 정보 전달 성공:", response.data);
             // 결제 성공 페이지로 이동

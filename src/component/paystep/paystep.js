@@ -6,19 +6,13 @@ function PayStep({ currentStep }) {
   const StepName = [
    "장바구니", "주문결제", "주문완료"
   ];
-  const StepLink = ["/shopping/cart", "/shopping/pay", "/shopping/complete"];
+ 
   let [select, setSelect] = useState(currentStep);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     setSelect(currentStep);
   }, [currentStep]);
-    
-    const handleClick = e => {
-    setSelect(e.target.value);
-        navigate(`${StepLink[e.target.value]}`);
-  };
+
 
   return (
     <div className="PayStepWrap">
@@ -28,7 +22,6 @@ function PayStep({ currentStep }) {
             <button
               value={index}
               className={index == select ? "CurrentStep" : "OtherStep"}
-              onClick={handleClick}
             >
               {item}
             </button>
