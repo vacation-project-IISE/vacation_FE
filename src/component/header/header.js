@@ -12,7 +12,7 @@ function Header() {
   // user토큰이 아직 확인 안되므로 기본 설정을 로그인 상태로 둠
   // const [isLogin, setIsLogin] = useState(false); 가 기본 상태(로그인안된 상태)
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
     // user 토큰 확인
