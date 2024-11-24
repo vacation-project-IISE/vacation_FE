@@ -115,7 +115,7 @@ header {
     width: 20px;
     height: 20px;
     margin-top: 3px;
-    background: url(C:\Users\codel\Desktop\serious\vacation_FE\public\img\btn_go_arrrow.png) no-repeat 0 0;
+    background: url(/public/img/btn_go_arrrow.png) no-repeat 0 0;
     background-size: contain;
     position: absolute;
     left: 150%;
@@ -127,7 +127,7 @@ header {
     display: block;
     width: 20px;
     height: 20px;
-    background: url(C:\Users\codel\Desktop\serious\vacation_FE\public\img\btn_inquiry_icon.png) no-repeat 0 0;
+    background: url(/public/img/btn_inquiry_icon.png) no-repeat 0 0;
     background-size: contain;
     position: absolute;
     left: 5px;
@@ -156,7 +156,7 @@ header {
     display: block;
     width: 22px;
     height: 22px;
-    background: url(C:\Users\codel\Desktop\serious\vacation_FE\public\img\l-popup__button_close.png) no-repeat;
+    background: url(/public/img/l-popup__button_close.png) no-repeat;
     background-size: contain;
     text-indent: -9999px;
     position: absolute;
