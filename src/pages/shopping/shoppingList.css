@@ -111,6 +111,11 @@ label {
   cursor: pointer;
   background-repeat: no-repeat;
 }
+
+.SelectOption .OptionDelete {
+  cursor: pointer;
+
+}
 .Shoppingwrap .ShoppingBox .ProductImg img {
   width: 100px;
 }

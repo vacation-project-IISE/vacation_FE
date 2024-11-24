@@ -111,20 +111,74 @@ function ProductDetail() {
     setModalImg(img);
   };
 
+  const addToWishlist = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch("http://localhost:4000/api/shopping/wish", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_name: productData.name,
+          category_name: productData.category,
+        }),
+      });
+
+      if (response.ok) {
+        showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
+      } else {
+        throw new Error("위시리스트 추가 실패");
+      }
+    } catch (error) {
+      showModal(error.message, "/img/heartIcon.png");
+    }
+  };
+
+  const addToCart = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await fetch("http://localhost:4000/api/shopping/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_name: productData.name,
+          price: Number(productDetail.price),
+          category_name: productData.category,
+        }),
+      });
+
+      if (response.ok) {
+        showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png");
+      } else {
+        throw new Error("장바구니 추가 실패");
+      }
+    } catch (error) {
+      showModal(error.message, "/img/redCartIcon.png");
+    }
+  };
+
   const handleWishClick = () => {
     if (!isLogin) {
-      showModal("로그인을 해주세요!", ""); 
-      navigate("/login"); 
+      // showModal("로그인을 해주세요!", "");
+      // navigate("/login");
+      console.log("로그인안됨");
     } else {
-      showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
+      addToWishlist();
     }
   };
 
   const handleCartClick = () => {
     if (!isLogin) {
-      showModal("로그인을 해주세요!", ""); 
-      navigate("/login"); 
+      // showModal("로그인을 해주세요!", "");
+      // navigate("/login");
+      console.log("로그인안됨");
     } else {
+      addToCart();
       showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png");
     }
   };
@@ -211,9 +265,7 @@ function ProductDetail() {
                             <img src="/img/heartIcon.png" alt="WishBtn"></img>
                             Wish
                           </button>
-                          <button
-                            className="CartBtn"
-                            onClick={handleCartClick}>
+                          <button className="CartBtn" onClick={handleCartClick}>
                             <img src="/img/cartIcon.png" alt="CartBtn"></img>
                             Cart
                           </button>
