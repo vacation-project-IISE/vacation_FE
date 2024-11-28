@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app } from "../../firebase/firebase";
+// import { app } from "../../firebase/firebase";
 import "./header.css";
 import LoginBtn from "../buttons/loginBtn/loginBtn";
 import MypageBtn from "../buttons/mypageBtn/mypageBtn";
@@ -13,29 +13,29 @@ function Header() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
 
-  useEffect(() => {
-    // Firebase의 인증 상태를 실시간으로 확인
-    const auth = getAuth(app);
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setIsLogin(true); // 로그인된 상태
-      } else {
-        setIsLogin(false); // 로그인되지 않은 상태
-      }
-    });
-
-    // 컴포넌트 언마운트 시 인증 상태 변경 리스너를 정리
-    return () => unsubscribe();
-  }, []);
-  
   // useEffect(() => {
-  //   // user 토큰 확인
-  //   const token = localStorage.getItem("userToken");
-  //   if (token) {
-  //     setIsLogin(true); // 토큰이 확인되면 로그인 상태로 변경
-  //   }
+  //   // Firebase의 인증 상태를 실시간으로 확인
+  //   const auth = getAuth(app);
+
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //       setIsLogin(true); // 로그인된 상태
+  //     } else {
+  //       setIsLogin(false); // 로그인되지 않은 상태
+  //     }
+  //   });
+
+  //   // 컴포넌트 언마운트 시 인증 상태 변경 리스너를 정리
+  //   return () => unsubscribe();
   // }, []);
+  
+  useEffect(() => {
+    // user 토큰 확인
+    const token = localStorage.getItem("userToken");
+    if (token) {
+      setIsLogin(true); // 토큰이 확인되면 로그인 상태로 변경
+    }
+  }, []);
 
   const handleMenuClick = () => {
     setIsActive(!isActive);

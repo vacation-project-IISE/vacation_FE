@@ -1,56 +1,92 @@
 import Header from "../../component/header/header.js";
 import "./login.css";
-import { useState } from "react"; // 상태 관리를 위한 useState 추가
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../../firebase/auth.js";
+// import { signIn } from "../../firebase/auth.js";
+// import { db } from '../../firebase/auth.js';
+// import { getDoc, doc } from 'firebase/firestore';
 
 function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState(""); // 이메일 입력 상태
-  const [password, setPassword] = useState(""); // 비밀번호 입력 상태
-  const [errorMessage, setErrorMessage] = useState(""); // 로그인 실패 메시지 상태
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   // 로그인 버튼 클릭 시 호출되는 함수
+  // const handleLoginClick = async () => {
+  //   if (!email || !password) {
+  //     setErrorMessage("이메일과 비밀번호를 모두 입력해주세요.");
+  //     return;
+  //   }
+  //   console.log("이메일:", email);  // 이메일 출력
+  //   console.log("비밀번호:", password);  // 비밀번호 출력
+  //   try {
+  //     // Firebase의 signIn 함수를 호출하여 이메일과 비밀번호로 로그인
+  //     const user = await signIn(email, password);
+
+  //     if (user) {
+  //       // 로그인 성공 후 Firestore에서 사용자 추가 정보 가져오기
+  //       const userDoc = await getUserDataFromFirestore(user.uid);
+  //       console.log("사용자 정보:", userDoc);
+
+  //       // 로그인 성공 시, 사용자의 정보가 반환되면 홈으로 이동
+  //       navigate("/"); // 홈으로 이동
+  //     }
+  //   } catch (error) {
+  //     console.error("로그인 실패:", error.message);
+  //     setErrorMessage("아이디 또는 비밀번호가 잘못되었습니다."); // 로그인 실패 시 메시지
+
+  //     if (error.code === "auth/invalid-credential") {
+  //       setErrorMessage("잘못된 자격 증명입니다. 이메일과 비밀번호를 확인해주세요.");
+  //     }
+  //   }
+    
+  // };
+
+  //  // Firestore에서 사용자 데이터 가져오기
+  //  const getUserDataFromFirestore = async (uid) => {
+  //   const docRef = doc(db, "users", uid);
+  //   const docSnap = await getDoc(docRef);
+
+  //   if (docSnap.exists()) {
+  //     return docSnap.data();
+  //   } else {
+  //     console.error("사용자 정보가 Firestore에 없습니다.");
+  //     return null;
+  //   }
+  // };
+  
+// 로그인 버튼 클릭 시 호출되는 함수
 const handleLoginClick = async () => {
   try {
-    // Firebase의 signIn 함수를 호출하여 이메일과 비밀번호로 로그인
-    const user = await signIn(email, password);
+      const response = await fetch("http://localhost:4000/api/login", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: email, user_pwd: password }), // email을 그대로 전송
+      });
 
-    // 로그인 성공 시, 사용자의 정보가 반환되면 홈으로 이동
-    if (user) {
-      navigate("/");  // 홈으로 이동
-    }
+      console.log("서버 응답:", response.status); // 응답 코드 확인
+
+      if (response.ok) {
+          // 로그인 성공 시
+          console.log("로그인 성공"); // 콘솔에 "로그인 성공" 메시지 출력
+          alert("로그인 성공!");
+          navigate("/"); // 홈으로 이동
+      } else if (response.status === 401) {
+          // 로그인 실패 시
+          alert("아이디 또는 비밀번호가 잘못되었습니다.");
+      } else {
+          alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+      }
   } catch (error) {
-    console.error("로그인 실패:", error.message);
-    setErrorMessage("아이디 또는 비밀번호가 잘못되었습니다.");  // 로그인 실패 시 메시지
+      console.error("로그인 요청 실패:", error);
+      setErrorMessage("서버와의 연결에 실패했습니다.");
   }
 };
-  
-//   // 로그인 버튼 클릭 시 호출되는 함수
-//   const handleLoginClick = async () => {
-//     try {
-//         const response = await fetch("http://localhost:4000/api/login", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify({ username: email, email: email, password: password }), // email을 그대로 전송
-//         });
 
-//         if (response.ok) {
-//             // 로그인 성공 시 home으로 이동
-//             navigate("/");
-//         } else if (response.status === 401) {
-//             // 로그인 실패 시
-//             alert("아이디 또는 비밀번호가 잘못되었습니다.");
-//         } else {
-//             alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-//         }
-//     } catch (error) {
-//         console.error("로그인 요청 실패:", error);
-//         setErrorMessage("서버와의 연결에 실패했습니다.");
-//     }
-// };
+
 
   return (
     <div>
