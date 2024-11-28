@@ -2,6 +2,7 @@ import Header from "../../component/header/header.js";
 import "./login.css";
 import { useState } from "react"; // 상태 관리를 위한 useState 추가
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../../firebase/auth.js";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,30 +11,46 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState(""); // 로그인 실패 메시지 상태
 
   // 로그인 버튼 클릭 시 호출되는 함수
-  const handleLoginClick = async () => {
-    try {
-        const response = await fetch("http://localhost:4000/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ username: email, email: email, password: password }), // email을 그대로 전송
-        });
+const handleLoginClick = async () => {
+  try {
+    // Firebase의 signIn 함수를 호출하여 이메일과 비밀번호로 로그인
+    const user = await signIn(email, password);
 
-        if (response.ok) {
-            // 로그인 성공 시 home으로 이동
-            navigate("/");
-        } else if (response.status === 401) {
-            // 로그인 실패 시
-            alert("아이디 또는 비밀번호가 잘못되었습니다.");
-        } else {
-            alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-        }
-    } catch (error) {
-        console.error("로그인 요청 실패:", error);
-        setErrorMessage("서버와의 연결에 실패했습니다.");
+    // 로그인 성공 시, 사용자의 정보가 반환되면 홈으로 이동
+    if (user) {
+      navigate("/");  // 홈으로 이동
     }
+  } catch (error) {
+    console.error("로그인 실패:", error.message);
+    setErrorMessage("아이디 또는 비밀번호가 잘못되었습니다.");  // 로그인 실패 시 메시지
+  }
 };
+  
+//   // 로그인 버튼 클릭 시 호출되는 함수
+//   const handleLoginClick = async () => {
+//     try {
+//         const response = await fetch("http://localhost:4000/api/login", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({ username: email, email: email, password: password }), // email을 그대로 전송
+//         });
+
+//         if (response.ok) {
+//             // 로그인 성공 시 home으로 이동
+//             navigate("/");
+//         } else if (response.status === 401) {
+//             // 로그인 실패 시
+//             alert("아이디 또는 비밀번호가 잘못되었습니다.");
+//         } else {
+//             alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+//         }
+//     } catch (error) {
+//         console.error("로그인 요청 실패:", error);
+//         setErrorMessage("서버와의 연결에 실패했습니다.");
+//     }
+// };
 
   return (
     <div>

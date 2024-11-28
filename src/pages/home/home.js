@@ -1,6 +1,7 @@
 import Footer from "../../component/footer/footer.js";
 import Header from "../../component/header/header.js";
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./home.css";
 
 function Home() {
@@ -10,6 +11,15 @@ function Home() {
   // 카테고리 변경 함수
   const handleCategoryChange = category => {
     setActiveCategory(category);
+  };
+  const productIndexes = [
+188, 186, 248, 204, 168
+  ];
+
+  // 클릭 시 해당 링크로 이동
+  const handleImageClick = (index) => {
+    const url = `/product/product_view/${index}`; 
+    window.location.href = url; 
   };
   return (
     <div>
@@ -72,42 +82,73 @@ function Home() {
               </h2>
               <p>가장 먼저 만나는 설레는 기다림</p>
             </div>
-            <img
-              src="img/zpen.jpg"
-              className="home-zpen"
-              alt
-              width={392}
-              height={205}
-            />
+            <div
+              className="image-container"
+              data-category="PEN"
+              data-product="FX ZETA C3"
+              onClick={() => handleImageClick(productIndexes[0])}>
+              <img
+                src="img/zpen.jpg"
+                className="home-zpen"
+                alt
+                width={392}
+                height={205}
+              />
+            </div>
           </div>
 
-          <img
-            src="img/note.jpg"
-            className="home-note"
-            alt
-            width={786}
-            height={360}
-          />
+          <div
+            className="image-container"
+            data-category="NOTE"
+            data-product="지퀀스"
+            onClick={() => handleImageClick(productIndexes[1])}>
+            <img
+              src="img/note.jpg"
+              className="home-note"
+              alt
+              width={786}
+              height={360}
+            />
+          </div>
         </div>
+
         <div className="newarrivalImgbox">
-          <img
-            src="img/pluspen.jpg"
-            className="home-pluspen"
-            alt
-            width={392}
-            height={292}
-          />
-          <img
-            src="img/153pen.jpg"
-            className="home-153pen"
-            width={450}
-            height={439}
-          />
-          <img
-            src="img/pluspen2.jpg"
-            className="home-pluspen2"
-            alt="Plus Pen 2"
-          />
+          <div
+            className="image-container"
+            data-category="PREMIUM PEN"
+            data-product="프러스펜3000프라임"
+            onClick={() => handleImageClick(productIndexes[2])}>
+            <img
+              src="img/pluspen.jpg"
+              className="home-pluspen"
+              alt
+              width={392}
+              height={292}
+            />
+          </div>
+          <div
+            className="image-container"
+            data-category="FOUNTAIN PEN"
+            data-product="153 아이디 만년필"
+            onClick={() => handleImageClick(productIndexes[3])}>
+            <img
+              src="img/153pen.jpg"
+              className="home-153pen"
+              width={450}
+              height={439}
+            />
+          </div>
+          <div
+            className="image-container"
+            data-category="WATER-BASED MARKER"
+            data-product="프러스펜 3000"
+            onClick={() => handleImageClick(productIndexes[4])}>
+            <img
+              src="img/pluspen2.jpg"
+              className="home-pluspen2"
+              alt="Plus Pen 2"
+            />
+          </div>
         </div>
       </div>
 

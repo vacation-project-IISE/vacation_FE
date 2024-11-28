@@ -68,12 +68,64 @@ a {
   align-items: flex-start;
   margin-top: 24px;
 }
+.newarrival {
+  position: relative;
+}
+
 .newarrival img {
   border-radius: 8px;
   object-fit: cover;
+  display: block;
 }
-.newarrival img:hover {
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.image-container::after {
+  content: attr(data-category) "\A"attr(data-product);
+  font-family: "Pretendard-Light";
+  white-space: pre;
+  position: absolute;
+  top: 5%;
+  left: 2.5%;
+  width: 95%;
+  height: 90%;
   background-color: #c40f39;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: white;
+  text-align: center;
+}
+
+.image-container:hover::after {
+  opacity: 1;
+}
+
+.image-container::before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 11;
+}
+
+.image-container:hover::before {
+  opacity: 1;
 }
 
 .l-popup__buttons {
@@ -468,5 +520,5 @@ a {
 .visual .textarea p {
   color: white;
   margin-left: 120px;
-  font-family: "Noto Sans KR"f;
+  font-family: "Noto Sans KR" f;
 }
