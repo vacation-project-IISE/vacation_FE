@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Header from "../../component/header/header.js";
 import "./register.css";
 import { useNavigate } from "react-router-dom";
-import { signUp } from "../../firebase/auth.js";
+// import { signUp } from "../../firebase/auth.js";
+// import { db } from '../../firebase/auth.js';
+// import { setDoc, doc } from 'firebase/firestore';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -34,36 +36,11 @@ function Register() {
       [name]: value,
     }));
   };
-  const handleSubmit = async e => {
-    e.preventDefault();
-
-    // 프론트엔드에서 입력된 폼 데이터 확인
-    console.log("회원가입 폼 데이터:", formData);
-
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    try {
-      // Firebase Authentication을 통한 회원가입
-      const user = await signUp(formData.email, formData.password);
-      console.log("회원가입 성공:", user);
-
-      alert("회원가입 성공!");
-      navigate("/signup/success"); // 성공 시 이동할 페이지
-    } catch (error) {
-      console.error("Error:", error);
-      alert("회원가입 중 오류가 발생했습니다: " + error.message);
-    }
-  };
+  // 회원가입 폼 제출 처리
   // const handleSubmit = async e => {
   //   e.preventDefault();
 
-  //   // 프론트엔드에서 입력된 폼 데이터 확인
-  //   console.log("회원가입 폼 데이터:", formData);
-
+  //   // 폼 데이터 유효성 검사
   //   const validationErrors = validateForm();
   //   if (Object.keys(validationErrors).length > 0) {
   //     setErrors(validationErrors);
@@ -71,31 +48,52 @@ function Register() {
   //   }
 
   //   try {
-  //     const response = await fetch("http://localhost:4000/api/register", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(formData),
-  //     });
-
-  //     if (!response.ok) {
-  //       const contentType = response.headers.get("content-type");
-  //       if (contentType && contentType.indexOf("application/json") !== -1) {
-  //         const data = await response.json();
-  //         throw new Error(data.message || "회원가입 실패");
-  //       } else {
-  //         throw new Error("서버에서 올바른 JSON 응답을 받지 못했습니다.");
-  //       }
-  //     }
+  //     // `signUp` 함수 호출 (Firebase 인증 및 Firestore 저장)
+  //     const user = await signUp(formData.email, formData.password, formData.username);
+  //     console.log("회원가입 성공:", user);
 
   //     alert("회원가입 성공!");
-  //     navigate("/signup/success");
+  //     navigate("/signup/success"); // 성공 시 이동할 페이지
   //   } catch (error) {
-  //     console.error("Error:", error);
+  //     console.error("회원가입 오류:", error.message);
   //     alert("회원가입 중 오류가 발생했습니다: " + error.message);
   //   }
   // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 프론트엔드에서 입력된 폼 데이터 확인
+    console.log("회원가입 폼 데이터:", formData);
+
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+    }
+
+    try {
+        const response = await fetch("http://localhost:4000/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        });
+        // 응답 본문을 텍스트로 확인
+        const responseText = await response.text(); // 텍스트로 응답 받기
+        console.log("응답 본문:", responseText);
+        if (!response.ok) {
+            throw new Error(`회원가입 실패: ${responseText}`);
+        }
+
+        alert("회원가입 성공!");
+        navigate("/signup/success");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("회원가입 중 오류가 발생했습니다: " + error.message);
+    }
+};
+
 
   return (
     <div>
