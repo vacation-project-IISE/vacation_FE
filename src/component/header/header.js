@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "../../firebase/firebase";
 import "./header.css";
 import LoginBtn from "../buttons/loginBtn/loginBtn";
 import MypageBtn from "../buttons/mypageBtn/mypageBtn";
@@ -9,18 +11,31 @@ function Header() {
   const [isActive, setIsActive] = useState(false);
   const [hoverIndex, setHoverIndex] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  // user토큰이 아직 확인 안되므로 기본 설정을 로그인 상태로 둠
-  // const [isLogin, setIsLogin] = useState(false); 가 기본 상태(로그인안된 상태)
-
   const [isLogin, setIsLogin] = useState(false);
 
   useEffect(() => {
-    // user 토큰 확인
-    const token = localStorage.getItem("userToken");
-    if (token) {
-      setIsLogin(true); // 토큰이 확인되면 로그인 상태로 변경
-    }
+    // Firebase의 인증 상태를 실시간으로 확인
+    const auth = getAuth(app);
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLogin(true); // 로그인된 상태
+      } else {
+        setIsLogin(false); // 로그인되지 않은 상태
+      }
+    });
+
+    // 컴포넌트 언마운트 시 인증 상태 변경 리스너를 정리
+    return () => unsubscribe();
   }, []);
+  
+  // useEffect(() => {
+  //   // user 토큰 확인
+  //   const token = localStorage.getItem("userToken");
+  //   if (token) {
+  //     setIsLogin(true); // 토큰이 확인되면 로그인 상태로 변경
+  //   }
+  // }, []);
 
   const handleMenuClick = () => {
     setIsActive(!isActive);
@@ -118,11 +133,11 @@ function Header() {
               className={`NavSection ${hoverIndex === 1 ? "hover" : ""}`}
               onMouseEnter={() => handleMouseEnter(1)}
               onMouseLeave={handleMouseLeave}>
-              <p  onClick={() => GoToProduct('005', 0)}>
+              <p onClick={() => GoToProduct("005", 0)}>
                 <span>모나미제품</span>
               </p>
               <ul className={`Dropdown ${hoverIndex === 1 ? "hover" : ""}`}>
-              <li onClick={() => GoToProduct("005", 0)}>
+                <li onClick={() => GoToProduct("005", 0)}>
                   <a>프리미엄 펜</a>
                 </li>
                 <li onClick={() => GoToProduct("003", 1)}>
@@ -137,15 +152,15 @@ function Header() {
                 <li onClick={() => GoToProduct("001", 4)}>
                   <a>잉크·리필</a>
                 </li>
-               
               </ul>
             </div>
           </div>
         </div>
 
         <div className="HeaderBtn">
-          <LoginBtn onClick={GoToLogin}/>
-          {isLogin && <MypageBtn onClick={GoToMypage} />}          <div className="ShoppingCart" onClick={GoToShopping}>
+          <LoginBtn onClick={GoToLogin} />
+          {isLogin && <MypageBtn onClick={GoToMypage} />}{" "}
+          <div className="ShoppingCart" onClick={GoToShopping}>
             <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>
           </div>
           <div className="Search" onClick={GoToSearch}>
@@ -187,7 +202,7 @@ function Header() {
         <div className="MenuBox">
           <h2>모나미제품</h2>
           <ul>
-          <li onClick={() => GoToProduct("005", 0)}>
+            <li onClick={() => GoToProduct("005", 0)}>
               <a>프리미엄 펜</a>
             </li>
             <li onClick={() => GoToProduct("003", 1)}>
@@ -202,7 +217,6 @@ function Header() {
             <li onClick={() => GoToProduct("001", 4)}>
               <a>잉크·리필</a>
             </li>
-           
           </ul>
         </div>
       </div>
