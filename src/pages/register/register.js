@@ -36,29 +36,7 @@ function Register() {
       [name]: value,
     }));
   };
-  // 회원가입 폼 제출 처리
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
 
-  //   // 폼 데이터 유효성 검사
-  //   const validationErrors = validateForm();
-  //   if (Object.keys(validationErrors).length > 0) {
-  //     setErrors(validationErrors);
-  //     return;
-  //   }
-
-  //   try {
-  //     // `signUp` 함수 호출 (Firebase 인증 및 Firestore 저장)
-  //     const user = await signUp(formData.email, formData.password, formData.username);
-  //     console.log("회원가입 성공:", user);
-
-  //     alert("회원가입 성공!");
-  //     navigate("/signup/success"); // 성공 시 이동할 페이지
-  //   } catch (error) {
-  //     console.error("회원가입 오류:", error.message);
-  //     alert("회원가입 중 오류가 발생했습니다: " + error.message);
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
