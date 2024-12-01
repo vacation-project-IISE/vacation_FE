@@ -10,7 +10,8 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState(""); 
   
 // 로그인 버튼 클릭 시 호출되는 함수
-const handleLoginClick = async () => {
+  const handleLoginClick = async () => {
+    console.log("이메일:", email);
   try {
     const response = await fetch("http://localhost:4000/api/login", {
       method: "POST",
@@ -26,8 +27,10 @@ const handleLoginClick = async () => {
       // 응답 본문에서 토큰 추출
       const data = await response.json(); // 응답 본문 파싱
       const token = data.token; // 백엔드에서 전달된 토큰 (키 이름 확인 필요)
-      const user_id = data.user_id;
+      const user_id = email;
 
+      console.log("서버 응답 데이터:", data);  // 응답 데이터 확인
+      
       if (token && user_id) {
         localStorage.setItem("userToken", token); // 토큰 저장
         localStorage.setItem("username", user_id); // user_id 저장

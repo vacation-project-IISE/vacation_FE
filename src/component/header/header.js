@@ -65,9 +65,32 @@ function Header() {
     setSelectedIndex(index);
     navigate(`/product/product_list/${code}`);
   };
-  const GoToShopping = () => {
-    if (isLogin) {
-      navigate(`/shopping/cart`);
+  const GoToShopping = async () => {
+    const user_id = localStorage.getItem("username");
+    console.log(user_id);
+  
+    if (isLogin && user_id) {
+      try {
+        // 백엔드로 user_id를 전송하여 장바구니 데이터를 조회
+        const response = await fetch("http://localhost:4000/api/cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user_id: user_id }), // user_id를 body에 포함
+        });
+  
+        if (response.ok) {
+          
+          navigate(`/shopping/cart`);
+        } else {
+          const data = await response.json();
+          alert(data.message || "장바구니 조회 실패");
+        }
+      } catch (error) {
+        console.error("장바구니 조회 오류:", error);
+        alert("장바구니 조회 실패");
+      }
     } else {
       // 로그인 상태가 아닐 때, 로그인을 먼저 하도록
       alert("로그인을 먼저 해주세요!");

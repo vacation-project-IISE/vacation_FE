@@ -21,6 +21,7 @@ function ShoppingList() {
   
     if (!token) {
       console.error("토큰이 없습니다.");
+      setLoading(false);
       return;
     }
   
@@ -28,7 +29,7 @@ function ShoppingList() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,  // 토큰 헤더에 포함
       },
     })
       .then(async (response) => {
@@ -37,7 +38,7 @@ function ShoppingList() {
           throw new Error(`Error fetching cart data: ${text}`);
         }
         const data = await response.json();
-        setCartItems(data);
+        setCartItems(data);  // 서버에서 받은 장바구니 아이템을 상태에 저장
         setLoading(false);
       })
       .catch((error) => {
@@ -47,7 +48,7 @@ function ShoppingList() {
   };
   
   useEffect(() => {
-    fetchCartItems();
+    fetchCartItems();  // 컴포넌트가 렌더링될 때마다 장바구니 아이템을 가져옴
   }, []);
 
   const handleCheckboxChange = (productIdx) => {
