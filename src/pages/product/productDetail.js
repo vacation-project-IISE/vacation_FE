@@ -20,6 +20,7 @@ function ProductDetail() {
   const [modalText, setModalText] = useState("");
   const [modalImg, setModalImg] = useState("");
   const [isLogin, setIsLogin] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token"); //로그인 확인
@@ -112,53 +113,90 @@ function ProductDetail() {
   };
 
   const addToWishlist = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await fetch("http://localhost:4000/api/shopping/wish", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          product_name: productData.name,
-          category_name: productData.category,
-        }),
-      });
+    const token = localStorage.getItem("userToken");
 
-      if (response.ok) {
-        showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
-      } else {
-        throw new Error("위시리스트 추가 실패");
-      }
-    } catch (error) {
-      showModal(error.message, "/img/heartIcon.png");
+    // console.log("토큰 확인:", token);
+    if (!token) {
+      console.error("토큰이 없습니다.");
+      return;
     }
-  };
 
-  const addToCart = async () => {
-    const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:4000/api/shopping/cart", {
+      const response = await fetch("http://localhost:4000/api/wish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // 사용자 인증 토큰
         },
         body: JSON.stringify({
+          
           product_name: productData.name,
           price: Number(productDetail.price),
           category_name: productData.category,
         }),
       });
 
+      // 응답 상태 확인
+      const data = await response.json();
       if (response.ok) {
-        showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png");
+        showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
       } else {
-        throw new Error("장바구니 추가 실패");
+        // 서버가 반환한 오류 메시지를 출력
+        showModal(data.message || "위시리스트 추가 실패", "/img/heartIcon.png");
       }
     } catch (error) {
-      showModal(error.message, "/img/redCartIcon.png");
+      showModal(`오류 발생: ${error.message}`, "/img/heartIcon.png");
+    }
+  };
+
+  const addToCart = async () => {
+    const token = localStorage.getItem("userToken");
+    const user_id = localStorage.getItem("username");
+  
+    console.log("로그인된 사용자 ID:", user_id); // 확인용
+  
+    if (!token || !user_id) {
+      console.error("토큰 또는 user_id가 없습니다.");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:4000/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          user_id: user_id,
+          product_name: productData.name,
+          price: Number(productDetail.price),
+          category_name: productData.category,
+        }),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        showModal("장바구니에 담겼습니다!", "/img/redCartIcon.png");
+  
+        // 업데이트된 장바구니 항목을 추가합니다.
+        const newCartItem = {
+          idx: productData.idx,
+          name: productData.name,
+          price: productDetail.price,
+          category: productData.category,
+          image_url: productData.image_url,
+          image_alt: productData.image_alt,
+        };
+        console.log(newCartItem);
+        // Directly update cartItems state
+        setCartItems((prevItems) => [...prevItems, newCartItem]); // Update cart in ShoppingList
+      } else {
+        showModal(data.message || "장바구니 추가 실패", "/img/redCartIcon.png");
+      }
+    } catch (error) {
+      console.error("장바구니 추가 오류:", error);
+      showModal("장바구니 추가 실패", "/img/redCartIcon.png");
     }
   };
 

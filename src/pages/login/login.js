@@ -26,14 +26,16 @@ const handleLoginClick = async () => {
       // 응답 본문에서 토큰 추출
       const data = await response.json(); // 응답 본문 파싱
       const token = data.token; // 백엔드에서 전달된 토큰 (키 이름 확인 필요)
+      const user_id = data.user_id;
 
-      if (token) {
+      if (token && user_id) {
         localStorage.setItem("userToken", token); // 토큰 저장
-        console.log("로그인 성공: 토큰 저장됨");
+        localStorage.setItem("username", user_id); // user_id 저장
+        console.log("로그인 성공: 토큰과 user_id 저장됨");
         alert("로그인 성공!");
         navigate("/"); // 홈으로 이동
       } else {
-        console.error("로그인 성공했지만 토큰 없음");
+        console.error("로그인 성공했지만 토큰 또는 user_id 없음");
         alert("로그인에 문제가 발생했습니다. 다시 시도해주세요.");
       }
     } else if (response.status === 401) {
@@ -46,6 +48,7 @@ const handleLoginClick = async () => {
     setErrorMessage("서버와의 연결에 실패했습니다.");
   }
 };
+
 
 
 
