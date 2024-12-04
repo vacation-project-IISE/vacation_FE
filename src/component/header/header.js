@@ -77,7 +77,7 @@ function Header() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ user_id: user_id }), // user_id를 body에 포함
+          body: JSON.stringify({ user_id: user_id }),
         });
   
         if (response.ok) {

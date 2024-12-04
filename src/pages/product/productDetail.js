@@ -114,38 +114,52 @@ function ProductDetail() {
 
   const addToWishlist = async () => {
     const token = localStorage.getItem("userToken");
-
-    // console.log("토큰 확인:", token);
-    if (!token) {
-      console.error("토큰이 없습니다.");
+    const user_id = localStorage.getItem("username");
+  
+    console.log("로그인된 사용자 ID:", user_id); // 확인용
+  
+    if (!token || !user_id) {
+      console.error("토큰 또는 user_id가 없습니다.");
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:4000/api/wish", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // 사용자 인증 토큰
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          
+          user_id: user_id,
           product_name: productData.name,
           price: Number(productDetail.price),
           category_name: productData.category,
         }),
       });
 
-      // 응답 상태 확인
       const data = await response.json();
       if (response.ok) {
         showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
+  
+        // 업데이트된 장바구니 항목을 추가합니다.
+        const newCartItem = {
+          idx: productData.idx,
+          name: productData.name,
+          price: productDetail.price,
+          category: productData.category,
+          image_url: productData.image_url,
+          image_alt: productData.image_alt,
+        };
+        console.log(newCartItem);
+        // Directly update cartItems state
+        setCartItems((prevItems) => [...prevItems, newCartItem]); // Update cart in ShoppingList
       } else {
-        // 서버가 반환한 오류 메시지를 출력
-        showModal(data.message || "위시리스트 추가 실패", "/img/heartIcon.png");
+        showModal(data.message || "위시 추가 실패", "/img/heartIcon.png");
       }
     } catch (error) {
-      showModal(`오류 발생: ${error.message}`, "/img/heartIcon.png");
+      console.error("위시 추가 오류:", error);
+      showModal("위시 추가 실패", "/img/heartIcon.png");
     }
   };
 
@@ -202,18 +216,15 @@ function ProductDetail() {
 
   const handleWishClick = () => {
     if (!isLogin) {
-      // showModal("로그인을 해주세요!", "");
-      // navigate("/login");
       console.log("로그인안됨");
     } else {
       addToWishlist();
+      showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
     }
   };
 
   const handleCartClick = () => {
     if (!isLogin) {
-      // showModal("로그인을 해주세요!", "");
-      // navigate("/login");
       console.log("로그인안됨");
     } else {
       addToCart();
