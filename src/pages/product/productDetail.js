@@ -113,7 +113,7 @@ function ProductDetail() {
   };
 
   const addToWishlist = async () => {
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const user_id = localStorage.getItem("username");
   
     console.log("로그인된 사용자 ID:", user_id); // 확인용
@@ -142,7 +142,7 @@ function ProductDetail() {
       if (response.ok) {
         showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
   
-        // 업데이트된 장바구니 항목을 추가합니다.
+        // 업데이트된 위시 항목을 추가합니다.
         const newCartItem = {
           idx: productData.idx,
           name: productData.name,
@@ -152,8 +152,7 @@ function ProductDetail() {
           image_alt: productData.image_alt,
         };
         console.log(newCartItem);
-        // Directly update cartItems state
-        setCartItems((prevItems) => [...prevItems, newCartItem]); // Update cart in ShoppingList
+        setCartItems((prevItems) => [...prevItems, newCartItem]);
       } else {
         showModal(data.message || "위시 추가 실패", "/img/heartIcon.png");
       }
@@ -164,7 +163,7 @@ function ProductDetail() {
   };
 
   const addToCart = async () => {
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     const user_id = localStorage.getItem("username");
   
     console.log("로그인된 사용자 ID:", user_id); // 확인용
@@ -203,8 +202,7 @@ function ProductDetail() {
           image_alt: productData.image_alt,
         };
         console.log(newCartItem);
-        // Directly update cartItems state
-        setCartItems((prevItems) => [...prevItems, newCartItem]); // Update cart in ShoppingList
+        setCartItems((prevItems) => [...prevItems, newCartItem]);
       } else {
         showModal(data.message || "장바구니 추가 실패", "/img/redCartIcon.png");
       }
@@ -224,6 +222,11 @@ function ProductDetail() {
   };
 
   const handleCartClick = () => {
+    const user_id = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    console.log("user_id:", user_id); // user_id 확인
+    console.log("token:", token); // token 확인
+    console.log("현재 로그인 상태:", isLogin); // isLogin 값 확인
     if (!isLogin) {
       console.log("로그인안됨");
     } else {

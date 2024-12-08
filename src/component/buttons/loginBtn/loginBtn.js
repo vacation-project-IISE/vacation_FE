@@ -7,9 +7,9 @@ function LoginBtn() {
     const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(false);
     
-   // 로그인 상태 초기 설정: userToken의 존재 여부로 설정
+   // 로그인 상태 초기 설정: token의 존재 여부로 설정
   useEffect(() => {
-    const token = localStorage.getItem("userToken");
+    const token = localStorage.getItem("token");
     setIsLogin(!!token); // 토큰이 있으면 true, 없으면 false로 설정
   }, []);
 
@@ -23,7 +23,7 @@ function LoginBtn() {
     if (isLogin) {
       // 로그아웃 처리
       setIsLogin(false);
-      localStorage.removeItem("userToken"); // 사용자 토큰 제거
+      localStorage.removeItem("token"); // 사용자 토큰 제거
     } else {
       // 로그인 페이지로 이동
       navigate("/login");

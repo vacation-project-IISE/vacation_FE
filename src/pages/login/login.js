@@ -7,53 +7,49 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); 
-  
-// 로그인 버튼 클릭 시 호출되는 함수
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // 로그인 버튼 클릭 시 호출되는 함수
   const handleLoginClick = async () => {
     console.log("이메일:", email);
-  try {
-    const response = await fetch("http://localhost:4000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user_id: email, user_pwd: password }),
-    });
+    try {
+      const response = await fetch("http://localhost:4000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: email, user_pwd: password }),
+      });
 
-    console.log("서버 응답 코드:", response.status); // 응답 코드 확인
+      console.log("서버 응답 코드:", response.status); // 응답 코드 확인
 
-    if (response.ok) {
-      // 응답 본문에서 토큰 추출
-      const data = await response.json(); // 응답 본문 파싱
-      const token = data.token; // 백엔드에서 전달된 토큰 (키 이름 확인 필요)
-      const user_id = email;
+      if (response.ok) {
+        // 응답 본문에서 토큰 추출
+        const data = await response.json(); // 응답 본문 파싱
+        const user_id = email; // `user_id`를 가져옴
+        const token = data.token; // 백엔드에서 전달된 토큰 (키 이름 확인 필요)
 
-      console.log("서버 응답 데이터:", data);  // 응답 데이터 확인
-      
-      if (token && user_id) {
-        localStorage.setItem("userToken", token); // 토큰 저장
-        localStorage.setItem("username", user_id); // user_id 저장
-        console.log("로그인 성공: 토큰과 user_id 저장됨");
-        alert("로그인 성공!");
-        navigate("/"); // 홈으로 이동
+
+        if (token && user_id) {
+          localStorage.setItem("token", token); // 토큰 저장
+          localStorage.setItem("username", user_id); // user_id 저장
+          console.log("로그인 성공: 토큰과 user_id 저장됨");
+          alert("로그인 성공!");
+          navigate("/"); // 홈으로 이동
+        } else {
+          console.error("로그인 성공했지만 토큰 또는 user_id 없음");
+          alert("로그인에 문제가 발생했습니다. 다시 시도해주세요.");
+        }
+      } else if (response.status === 401) {
+        alert("아이디 또는 비밀번호가 잘못되었습니다.");
       } else {
-        console.error("로그인 성공했지만 토큰 또는 user_id 없음");
-        alert("로그인에 문제가 발생했습니다. 다시 시도해주세요.");
+        alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
       }
-    } else if (response.status === 401) {
-      alert("아이디 또는 비밀번호가 잘못되었습니다.");
-    } else {
-      alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+    } catch (error) {
+      console.error("로그인 요청 실패:", error);
+      setErrorMessage("서버와의 연결에 실패했습니다.");
     }
-  } catch (error) {
-    console.error("로그인 요청 실패:", error);
-    setErrorMessage("서버와의 연결에 실패했습니다.");
-  }
-};
-
-
-
+  };
 
   return (
     <div>
@@ -76,7 +72,7 @@ function Login() {
             placeholder="Email0000@manami.com"
             className="login-id"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // 이메일 입력 상태 업데이트
+            onChange={e => setEmail(e.target.value)} // 이메일 입력 상태 업데이트
           />
           <img src={"img/line.png"} alt="아이디라인" className="line1" />
           <img
@@ -89,14 +85,12 @@ function Login() {
             placeholder="Password"
             className="login-pw"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // 비밀번호 입력 상태 업데이트
+            onChange={e => setPassword(e.target.value)} // 비밀번호 입력 상태 업데이트
           />
           <img src={"img/line.png"} alt="비번라인" className="line2" />
         </div>
         {errorMessage && ( // 오류 메시지 표시
-          <div className="error-message">
-            {errorMessage}
-          </div>
+          <div className="error-message">{errorMessage}</div>
         )}
         <img src={"img/line.png"} alt="sns라인" className="line4" />
         <img src={"img/welcome.png"} alt="상단웰컴" className="welcome" />

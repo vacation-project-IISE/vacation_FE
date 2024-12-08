@@ -2,7 +2,7 @@ import Header from "../../component/header/header";
 import Footer from "../../component/footer/footer";
 import PayStep from "../../component/paystep/paystep";
 import "./shoppingList.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function ShoppingList() {
@@ -15,82 +15,140 @@ function ShoppingList() {
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [quantities, setQuantities] = useState({});
 
-  const fetchCartItems = () => {
-    setLoading(true);
-    const token = localStorage.getItem("userToken");
-  
-    if (!token) {
-      console.error("토큰이 없습니다.");
-      setLoading(false);
-      return;
-    }
-  
-    fetch("http://localhost:4000/api/cart", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,  // 토큰 헤더에 포함
-      },
-    })
-      .then(async (response) => {
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(`Error fetching cart data: ${text}`);
-        }
-        const data = await response.json();
-        setCartItems(data);  // 서버에서 받은 장바구니 아이템을 상태에 저장
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  };
-  
   useEffect(() => {
-    fetchCartItems();  // 컴포넌트가 렌더링될 때마다 장바구니 아이템을 가져옴
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+
+      const token = localStorage.getItem("token");
+      const user_id = localStorage.getItem("username");
+
+      if (!token || !user_id) {
+        setLoading(false);
+        setError("로그인이 필요합니다. 다시 로그인해주세요.");
+        return;
+      }
+
+      try {
+        // 백엔드에서 장바구니 데이터 가져오기
+        const cartResponse = await fetch(
+          `http://localhost:4000/api/cart?user_id=${encodeURIComponent(
+            user_id
+          )}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!cartResponse.ok) {
+          const message = await cartResponse.text();
+          throw new Error(
+            message || "장바구니 데이터를 불러오는 중 오류가 발생했습니다."
+          );
+        }
+
+        const cartData = await cartResponse.json();
+
+        // 전체 상품 데이터 가져오기
+        const productResponse = await fetch("/productDetails.json");
+        if (!productResponse.ok) {
+          throw new Error("상품 데이터를 불러오는 중 오류가 발생했습니다.");
+        }
+        const productDetails = await productResponse.json();
+
+        // 병합: 이름을 정규화하여 비교
+        const mergedData = cartData.map(cartItem => {
+          const normalizedCartName = cartItem.product_name
+            .toLowerCase()
+            .replace(/\s+/g, "");
+
+          const productDetail = productDetails.find(
+            product =>
+              product.name.toLowerCase().replace(/\s+/g, "") ===
+              normalizedCartName
+          );
+
+          if (productDetail) {
+            return {
+              ...cartItem, // 백엔드 데이터
+              ...productDetail, // 전체 상품 데이터
+            };
+          }
+
+          return cartItem; // 전체 데이터에 없으면 백엔드 데이터만 유지
+        });
+
+        setCartItems(mergedData);
+        // console.log(mergedData);
+      } catch (err) {
+        setError(err.message || "데이터를 불러오는 중 오류가 발생했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const handleCheckboxChange = (productIdx) => {
-    setCheckedProducts((prev) => {
+  const handleCheckboxChange = productIdx => {
+    setCheckedProducts(prev => {
       const newCheckedState = {
         ...prev,
         [productIdx]: !prev[productIdx],
       };
 
       if (newCheckedState[productIdx]) {
-        setQuantities((prev) => ({ ...prev, [productIdx]: 1 }));
+        setQuantities(prevQuantities => ({
+          ...prevQuantities,
+          [productIdx]: 1,
+        }));
       } else {
-        setQuantities((prev) => {
-          const newQuantities = { ...prev };
+        setQuantities(prevQuantities => {
+          const newQuantities = { ...prevQuantities };
           delete newQuantities[productIdx];
           return newQuantities;
         });
       }
+      // 전체 선택 상태 업데이트
+      const allChecked =
+        cartItems.length > 0 &&
+        cartItems.every(product => newCheckedState[product.idx]);
+      setIsAllSelected(allChecked);
 
       return newCheckedState;
     });
   };
 
   const handleSelectAllChange = () => {
-    const newCheckedState = {};
-    const newQuantities = {};
+    if (isAllSelected) {
+      // 전체 해제
+      setCheckedProducts({});
+      setQuantities({});
+    } else {
+      // 전체 선택
+      const newCheckedState = {};
+      const newQuantities = {};
 
-    if (!isAllSelected) {
-      cartItems.forEach((product) => {
+      cartItems.forEach(product => {
         newCheckedState[product.idx] = true;
         newQuantities[product.idx] = quantities[product.idx] || 1;
       });
+
+      setCheckedProducts(newCheckedState);
+      setQuantities(newQuantities);
     }
-    setCheckedProducts(newCheckedState);
-    setQuantities(newQuantities);
+
     setIsAllSelected(!isAllSelected);
   };
 
   const DeleteChecked = () => {
-    setCartItems((prevCartItems) => {
+    setCartItems(prevCartItems => {
       const remainingItems = prevCartItems.filter(
-        (product) => !checkedProducts[product.idx]
+        product => !checkedProducts[product.idx]
       );
 
       setCheckedProducts({});
@@ -99,7 +157,7 @@ function ShoppingList() {
   };
 
   const updateQuantity = (productIdx, change) => {
-    setQuantities((prev) => {
+    setQuantities(prev => {
       const currentQuantity = prev[productIdx] || 1;
       const newQuantity = Math.max(1, currentQuantity + change);
       return { ...prev, [productIdx]: newQuantity };
@@ -115,9 +173,9 @@ function ShoppingList() {
   );
 
   const checkedTotalPrice = cartItems
-    .filter((product) => checkedProducts[product.idx])
+    .filter(product => checkedProducts[product.idx])
     .reduce((total, product) => {
-      const price = parseInt(product.price.replace("원", ""), 10);
+      const price = product.price;
       const quantity = quantities[product.idx] || 0;
       return total + price * quantity;
     }, 0)
@@ -125,7 +183,7 @@ function ShoppingList() {
 
   const handleCheckout = () => {
     const selectedProducts = cartItems.filter(
-      (product) => checkedProducts[product.idx]
+      product => checkedProducts[product.idx]
     );
 
     const totalQuantity = selectedProducts.reduce(
@@ -134,13 +192,18 @@ function ShoppingList() {
     );
 
     const totalPrice = selectedProducts.reduce((total, product) => {
-      const price = parseInt(product.price.replace("원", ""), 10);
+      // product.price는 이미 숫자 타입이므로 그대로 사용
+      const price = product.price;
       const quantity = quantities[product.idx] || 0;
       return total + price * quantity;
-    }, 0).toLocaleString();
+    }, 0);
 
     navigate("/shopping/pay", {
-      state: { selectedProducts, totalQuantity, totalPrice },
+      state: {
+        selectedProducts,
+        totalQuantity,
+        totalPrice: totalPrice.toLocaleString(), // 로컬 포맷 적용
+      },
     });
   };
 
@@ -163,23 +226,26 @@ function ShoppingList() {
             <div className="OptionName">전체선택</div>
           </div>
           <div style={{ color: "#ddd", fontSize: "15px" }}>|</div>
-          <div className="OptionDelete" onClick={DeleteChecked}>선택삭제</div>
+          <div className="OptionDelete" onClick={DeleteChecked}>
+            선택삭제
+          </div>
         </div>
         <div className="ShoppingContent">
           {loading && <div>Loading...</div>}
           {error && (
-    <div className="error-message">
-      <p>상품 데이터를 불러오는 중 문제가 발생했습니다. 다시 시도해 주세요.</p>
-    </div>
-  )}
-          {allProducts.length > 0 && (
-            <div className="CartContent">
-              <div className="Shoppingwrap">
-                {/*{allProducts.length === 0 ? (
-                  <p>장바구니가 비었습니다.</p>) : (allProducts.slice(0, 30).map(product => ( */}
-                {cartItems.length === 0 ? (
-                  <p>장바구니가 비었습니다.</p>) : (cartItems.map((product) => ( 
-                
+            <div className="error-message">
+              <p>
+                상품 데이터를 불러오는 중 문제가 발생했습니다. 다시 시도해
+                주세요.
+              </p>
+            </div>
+          )}
+          <div className="CartContent">
+            <div className="Shoppingwrap">
+              {cartItems.length === 0 ? (
+                <p>장바구니가 비었습니다.</p>
+              ) : (
+                cartItems.map(product => (
                   <div key={product.idx} className="ShoppingBox">
                     <div style={{ display: "flex" }}>
                       <div className="CheckBtn">
@@ -200,11 +266,11 @@ function ShoppingList() {
                           }}></label>
                       </div>
                       <div className="ProductImg">
-                        <img src={product.image_url} alt={product.image_alt} />
+                        <img src={product.imageUrl} alt={product.idx} />
                       </div>
                       <div className="ProductInfo">
                         <div className="ProductName">{product.name}</div>
-                        <div className="ProductCate">{product.category}</div>
+                        <div className="ProductCate">{product.category_name}</div>
                       </div>
                     </div>
                     <div style={{ display: "flex" }}>
@@ -218,18 +284,14 @@ function ShoppingList() {
                         </button>
                       </div>
                       <div className="ProductPrice">
-                        {parseInt(
-                          product.price.replace("원", ""),
-                          10
-                        ).toLocaleString()}
-                        원
+                        {product.price.toLocaleString()}원
                       </div>
                     </div>
                   </div>
-                )))}
-              </div>
+                ))
+              )}
             </div>
-          )}
+          </div>
 
           <div className="PayContent">
             <div className="PayTop">결제정보</div>

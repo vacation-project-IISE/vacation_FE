@@ -13,16 +13,16 @@ function Header() {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
 
-   // 로그인 상태 초기화
-   useEffect(() => {
-    const token = localStorage.getItem("userToken");
+  // 로그인 상태 초기화
+  useEffect(() => {
+    const token = localStorage.getItem("token");
     setIsLogin(!!token); // 토큰이 있으면 true, 없으면 false
   }, []);
 
   // 로그아웃 처리 함수
   const handleLogout = () => {
     // 토큰 제거
-    localStorage.removeItem("userToken");
+    localStorage.removeItem("token");
     setIsLogin(false);
     navigate("/login");
   };
@@ -66,36 +66,13 @@ function Header() {
     navigate(`/product/product_list/${code}`);
   };
   const GoToShopping = async () => {
-    const user_id = localStorage.getItem("username");
-    console.log(user_id);
-  
-    if (isLogin && user_id) {
-      try {
-        // 백엔드로 user_id를 전송하여 장바구니 데이터를 조회
-        const response = await fetch("http://localhost:4000/api/cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ user_id: user_id }),
-        });
-  
-        if (response.ok) {
-          
-          navigate(`/shopping/cart`);
-        } else {
-          const data = await response.json();
-          alert(data.message || "장바구니 조회 실패");
-        }
-      } catch (error) {
-        console.error("장바구니 조회 오류:", error);
-        alert("장바구니 조회 실패");
-      }
-    } else {
-      // 로그인 상태가 아닐 때, 로그인을 먼저 하도록
+
+    if (!isLogin) {
       alert("로그인을 먼저 해주세요!");
       navigate("/login");
+      return;
     }
+    navigate("/shopping/cart");
   };
 
   const handleMouseEnter = index => {
@@ -172,7 +149,7 @@ function Header() {
 
         <div className="HeaderBtn">
           <LoginBtn onClick={GoToLogin} />
-          {isLogin && <MypageBtn onClick={GoToMypage} />}{" "}
+          {isLogin && <MypageBtn onClick={GoToMypage} />}
           <div className="ShoppingCart" onClick={GoToShopping}>
             <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>
           </div>
