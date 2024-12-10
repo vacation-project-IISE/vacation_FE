@@ -2,13 +2,12 @@ import Header from "../../component/header/header";
 import Footer from "../../component/footer/footer";
 import PayStep from "../../component/paystep/paystep";
 import "./paycomplete.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PayComplete() {
     const navigate = useNavigate()
     const GoToProduct = () => {
-        navigate("/product/product_list/005")
+        navigate("/product/product_list")
     }
   return (
     <div>

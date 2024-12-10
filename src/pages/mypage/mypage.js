@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 function Mypage() {
   // 위시리스트 항목을 저장하는 상태
   const [wishlistItems, setWishlistItems] = useState([]);
+  const [orderList, setOrderList] = useState([]);
   // const [wishlistItems, setWishlistItems] = useState([
   //   "img/wishlist-item1.jpg",
   //   "img/wishlist-item2.jpg",
@@ -32,36 +33,71 @@ function Mypage() {
   ];
 
   const user_id = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
+
+  // useEffect(() => {
+  //   // console.log(token, user_id);
+  //   if (!token) {
+  //     console.error("토큰이 없습니다.");
+  //     return;
+  //   }
+
+  //   fetch("http://localhost:4000/api/wish", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify({ user_id }),
+  //   })
+  //     .then(response => {
+  //       if (!response.ok) {
+  //         throw new Error("네트워크 응답이 실패했습니다.");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       setWishlistItems(data);
+  //     })
+  //     .catch(error => {
+  //       console.error("위시리스트 데이터 로드 실패:", error);
+  //     });
+  // }, []);
+
+  // 주문 조회
   useEffect(() => {
-    const token = localStorage.getItem("userToken");
-  
-    console.log(token, user_id)
-    if (!token) {
-      console.error("토큰이 없습니다.");
-      return;
-    }
-  
-    fetch("http://localhost:4000/api/wish", {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, 
-      },
-      body: JSON.stringify({ user_id }), 
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("네트워크 응답이 실패했습니다.");
+    const fetchOrders = async () => {
+      try {
+        if (!user_id || !token) { // user_id와 token이 존재하는지 확인
+          console.error("로그인이 필요합니다.");
+          return;
         }
-        return response.json();
-      })
-      .then((data) => {
-        setWishlistItems(data);
-      })
-      .catch((error) => {
-        console.error("위시리스트 데이터 로드 실패:", error);
-      });
-  }, []);
+  
+        const response = await fetch(
+          "http://localhost:4000/api/order/getOrders",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id }), // user_id를 POST body로 전달
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error("주문 데이터를 가져오는 데 실패했습니다.");
+        }
+  
+        const data = await response.json();
+        setOrderList(data); // 주문 데이터를 상태로 저장
+      } catch (error) {
+        console.error("주문 데이터 조회 실패:", error);
+      }
+    };
+  
+    fetchOrders();
+  }, [user_id]);
 
   return (
     <div>
@@ -105,14 +141,20 @@ function Mypage() {
                 <span>결제 금액</span>
                 <span>처리 상태</span>
               </li>
-              {paylistData.map((item, index) => (
-                <li className="paylist-item" key={index}>
-                  <span>{item.orderNo}</span>
-                  <span>{item.productName}</span>
-                  <span>{item.price}</span>
-                  <span>{item.status}</span>
+              {orderList.length > 0 ? (
+                orderList.map((order, index) => (
+                  <li className="paylist-item" key={index}>
+                    <span>{order.merchant_uid}</span>
+                    <span>{order.name}</span>
+                    <span>{order.total_price.toLocaleString()}원</span>{" "}
+                    <span>{order.status || "처리 중"}</span>
+                  </li>
+                ))
+              ) : (
+                <li className="paylist-item">
+                  <span colSpan="4">주문 내역이 없습니다.</span>
                 </li>
-              ))}
+              )}
             </ul>
           </div>
         </div>
