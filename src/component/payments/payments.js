@@ -3,7 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./payments.css";
 
-function KakaoPay({ productName, totalQuantity, totalPrice, address, postcode }) {
+function KakaoPay({
+  productName,
+  totalQuantity,
+  totalPrice,
+  address,
+  postcode,
+  user_id,
+}) {
   const navigate = useNavigate();
   useEffect(() => {
     let script = document.querySelector(
@@ -15,18 +22,28 @@ function KakaoPay({ productName, totalQuantity, totalPrice, address, postcode })
     const { IMP } = window;
     IMP.init("imp20358665");
 
-    // 로그인 정보도 전달해서 넣기!
+    // 결제 시각 계산
+    const currentDate = new Date();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // 월
+    const day = String(currentDate.getDate()).padStart(2, "0"); // 일
+    const hour = String(currentDate.getHours()).padStart(2, "0"); // 시
+    const minute = String(currentDate.getMinutes()).padStart(2, "0"); // 분
+    const orders_number = `${month}${day}${hour}${minute}${user_id.slice(
+      0,
+      2
+    )}`;
+
     const data = {
       pg: pgValue,
       pay_method: payMethod,
-      merchant_uid: `${Date.now()}`,
+      merchant_uid: orders_number,
       name: `${productName} 등 ${totalQuantity}건`,
       amount: totalPrice,
-      buyer_email: "gildong@gmail.com",
-      buyer_name: "홍길동",
+      buyer_email: user_id,
+      buyer_name: user_id,
       buyer_tel: "010-0000-0000",
       buyer_addr: address,
-      buyer_postcode:postcode,
+      buyer_postcode: postcode,
       m_redirect_url: "",
     };
     IMP.request_pay(data, rsp => {
@@ -35,24 +52,24 @@ function KakaoPay({ productName, totalQuantity, totalPrice, address, postcode })
         console.log("카카오페이 결제 성공");
         console.log(data);
 
-        const payData = {
-          orderID:  `${Date.now()}`,
-          productname: productName,            
-          total_price: totalPrice,
-        };
+        // const payData = {
+        //   orderID: `${Date.now()}`,
+        //   productname: productName,
+        //   total_price: totalPrice,
+        // };
 
         axios
-          .post("http://localhost:4000/shopping/pay", payData)
-          .then((response) => {
+          .post("http://localhost:4000/api/order", data)
+          .then(response => {
             console.log("결제 정보 전달 성공:", response.data);
             // 결제 성공 페이지로 이동
             navigate("/shopping/complete");
           })
-          .catch((error) => {
+          .catch(error => {
             console.error("결제 정보 전달 실패:", error);
           });
-        
-        navigate('/shopping/complete');
+
+        navigate("/shopping/complete");
       } else {
         console.log("결제 실패");
       }
@@ -62,15 +79,14 @@ function KakaoPay({ productName, totalQuantity, totalPrice, address, postcode })
   const isDisabled = !address || !postcode;
 
   // 결제 완료 시 백엔드로 데이터 전송
-  
+
   return (
     <button
-    onClick={() => !isDisabled && onclickPay("kakaopay.TC0ONETIME", "card")}
-    className="KakaopayBtn"
-  >
-    <img src="/img/kakaopayLogo.png" alt="kakaopay" />
-    결제
-  </button>
+      onClick={() => !isDisabled && onclickPay("kakaopay.TC0ONETIME", "card")}
+      className="KakaopayBtn">
+      <img src="/img/kakaopayLogo.png" alt="kakaopay" />
+      결제
+    </button>
   );
 }
 

@@ -17,6 +17,7 @@ function Pay() {
   const [buildingName, setBuildingName] = useState(""); // 선택한 우편번호
   const [result, setResult] = useState(0);
   const [productIdxArray, setProductIdxArray] = useState([]);
+  const [detailAddress, setDetailAddress] = useState("");
 
   const handleModalOpen = () => {
     setIsModalOpen(true); // 모달 열림
@@ -49,15 +50,11 @@ function Pay() {
     calculateTotalPrice();
 
     if (selectedProducts && selectedProducts.length > 0) {
-      const idxArray = selectedProducts.map((product) => product.idx);
+      const idxArray = selectedProducts.map(product => product.idx);
       // 전체 주문 상품 idx를 Array로 저장
       setProductIdxArray(idxArray);
     }
-    
   }, [totalPrice]); // totalPrice가 변경될 때마다 계산
-
- 
-
 
   const handlePayment = () => {
     if (!address || !zonecode) {
@@ -71,9 +68,11 @@ function Pay() {
   };
 
   // 백엔드로 데이터 전송하는 코드
+  const user_id = localStorage.getItem("username");
   const sendOrderData = async () => {
     try {
-      const token = localStorage.getItem("userToken");
+      const token = localStorage.getItem("token");
+
       if (!token) {
         alert("로그인 후 결제를 진행해 주세요!");
         return;
@@ -94,26 +93,17 @@ function Pay() {
       const userData = await response.json();
       const username = userData.username;
 
-      // 결제 시각 계산
-      const currentDate = new Date();
-      const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // 월
-      const day = String(currentDate.getDate()).padStart(2, "0"); // 일
-      const hour = String(currentDate.getHour()).padStart(2, "0"); // 시
-      const minute = String(currentDate.getMinutes()).padStart(2, "0"); // 분
-      const orders_number = `${month}${day}${hour}${minute}${username}`;
-
-      // 주문 데이터 생성 (추후 값으로 채워야 함)
+      // 주문 데이터 생성
       const orderData = {
-        orders_number: orders_number,
         user_id: username,
         product_number:
           selectedProducts.length > 0 ? selectedProducts[0].idx : "",
         product_amount: totalQuantity,
         total_price: result,
-        user_address: `${address} ${buildingName}`,
+        user_address: `${address} ${buildingName} ${detailAddress}`,
       };
 
-      const orderResponse = await fetch("http://localhost:4000/shopping/pay", {
+      const orderResponse = await fetch("http://localhost:4000/order", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -162,7 +152,10 @@ function Pay() {
                   <div className="SelectedAddress">{buildingName}</div>
                   <input
                     className="SelectedAddress"
-                    placeholder="상세 주소를 입력해주세요."></input>
+                    placeholder="상세 주소를 입력해주세요."
+                    value={detailAddress}
+                    onChange={e => setDetailAddress(e.target.value)}
+                  />
                 </div>
               </div>
             </div>
@@ -224,8 +217,9 @@ function Pay() {
                   }
                   totalQuantity={totalQuantity}
                   totalPrice={result}
-                  address={address + buildingName}
+                  address={`${address} ${buildingName} ${detailAddress}`}
                   postcode={zonecode}
+                  user_id={user_id}
                 />
               </button>
             </div>
