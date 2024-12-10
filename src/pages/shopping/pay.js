@@ -98,6 +98,7 @@ function Pay() {
         user_id: username,
         product_number:
           selectedProducts.length > 0 ? selectedProducts[0].idx : "",
+        product_array:selectedProducts,
         product_amount: totalQuantity,
         total_price: result,
         user_address: `${address} ${buildingName} ${detailAddress}`,
@@ -220,6 +221,7 @@ function Pay() {
                   address={`${address} ${buildingName} ${detailAddress}`}
                   postcode={zonecode}
                   user_id={user_id}
+                  product_array={selectedProducts}
                 />
               </button>
             </div>

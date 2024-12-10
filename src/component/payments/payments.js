@@ -10,6 +10,7 @@ function KakaoPay({
   address,
   postcode,
   user_id,
+  product_array,
 }) {
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,6 +45,7 @@ function KakaoPay({
       buyer_tel: "010-0000-0000",
       buyer_addr: address,
       buyer_postcode: postcode,
+      product_array:product_array,
       m_redirect_url: "",
     };
     IMP.request_pay(data, rsp => {

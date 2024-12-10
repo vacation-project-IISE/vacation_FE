@@ -81,7 +81,6 @@
   text-align: center;
 }
 
-
 /* 결제 내역 스타일 */
 .paylist {
   margin-top: 40px;
@@ -98,29 +97,22 @@
   background-color: #f0f0f0;
   display: flex;
   padding: 10px;
+  justify-content: space-around;
 }
-
+.paylist-header span {
+  text-align: center;
+}
 .paylist-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
 .paylist-item span {
-  flex: 1;
   text-align: center;
 }
 
-.paylist-item span:nth-child(1) {
-  flex: 2; /* 주문번호 열 */
-}
-
-.paylist-item span:nth-child(2) {
-  flex: 3; /* 상품 이름 */
-}
-
-.paylist-item span:nth-child(3),
-.paylist-item span:nth-child(4) {
-  flex: 2; /* 결제 금액과 처리 상태 */
+.paylist-name {
+  width: 35%;
 }

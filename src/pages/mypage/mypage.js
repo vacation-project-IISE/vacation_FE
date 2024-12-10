@@ -68,11 +68,12 @@ function Mypage() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        if (!user_id || !token) { // user_id와 token이 존재하는지 확인
+        if (!user_id || !token) {
+          // user_id와 token이 존재하는지 확인
           console.error("로그인이 필요합니다.");
           return;
         }
-  
+
         const response = await fetch(
           "http://localhost:4000/api/order/getOrders",
           {
@@ -84,18 +85,19 @@ function Mypage() {
             body: JSON.stringify({ user_id }), // user_id를 POST body로 전달
           }
         );
-  
+
         if (!response.ok) {
           throw new Error("주문 데이터를 가져오는 데 실패했습니다.");
         }
-  
+
         const data = await response.json();
         setOrderList(data); // 주문 데이터를 상태로 저장
+        console.log(data);
       } catch (error) {
         console.error("주문 데이터 조회 실패:", error);
       }
     };
-  
+
     fetchOrders();
   }, [user_id]);
 
@@ -137,17 +139,17 @@ function Mypage() {
             <ul className="paylist-table">
               <li className="paylist-header">
                 <span>주문번호</span>
-                <span>상품 이름</span>
+                <span className="paylist-name">상품 이름</span>
                 <span>결제 금액</span>
                 <span>처리 상태</span>
               </li>
               {orderList.length > 0 ? (
                 orderList.map((order, index) => (
                   <li className="paylist-item" key={index}>
-                    <span>{order.merchant_uid}</span>
-                    <span>{order.name}</span>
+                    <span>{order.order_number}</span>
+                    <span className="paylist-name">{order.product_name}</span>
                     <span>{order.total_price.toLocaleString()}원</span>{" "}
-                    <span>{order.status || "처리 중"}</span>
+                    <span>결제 완료</span>
                   </li>
                 ))
               ) : (
