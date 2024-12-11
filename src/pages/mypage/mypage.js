@@ -1,75 +1,55 @@
+import { useState, useEffect } from "react";
 import Header from "../../component/header/header";
 import Footer from "../../component/footer/footer";
 import "./mypage.css";
-import { useState, useEffect } from "react";
 
 function Mypage() {
-  // 위시리스트 항목을 저장하는 상태
-  const [wishlistItems, setWishlistItems] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
   const [orderList, setOrderList] = useState([]);
-  // const [wishlistItems, setWishlistItems] = useState([
-  //   "img/wishlist-item1.jpg",
-  //   "img/wishlist-item2.jpg",
-  //   "img/wishlist-item3.jpg",
-  //   "img/wishlist-item4.jpg",
-  //   "img/wishlist-item5.jpg",
-  //   // 필요한 만큼 항목 추가
-  // ]);
-  // 결제 내역 데이터
-  const paylistData = [
-    {
-      orderNo: "#12345",
-      productName: "상품 1",
-      price: "₩100,000",
-      status: "배송 중",
-    },
-    {
-      orderNo: "#12346",
-      productName: "상품 2",
-      price: "₩150,000",
-      status: "결제 완료",
-    },
-    // 추가 데이터 행을 여기에 추가할 수 있습니다.
-  ];
+  const [orderDetail, setOrderDetail] = useState(null);
 
   const user_id = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
-  // useEffect(() => {
-  //   // console.log(token, user_id);
-  //   if (!token) {
-  //     console.error("토큰이 없습니다.");
-  //     return;
-  //   }
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        if (!user_id || !token) {
+          console.error("로그인이 필요합니다.");
+          return;
+        }
 
-  //   fetch("http://localhost:4000/api/wish", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify({ user_id }),
-  //   })
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error("네트워크 응답이 실패했습니다.");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then(data => {
-  //       setWishlistItems(data);
-  //     })
-  //     .catch(error => {
-  //       console.error("위시리스트 데이터 로드 실패:", error);
-  //     });
-  // }, []);
+        const response = await fetch(
+          "http://localhost:4000/api/wish/getWishlist",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id }),
+          }
+        );
 
-  // 주문 조회
+        if (!response.ok) {
+          throw new Error("위시리스트를 가져오는 데 실패했습니다.");
+        }
+
+        const data = await response.json();
+        setWishlist(data);
+      } catch (error) {
+        console.error("위시리스트 조회 실패:", error);
+      }
+    };
+
+    fetchWishlist();
+    console.log(wishlist);
+  }, [user_id]);
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         if (!user_id || !token) {
-          // user_id와 token이 존재하는지 확인
           console.error("로그인이 필요합니다.");
           return;
         }
@@ -82,7 +62,7 @@ function Mypage() {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ user_id }), // user_id를 POST body로 전달
+            body: JSON.stringify({ user_id }),
           }
         );
 
@@ -91,15 +71,24 @@ function Mypage() {
         }
 
         const data = await response.json();
-        setOrderList(data); // 주문 데이터를 상태로 저장
-        console.log(data);
+        setOrderList(data);
       } catch (error) {
         console.error("주문 데이터 조회 실패:", error);
       }
     };
 
     fetchOrders();
+    console.log(orderList);
   }, [user_id]);
+
+  // 주문 항목 클릭 핸들러
+  const handleOrderClick = order => {
+    if (orderDetail?.order_number === order.order_number) {
+      setOrderDetail(null); // 이미 열려 있으면 닫음
+    } else {
+      setOrderDetail(order); // 클릭된 주문 데이터 저장
+    }
+  };
 
   return (
     <div>
@@ -111,9 +100,6 @@ function Mypage() {
             className="mypageicon"
             alt="마이페이지아이콘"
           />
-          <div className="myname">
-            <p>사용자 이름</p>
-          </div>
           <div className="my-email">
             <p>{user_id}</p>
           </div>
@@ -124,18 +110,28 @@ function Mypage() {
           <div className="wishlist">
             <h1>위시리스트</h1>
             <ul className="wishlist-row">
-              {wishlistItems.map((item, index) => (
-                <li key={index}>
-                  <img src={item} alt={`위시리스트 항목 ${index + 1}`} />
-                  <p>상품 {index + 1}</p> {/* 상품 이름 추가 */}
-                </li>
-              ))}
+              {wishlist.items && Array.isArray(wishlist.items) ? (
+                wishlist.items.map((item, index) => (
+                  <li key={index} className="wishlist-item">
+                    <img
+                      src={item.image_url}
+                      alt={item.image_alt}
+                    />
+                    <p className="wishItem-cate">{item.category_name}</p>
+                    <p className="wishItem-name">{item.product_name}</p>
+                    <p className="wishItem-price">{item.price.toLocaleString()}원</p>
+                  </li>
+                ))
+              ) : (
+                <p>위시리스트가 비어 있습니다.</p>
+              )}
             </ul>
           </div>
 
           {/* 결제 내역 섹션 */}
           <div className="paylist">
             <h1>결제 내역</h1>
+            <h3>결제 내역을 클릭하면 상세 주문 정보를 볼 수 있습니다!</h3>
             <ul className="paylist-table">
               <li className="paylist-header">
                 <span>주문번호</span>
@@ -145,11 +141,35 @@ function Mypage() {
               </li>
               {orderList.length > 0 ? (
                 orderList.map((order, index) => (
-                  <li className="paylist-item" key={index}>
-                    <span>{order.order_number}</span>
-                    <span className="paylist-name">{order.product_name}</span>
-                    <span>{order.total_price.toLocaleString()}원</span>{" "}
-                    <span>결제 완료</span>
+                  <li
+                    className="paylist-item"
+                    key={index}
+                    onClick={() => handleOrderClick(order)} // 클릭 이벤트 추가
+                  >
+                    <div className="paylist-info">
+                      <span>{order.order_number}</span>
+                      <span className="paylist-name">{order.product_name}</span>
+                      <span>{order.total_price.toLocaleString()}원</span>
+                      <span>결제 완료</span>
+                    </div>
+
+                    {/* 클릭된 주문의 product_array 표시 */}
+                    {orderDetail?.order_number === order.order_number && (
+                      <ul className="product-array">
+                        {order.product_array.map((product, idx) => (
+                          <li key={idx} className="product-item">
+                            <img
+                              src={product.imageUrl}
+                              alt={product.product_name}
+                              className="product-image"
+                            />
+                            <span>{product.name}</span>
+                            <span>{product.quantities}</span>
+                            <span>{product.price.toLocaleString()}원</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))
               ) : (

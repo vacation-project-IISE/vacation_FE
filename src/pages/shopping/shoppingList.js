@@ -202,7 +202,8 @@ function ShoppingList() {
       state: {
         selectedProducts,
         totalQuantity,
-        totalPrice: totalPrice.toLocaleString(), // 로컬 포맷 적용
+        totalPrice: totalPrice.toLocaleString(),
+        quantities,
       },
     });
   };

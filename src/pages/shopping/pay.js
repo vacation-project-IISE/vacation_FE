@@ -10,13 +10,12 @@ import axios from "axios";
 
 function Pay() {
   const location = useLocation();
-  const { selectedProducts, totalQuantity, totalPrice } = location.state || {};
+  const { selectedProducts, totalQuantity, totalPrice, quantities } = location.state || {};
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림/닫힘 상태
   const [address, setAddress] = useState(""); // 선택한 주소
   const [zonecode, setZonecode] = useState(""); // 선택한 우편번호
   const [buildingName, setBuildingName] = useState(""); // 선택한 우편번호
   const [result, setResult] = useState(0);
-  const [productIdxArray, setProductIdxArray] = useState([]);
   const [detailAddress, setDetailAddress] = useState("");
 
   const handleModalOpen = () => {
@@ -51,8 +50,6 @@ function Pay() {
 
     if (selectedProducts && selectedProducts.length > 0) {
       const idxArray = selectedProducts.map(product => product.idx);
-      // 전체 주문 상품 idx를 Array로 저장
-      setProductIdxArray(idxArray);
     }
   }, [totalPrice]); // totalPrice가 변경될 때마다 계산
 
@@ -93,12 +90,18 @@ function Pay() {
       const userData = await response.json();
       const username = userData.username;
 
+       // 제품별 수량 포함하여 주문 데이터 생성
+    const productArrayWithQuantities = selectedProducts.map(product => ({
+      ...product,
+      quantity: quantities[product.idx] || 1, // 각 제품의 수량 포함
+    }));
+      
       // 주문 데이터 생성
       const orderData = {
         user_id: username,
         product_number:
           selectedProducts.length > 0 ? selectedProducts[0].idx : "",
-        product_array:selectedProducts,
+        product_array:productArrayWithQuantities,
         product_amount: totalQuantity,
         total_price: result,
         user_address: `${address} ${buildingName} ${detailAddress}`,
