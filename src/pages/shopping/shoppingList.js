@@ -15,6 +15,7 @@ function ShoppingList() {
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [quantities, setQuantities] = useState({});
 
+  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
