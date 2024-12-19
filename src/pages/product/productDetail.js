@@ -21,6 +21,7 @@ function ProductDetail() {
   const [modalImg, setModalImg] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [wishItems, setWishItems] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token"); //로그인 확인
@@ -135,6 +136,8 @@ function ProductDetail() {
           product_name: productData.name,
           price: Number(productDetail.price),
           category_name: productData.category,
+          image_url: productData.image_url,
+          image_alt: productData.image_alt,
         }),
       });
 
@@ -143,7 +146,7 @@ function ProductDetail() {
         showModal("위시리스트에 담겼습니다!", "/img/heartIcon.png");
   
         // 업데이트된 위시 항목을 추가합니다.
-        const newCartItem = {
+        const newWishItem = {
           idx: productData.idx,
           name: productData.name,
           price: productDetail.price,
@@ -151,8 +154,8 @@ function ProductDetail() {
           image_url: productData.image_url,
           image_alt: productData.image_alt,
         };
-        console.log(newCartItem);
-        setCartItems((prevItems) => [...prevItems, newCartItem]);
+        console.log(newWishItem);
+        setWishItems((prevItems) => [...prevItems, newWishItem]);
       } else {
         showModal(data.message || "위시 추가 실패", "/img/heartIcon.png");
       }
