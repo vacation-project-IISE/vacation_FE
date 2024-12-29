@@ -8,7 +8,11 @@ function PayComplete() {
     const navigate = useNavigate()
     const GoToProduct = () => {
         navigate("/product/product_list")
-    }
+  }  
+  const GoToMypage = () => {
+    navigate("/mypage")
+}
+  
   return (
     <div>
       <Header />
@@ -28,7 +32,7 @@ function PayComplete() {
               <div>되었습니다!</div>
             </div>
                       <div className="CompleteBtnWrap">
-                          <button>주문 상세보기</button>
+                          <button onClick={GoToMypage}>주문 상세보기</button>
                           <button onClick={GoToProduct}>계속 쇼핑하기</button>
             </div>
           </div>

@@ -15,7 +15,6 @@ function ShoppingList() {
   const [isAllSelected, setIsAllSelected] = useState(false);
   const [quantities, setQuantities] = useState({});
 
-  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -182,6 +181,9 @@ function ShoppingList() {
     }, 0)
     .toLocaleString();
 
+// 문자열 형태를 숫자로 변환 후 3000을 더한 값 계산
+const resultPrice = (Number(checkedTotalPrice.replace(/,/g, '')) + 3000).toLocaleString();
+  
   const handleCheckout = () => {
     const selectedProducts = cartItems.filter(
       product => checkedProducts[product.idx]
@@ -272,7 +274,9 @@ function ShoppingList() {
                       </div>
                       <div className="ProductInfo">
                         <div className="ProductName">{product.name}</div>
-                        <div className="ProductCate">{product.category_name}</div>
+                        <div className="ProductCate">
+                          {product.category_name}
+                        </div>
                       </div>
                     </div>
                     <div style={{ display: "flex" }}>
@@ -312,7 +316,11 @@ function ShoppingList() {
               </div>
             </div>
 
-            <div className="PayBottom">총 결제금액</div>
+            <div className="PayBottomWrap">
+              <div className="PayBottom">총 결제금액</div>
+              <div className="ResultPrice">{resultPrice}원</div>
+            </div>
+
             <button onClick={handleCheckout} className="PayBtn">
               구매하기
             </button>

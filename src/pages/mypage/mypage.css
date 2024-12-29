@@ -103,36 +103,47 @@ color: black;
   list-style: none;
   padding: 0;
   margin-bottom: 40px;
+  width: 100%; 
 }
 
 .paylist-header {
   font-weight: bold;
   background-color: #f0f0f0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr 1fr; /* 열 비율 조정 */
   padding: 10px;
-  justify-content: space-around;
+  align-items: center; 
+  text-align: center;
 }
+
 .paylist-header span {
   text-align: center;
 }
+
 .paylist-item {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr 1fr; /* 열 비율 조정 */
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  flex-direction: column;
+  align-items: center; 
+  cursor: pointer;
 }
-.paylist-info{
-  display: flex;
-  justify-content: space-around;
+
+.paylist-info {
+  display: contents; 
 }
+
 .paylist-item span {
   text-align: center;
 }
 
 .paylist-name {
-  width: 35%;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
 }
+
 .product-array {
   display: flex;
   overflow-x: auto;

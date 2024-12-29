@@ -113,13 +113,12 @@ function Mypage() {
               {wishlist.items && Array.isArray(wishlist.items) ? (
                 wishlist.items.map((item, index) => (
                   <li key={index} className="wishlist-item">
-                    <img
-                      src={item.image_url}
-                      alt={item.image_alt}
-                    />
+                    <img src={item.image_url} alt={item.image_alt} />
                     <p className="wishItem-cate">{item.category_name}</p>
                     <p className="wishItem-name">{item.product_name}</p>
-                    <p className="wishItem-price">{item.price.toLocaleString()}원</p>
+                    <p className="wishItem-price">
+                      {item.price.toLocaleString()}원
+                    </p>
                   </li>
                 ))
               ) : (
@@ -137,22 +136,27 @@ function Mypage() {
                 <span>주문번호</span>
                 <span className="paylist-name">상품 이름</span>
                 <span>결제 금액</span>
+                <span>배송지</span>
                 <span>처리 상태</span>
               </li>
               {orderList.length > 0 ? (
                 orderList.map((order, index) => (
-                  <li
-                    className="paylist-item"
-                    key={index}
-                    onClick={() => handleOrderClick(order)} // 클릭 이벤트 추가
-                  >
-                    <div className="paylist-info">
-                      <span>{order.order_number}</span>
-                      <span className="paylist-name">{order.product_name}</span>
-                      <span>{order.total_price.toLocaleString()}원</span>
-                      <span>결제 완료</span>
-                    </div>
-
+                  <div>
+                    <li
+                      className="paylist-item"
+                      key={index}
+                      onClick={() => handleOrderClick(order)} // 클릭 이벤트 추가
+                    >
+                      <div className="paylist-info">
+                        <span>{order.order_number}</span>
+                        <span className="paylist-name">
+                          {order.product_name}
+                        </span>
+                        <span>{order.total_price.toLocaleString()}원</span>
+                        <span>{order.address}</span>
+                        <span>결제 완료</span>
+                      </div>
+                    </li>
                     {/* 클릭된 주문의 product_array 표시 */}
                     {orderDetail?.order_number === order.order_number && (
                       <ul className="product-array">
@@ -170,7 +174,7 @@ function Mypage() {
                         ))}
                       </ul>
                     )}
-                  </li>
+                  </div>
                 ))
               ) : (
                 <li className="paylist-item">
