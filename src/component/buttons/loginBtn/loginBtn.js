@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./loginBtn.css"
-
+import "./loginBtn.css";
 
 function LoginBtn() {
-    const navigate = useNavigate();
-    const [isLogin, setIsLogin] = useState(false);
-    
-   // 로그인 상태 초기 설정: token의 존재 여부로 설정
+  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
+
+  // 로그인 상태 초기 설정: token의 존재 여부로 설정
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLogin(!!token); // 토큰이 있으면 true, 없으면 false로 설정
@@ -30,15 +29,27 @@ function LoginBtn() {
     }
   };
 
+  // 마이페이지로 이동하는 함수
+  const handleMypage = () => {
+    navigate("/mypage");
+  };
 
   return (
     <div>
-      <button
-        className={isLogin ? "LogoutBtn" : "LoginBtn"} // 상태에 따라 클래스 적용
-        onClick={handleLogin}
-      > 
-        {isLogin ? "로그아웃" : "로그인"}
-      </button>
+      {isLogin ? (
+        <div className="BlackBtns">
+          <button onClick={handleLogin} className="LogoutBtn">
+            로그아웃
+          </button>
+          <button className="MypageBtn" onClick={handleMypage}>
+            마이페이지
+          </button>
+        </div>
+      ) : (
+        <button onClick={handleLogin} className="LoginBtn">
+          로그인
+        </button>
+      )}
     </div>
   );
 }

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
-// import { app } from "../../firebase/firebase";
 import "./header.css";
 import LoginBtn from "../buttons/loginBtn/loginBtn";
-import MypageBtn from "../buttons/mypageBtn/mypageBtn";
 
 function Header() {
   const navigate = useNavigate();
@@ -37,9 +34,6 @@ function Header() {
 
   const GoToLogin = () => {
     navigate("/login");
-  };
-  const GoToMypage = () => {
-    navigate("/mypage");
   };
 
   const GoToSearch = () => {
@@ -149,7 +143,6 @@ function Header() {
 
         <div className="HeaderBtn">
           <LoginBtn onClick={GoToLogin} />
-          {isLogin && <MypageBtn onClick={GoToMypage} />}
           <div className="ShoppingCart" onClick={GoToShopping}>
             <img src="/img/blackCartIcon.png" alt="ShoppingCart"></img>
           </div>

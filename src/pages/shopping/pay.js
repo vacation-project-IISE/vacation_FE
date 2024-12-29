@@ -38,9 +38,9 @@ function Pay() {
   useEffect(() => {
     // 총 결제금액 계산
     const calculateTotalPrice = () => {
-      const parsedTotalPrice = parseInt(totalPrice, 10); // totalPrice를 숫자로 변환
+      const parsedTotalPrice = Number(totalPrice.replace(/,/g, '')); // totalPrice를 숫자로 변환
       if (!isNaN(parsedTotalPrice)) {
-        const sum = parsedTotalPrice * 1000 + 3000; // 3000원 추가
+        const sum = parsedTotalPrice + 3000; // 3000원 추가
         setResult(sum); // 총 결제금액 설정
       } else {
         setResult(0); // totalPrice가 잘못된 경우 기본값 0
