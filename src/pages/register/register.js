@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import Header from "../../component/header/header.js";
 import "./register.css";
 import { useNavigate } from "react-router-dom";
-// import { signUp } from "../../firebase/auth.js";
-// import { db } from '../../firebase/auth.js';
-// import { setDoc, doc } from 'firebase/firestore';
 
 function Register() {
   const [formData, setFormData] = useState({
