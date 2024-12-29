@@ -8,7 +8,7 @@ function Mypage() {
   const [orderList, setOrderList] = useState([]);
   const [orderDetail, setOrderDetail] = useState(null);
 
-  const user_id = localStorage.getItem("username");
+  const user_id = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
   useEffect(() => {

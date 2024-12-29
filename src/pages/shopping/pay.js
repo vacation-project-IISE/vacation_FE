@@ -65,7 +65,7 @@ function Pay() {
   };
 
   // 백엔드로 데이터 전송하는 코드
-  const user_id = localStorage.getItem("username");
+  const user_id = localStorage.getItem("userId");
   const sendOrderData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -88,7 +88,7 @@ function Pay() {
       }
 
       const userData = await response.json();
-      const username = userData.username;
+      const user_id = userData.user_id;
 
        // 제품별 수량 포함하여 주문 데이터 생성
     const productArrayWithQuantities = selectedProducts.map(product => ({
@@ -98,7 +98,7 @@ function Pay() {
       
       // 주문 데이터 생성
       const orderData = {
-        user_id: username,
+        user_id: user_id,
         product_number:
           selectedProducts.length > 0 ? selectedProducts[0].idx : "",
         product_array:productArrayWithQuantities,

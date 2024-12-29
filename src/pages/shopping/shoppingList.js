@@ -21,7 +21,7 @@ function ShoppingList() {
       setError(null);
 
       const token = localStorage.getItem("token");
-      const user_id = localStorage.getItem("username");
+      const user_id = localStorage.getItem("userId");
 
       if (!token || !user_id) {
         setLoading(false);
@@ -148,7 +148,7 @@ function ShoppingList() {
   const DeleteChecked = async () => {
     try {
       const token = localStorage.getItem("token");
-      const user_id = localStorage.getItem("username");
+      const user_id = localStorage.getItem("userId");
 
       const selectedProductIds = cartItems
         .filter((product) => checkedProducts[product.idx])
