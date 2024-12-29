@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
-    username: "",
+    user_id: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -19,7 +19,7 @@ function Register() {
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.username) errors.username = "아이디를 입력해주세요";
+    if (!formData.user_id) errors.user_id = "아이디를 입력해주세요";
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email))
       errors.email = "올바른 이메일 주소를 입력해주세요";
     if (!formData.password || formData.password.length < 8)
@@ -87,17 +87,17 @@ function Register() {
         <label className="signup-id">아이디</label>
         <input
           type="text"
-          name="username"
+          name="user_id"
           placeholder="monami"
           className="sginput-id"
-          value={formData.username}
+          value={formData.user_id}
           onChange={handleInputChange}
         />
-        {errors.username && (
-          <p className="error-idmessage">{errors.username}</p>
+        {errors.user_id && (
+          <p className="error-idmessage">{errors.user_id}</p>
         )}
         <img
-          src={errors.username ? "/img/redline.png" : "/img/line.png"}
+          src={errors.user_id ? "/img/redline.png" : "/img/line.png"}
           alt="아이디 라인"
           className="line-id"
         />
