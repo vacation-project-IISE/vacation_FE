@@ -145,16 +145,49 @@ function ShoppingList() {
     setIsAllSelected(!isAllSelected);
   };
 
-  const DeleteChecked = () => {
-    setCartItems(prevCartItems => {
-      const remainingItems = prevCartItems.filter(
-        product => !checkedProducts[product.idx]
-      );
+  const DeleteChecked = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const user_id = localStorage.getItem("username");
 
+      const selectedProductIds = cartItems
+        .filter((product) => checkedProducts[product.idx])
+        .map((product) => product.product_name); // Firestore에서 고유 식별자 사용
+
+      if (selectedProductIds.length === 0) {
+        alert("선택된 항목이 없습니다.");
+        return;
+      }
+
+      const response = await fetch("http://localhost:4000/api/cart", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: 'Bearer ${token}',
+        },
+        body: JSON.stringify({
+          user_id,
+          product_name: selectedProductIds, // 삭제 요청에 필요한 데이터
+        }),
+      });
+
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || "삭제 요청에 실패했습니다.");
+      }
+
+      // 성공적으로 삭제된 경우 클라이언트 상태 업데이트
+      setCartItems((prevCartItems) =>
+        prevCartItems.filter((product) => !checkedProducts[product.idx])
+      );
       setCheckedProducts({});
-      return remainingItems;
-    });
+      alert("선택된 항목이 삭제되었습니다.");
+    } catch (error) {
+      console.error("삭제 오류:", error.message);
+      alert(error.message || "삭제 중 문제가 발생했습니다.");
+    }
   };
+
 
   const updateQuantity = (productIdx, change) => {
     setQuantities(prev => {

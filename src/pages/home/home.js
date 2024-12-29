@@ -7,6 +7,7 @@ import "./home.css";
 function Home() {
   // 상태 추가: 선택된 카테고리를 관리
   const [activeCategory, setActiveCategory] = useState("premium-pen");
+  const [isPopupVisible, setIsPopupVisible] = useState(true); // 팝업 표시 상태 관리
 
   // 카테고리 변경 함수
   const handleCategoryChange = category => {
@@ -20,6 +21,9 @@ function Home() {
   const handleImageClick = (index) => {
     const url = `/product/product_view/${index}`; 
     window.location.href = url; 
+  };
+  const handleClosePopup = () => {
+    setIsPopupVisible(false); // 팝업 숨기기
   };
   return (
     <div>
@@ -44,6 +48,7 @@ function Home() {
           </p>
         </div>
       </div>
+      {isPopupVisible && (
       <div className="l-popup__buttons">
         <span>
           <img src="img/l-popup_img_1.png" alt="모나미몰"></img>
@@ -66,12 +71,13 @@ function Home() {
           <span className="btn_inquiry">"대량 구매 문의"</span>
         </a>
         <a
-          className="l-popup__button--close"
-          onClick={e => e.preventDefault()}
-          href="#">
+            className="l-popup__button--close"
+            onClick={handleClosePopup}
+            href="#">
           예약하기 버튼 닫기
         </a>
       </div>
+      )}
 
       <div className="newarrival">
         <div className="newarrivalImgbox">
