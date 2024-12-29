@@ -115,7 +115,7 @@ function ProductDetail() {
 
   const addToWishlist = async () => {
     const token = localStorage.getItem("token");
-    const user_id = localStorage.getItem("username");
+    const user_id = localStorage.getItem("userId");
   
     console.log("로그인된 사용자 ID:", user_id); // 확인용
   
@@ -167,7 +167,7 @@ function ProductDetail() {
 
   const addToCart = async () => {
     const token = localStorage.getItem("token");
-    const user_id = localStorage.getItem("username");
+    const user_id = localStorage.getItem("userId");
   
     console.log("로그인된 사용자 ID:", user_id); // 확인용
   
@@ -225,7 +225,7 @@ function ProductDetail() {
   };
 
   const handleCartClick = () => {
-    const user_id = localStorage.getItem("username");
+    const user_id = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
     console.log("user_id:", user_id); // user_id 확인
     console.log("token:", token); // token 확인
