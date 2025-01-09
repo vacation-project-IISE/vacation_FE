@@ -5,6 +5,7 @@ import Home from "./pages/home/home.js";
 import Login from "./pages/login/login.js";
 import Search from "./pages/search/search.js";
 import Mypage from "./pages/mypage/mypage.js";
+import FindIdPw from "./pages/find/findIdPw.js";
 
 import Ceo from './pages/about/ceo.js';
 import Company from './pages/about/company.js';
@@ -44,7 +45,8 @@ function App() {
         <Route path='/shopping/cart' element={<ShoppingList/>}></Route>
         <Route path='/shopping/pay' element={<Pay/>}></Route>
         <Route path='/shopping/complete' element={<PayComplete/>}></Route>
-        <Route path="/Mypage" element={<Mypage/>}></Route>
+        <Route path="/Mypage" element={<Mypage />}></Route>
+        <Route path="/findIdPw" element={<FindIdPw/>}></Route>
       </Routes>
     </Router>
   );
