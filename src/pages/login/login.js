@@ -101,11 +101,8 @@ function Login() {
           <a href="/signup" className="link">
             회원가입
           </a>
-          <a href="/find-id" className="link">
-            아이디 찾기
-          </a>
-          <a href="/find-password" className="link">
-            비밀번호 찾기
+          <a href="/findIdPw" className="link">
+            아이디 / 비밀번호 찾기
           </a>
         </div>
         <label className="sns">SNS계정으로 로그인</label>

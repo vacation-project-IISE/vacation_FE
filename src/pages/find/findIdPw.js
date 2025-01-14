@@ -1,0 +1,210 @@
+import Header from "../../component/header/header.js";
+import "./findIdPw.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function FindIdPw() {
+  const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState("findId");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputId, setInputId] = useState("");
+  const [inputCode, setInputCode] = useState("");
+  const [inputPw, setInputPw] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [idErrorMessage, setIdErrorMessage] = useState("");
+  const [findingId, setFindingId] = useState(false);
+  const [findingPw, setFindingPw] = useState(false);
+
+  // 이메일 검증 함수
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // 인증번호 전송 버튼 클릭 핸들러
+  const HandleSendClick = () => {
+    if (selectedOption === "findId") {
+      // 아이디 찾기
+      if (!inputEmail || !validateEmail(inputEmail)) {
+        setErrorMessage("이메일을 올바르게 입력해주세요.");
+      } else {
+        alert("인증번호를 전송하였습니다!");
+        console.log(inputEmail);
+        setErrorMessage("");
+      }
+    } else if (selectedOption === "findPw") {
+      // 비밀번호 찾기
+      let hasError = false;
+      if (!inputId) {
+        setIdErrorMessage("아이디를 입력해주세요.");
+        hasError = true;
+      } else {
+        setIdErrorMessage("");
+      }
+      if (!inputEmail || !validateEmail(inputEmail)) {
+        setErrorMessage("이메일을 올바르게 입력해주세요.");
+        hasError = true;
+      } else {
+        setErrorMessage("");
+      }
+
+      if (!hasError) {
+        alert("인증번호를 전송하였습니다!");
+        console.log(inputId, inputEmail);
+      }
+    }
+  };
+
+  // 인증하기 버튼 클릭 핸들러
+  const HandleConfirmCode = () => {
+    if (selectedOption === "findId") {
+      alert("아이디 찾기 인증에 성공하였습니다!");
+      setFindingId(true);
+    } else if (selectedOption === "findPw") {
+      alert("비밀번호 찾기 인증에 성공하였습니다!");
+      setFindingPw(true);
+    }
+  };
+
+  // 로그인 화면으로 돌아가기
+  const HandleBackBtn = () => {
+    navigate("/login");
+  };
+
+  // 아이디 찾기 버튼 클릭 시 상태 초기화
+  const handleFindIdClick = () => {
+    setSelectedOption("findId");
+    setFindingId(false);
+    setFindingPw(false);
+    setErrorMessage("");
+    setIdErrorMessage("");
+  };
+
+  return (
+    <div>
+      <Header />
+      <img
+        src={`img/monami_background.png`}
+        alt="로그인 배경 이미지"
+        className="background"
+      />
+      <div className="FindContainer">
+        <div className="squareBox">
+          {/* 상단 버튼 */}
+          {!findingId && !findingPw && (
+            <div className="SelectIdPw">
+              <button
+                onClick={handleFindIdClick}
+                style={{
+                  color: selectedOption === "findId" ? "black" : "#c5c5c5",
+                }}
+              >
+                아이디 찾기
+              </button>
+              <button
+                onClick={() => setSelectedOption("findPw")}
+                style={{
+                  color: selectedOption === "findPw" ? "black" : "#c5c5c5",
+                }}
+              >
+                비밀번호 찾기
+              </button>
+            </div>
+          )}
+
+          {/* 아이디 찾기 입력 UI */}
+          {!findingId && selectedOption === "findId" && (
+            <div className="inputContainer">
+              <div className="FindText">이메일 주소 입력</div>
+              <input
+                type="text"
+                placeholder="example@ex.com"
+                onChange={(e) => setInputEmail(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              {errorMessage && (
+                <div className="errorMessage">{errorMessage}</div>
+              )}
+              <button className="SendCodeBtn" onClick={HandleSendClick}>
+                인증번호 전송
+              </button>
+              <div className="FindText">인증번호 입력</div>
+              <input
+                type="text"
+                placeholder="6자리 숫자를 입력해주세요"
+                onChange={(e) => setInputCode(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              <button className="SendCodeBtn" onClick={HandleConfirmCode}>
+                인증하기
+              </button>
+            </div>
+          )}
+
+          {/* 비밀번호 찾기 입력 UI */}
+          {!findingPw && selectedOption === "findPw" && (
+            <div className="inputContainer">
+              <div className="FindText">아이디 입력</div>
+              <input
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                onChange={(e) => setInputId(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              {idErrorMessage && (
+                <div className="errorMessage">{idErrorMessage}</div>
+              )}
+              <div className="FindText">이메일 주소 입력</div>
+              <input
+                type="text"
+                placeholder="example@ex.com"
+                onChange={(e) => setInputEmail(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              {errorMessage && (
+                <div className="errorMessage">{errorMessage}</div>
+              )}
+              <button className="SendCodeBtn" onClick={HandleSendClick}>
+                인증번호 전송
+              </button>
+              <div className="FindText">인증번호 입력</div>
+              <input
+                type="text"
+                placeholder="6자리 숫자를 입력해주세요"
+                onChange={(e) => setInputCode(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              <button className="SendCodeBtn" onClick={HandleConfirmCode}>
+                인증하기
+              </button>
+            </div>
+          )}
+
+          {/* 아이디 찾기 성공 */}
+          {findingId && (
+            <div className="ResultContainer">
+              <div className="ResultFindText">아이디는 아래와 같습니다!</div>
+              <div className="FoundEmail">{inputEmail}</div>
+              <button className="ToLoginBtn" onClick={HandleBackBtn}>
+                로그인하기
+              </button>
+            </div>
+          )}
+
+          {/* 비밀번호 찾기 성공 */}
+          {findingPw && (
+            <div className="ResultContainer">
+              <div className="ResultFindText">비밀번호는 아래와 같습니다!</div>
+              <div className="FoundEmail">********</div>
+              <button className="ToLoginBtn" onClick={HandleBackBtn}>
+                로그인하기
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default FindIdPw;
