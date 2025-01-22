@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function FindIdPw() {
   const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
   const [selectedOption, setSelectedOption] = useState("findId");
   const [inputEmail, setInputEmail] = useState("");
   const [inputId, setInputId] = useState("");
@@ -20,27 +21,56 @@ function FindIdPw() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+  var generateRandomNumber = function(min, max) {
+    var ranNum = Math.floor(Math.random()*(max-min+1)) + min;
+    return ranNum;
+  };
+  const authNumber = generateRandomNumber(111111, 999999);
+  // const randomNumber= generateRandomNumber(111111,999999);
 
-  // 인증번호 전송 버튼 클릭 핸들러
-  const HandleSendClick = () => {
+// 인증번호 전송 버튼 클릭 핸들러
+const HandleSendClick = async () => {
+  try {
     if (selectedOption === "findId") {
       // 아이디 찾기
       if (!inputEmail || !validateEmail(inputEmail)) {
         setErrorMessage("이메일을 올바르게 입력해주세요.");
-      } else {
-        alert("인증번호를 전송하였습니다!");
-        console.log(inputEmail);
-        setErrorMessage("");
+        return;
       }
+
+
+      const response = await fetch("http://localhost:4000/api/email/findId", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: inputEmail, authNumber }),
+
+      });
+
+      if (response.ok) {
+        console.log(response.ok);
+        console.log(response.message);
+        alert("인증번호를 전송하였습니다!");
+        setErrorMessage("");
+      } else {
+        console.log(response.ok);
+        console.log(response.message);
+        setErrorMessage("서버 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+
+      console.log("서버 응답 코드:", response.status);
     } else if (selectedOption === "findPw") {
       // 비밀번호 찾기
       let hasError = false;
+
       if (!inputId) {
         setIdErrorMessage("아이디를 입력해주세요.");
         hasError = true;
       } else {
         setIdErrorMessage("");
       }
+
       if (!inputEmail || !validateEmail(inputEmail)) {
         setErrorMessage("이메일을 올바르게 입력해주세요.");
         hasError = true;
@@ -48,21 +78,55 @@ function FindIdPw() {
         setErrorMessage("");
       }
 
+
       if (!hasError) {
         alert("인증번호를 전송하였습니다!");
-        console.log(inputId, inputEmail);
+        console.log("11111111111111111111111");
+        console.log("아이디:", inputId, "이메일:", inputEmail);
+
+        const response = await fetch("http://localhost:4000/api/email/findPw", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: inputEmail, user_id:inputId, authNumber }),
+        });
+  
+        if (response.ok) {
+          alert("인증번호를 전송하였습니다!");
+          console.log("222222222222222222222222222222222222222222222222");
+          setErrorMessage("");
+        } else {
+          setErrorMessage("서버 오류가 발생했습니다. 다시 시도해주세요.");
+          console.log("3333333333333333333333333333333333");
+        }
+  
+        console.log("서버 응답 코드:", response.status);
       }
     }
-  };
+  } catch (error) {
+    setErrorMessage("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+    console.error("Error:", error);
+  }
+};
 
+  
+  // 인증하기 버튼 클릭 핸들러
   // 인증하기 버튼 클릭 핸들러
   const HandleConfirmCode = () => {
-    if (selectedOption === "findId") {
-      alert("아이디 찾기 인증에 성공하였습니다!");
-      setFindingId(true);
-    } else if (selectedOption === "findPw") {
-      alert("비밀번호 찾기 인증에 성공하였습니다!");
-      setFindingPw(true);
+    if (parseInt(inputCode, 10) === authNumber) {
+      if (selectedOption === "findId") {
+        alert("아이디 찾기 인증에 성공하였습니다!");
+        setFindingId(true);
+        
+      } else if (selectedOption === "findPw") {
+        alert("비밀번호 찾기 인증에 성공하였습니다!");
+        setFindingPw(true);
+        navigate("/resetPw");
+      }
+      setErrorMessage(""); // 인증번호 에러 메시지 초기화
+    } else {
+      alert("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
     }
   };
 
@@ -80,6 +144,7 @@ function FindIdPw() {
     setIdErrorMessage("");
   };
 
+  
   return (
     <div>
       <Header />

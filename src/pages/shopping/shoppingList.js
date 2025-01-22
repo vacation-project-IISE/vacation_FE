@@ -218,9 +218,17 @@ function ShoppingList() {
 const resultPrice = (Number(checkedTotalPrice.replace(/,/g, '')) + 3000).toLocaleString();
   
   const handleCheckout = () => {
+    if(cartItems.length ===0){
+      alert("장바구니가 비어있습니다, 상품을 추가해주세요.");
+      return;
+    }
     const selectedProducts = cartItems.filter(
       product => checkedProducts[product.idx]
     );
+    if (selectedProducts.length === 0) {
+      alert("선택된 상품이 없습니다. 구매할 상품을 선택해 주세요.");
+      return;
+    }
 
     const totalQuantity = selectedProducts.reduce(
       (total, product) => total + (quantities[product.idx] || 1),
