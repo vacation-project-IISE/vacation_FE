@@ -6,6 +6,7 @@ import Login from "./pages/login/login.js";
 import Search from "./pages/search/search.js";
 import Mypage from "./pages/mypage/mypage.js";
 import FindIdPw from "./pages/find/findIdPw.js";
+import ResetPw from "./pages/find/resetPw.js";
 
 import Ceo from './pages/about/ceo.js';
 import Company from './pages/about/company.js';
@@ -47,9 +48,11 @@ function App() {
         <Route path='/shopping/complete' element={<PayComplete/>}></Route>
         <Route path="/Mypage" element={<Mypage />}></Route>
         <Route path="/findIdPw" element={<FindIdPw/>}></Route>
+        <Route path="/resetPw" element={<ResetPw/>}></Route>
       </Routes>
     </Router>
   );
 }
 
 export default App;
+

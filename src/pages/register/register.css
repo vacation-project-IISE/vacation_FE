@@ -25,6 +25,17 @@
     width: 200px;
     border-style: hidden;
     font-size: 10px;
+}
+.signup-idconfirm{
+  width:60px;
+  position: absolute;
+  left: 230px;
+  bottom: 270px;
+  z-index: 5400;
+  background-color: black;
+  color: aliceblue;
+  font-size:8px;
+  cursor: pointer;
 } 
 .line-id{
     width:220px;
