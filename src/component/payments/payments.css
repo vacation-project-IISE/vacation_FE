@@ -1,0 +1,19 @@
+.KakaopayBtn {
+    display: flex;
+    align-items: center;
+    width: 270px;
+    height: 60px;
+    justify-content: center;
+    background-color: #ffeb00;
+    border: none;
+    border-radius: 10px;
+    color: #020202;
+    font-size: 26px;
+    font-family: "Pretendard-Light";
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.KakaopayBtn img {
+    width: 120px;
+}

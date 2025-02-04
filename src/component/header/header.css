@@ -1,0 +1,291 @@
+@font-face {
+  font-family: "Pretendard-ExtraLight";
+  src: url("../../fonts/Pretendard-ExtraLight.otf") format("woff");
+}
+@font-face {
+  font-family: "Pretendard-Light";
+  src: url("../../fonts/Pretendard-Light.otf") format("woff");
+}
+html {
+  width: 100%;
+  height: 100%;
+}
+
+/* 헤더 전체 */
+header {
+  position: fixed;
+  top: 0;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  font-family: "Pretendard-ExtraLight";
+  justify-content: center;
+  z-index: 100;
+  padding: 0 50px;
+  gap: 600px;
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo img {
+  width: 160px;
+  margin: auto;
+  cursor: pointer;
+}
+/* 왼쪽 네비게이션 */
+.NavWrap {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+/* 모나미소개, 모나미제품 */
+.nav {
+  display: flex;
+  gap: 50px;
+  width: 350px;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  cursor: pointer;
+}
+
+.nav p {
+  line-height: 70px;
+}
+
+p > span {
+  position: relative;
+  
+}
+
+/* 호버 시 밑줄 */
+p > span::after {
+  content: "";
+  position: absolute;
+  left: -30px;
+  top: 100%;
+  width: 140px;
+  height: 2px;
+  margin-top: 36px;
+  background-color: rgb(213, 0, 0);
+  transform: scale(0);
+}
+
+p:hover > span:after,
+.NavSection.hover p > span:after {
+  transform: scale(1);
+}
+
+.NavSection {
+  position: relative;
+  height: 100px;
+}
+
+.NavSection p span {
+  transition: color 0.2s ease-in-out;
+}
+
+/* 호버 시 글씨 색상 변화 */
+.nav span:hover,
+.NavSection.hover span {
+  color: rgb(213, 0, 0);
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+/* 네비게이션 드롭다운 메뉴 */
+.Dropdown {
+  display: none;
+  position: absolute;
+  top: 102px;
+  list-style: none;
+  left:-34%;
+  padding: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.Dropdown li {
+  display: block;
+  width: 136px;
+  color: rgb(104, 104, 104);
+  padding: 20px 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.Dropdown li:last-child {
+  border-bottom: none;
+}
+
+.Dropdown li:hover {
+  color: rgb(213, 0, 0);
+}
+
+/* 네비게이션 호버 시 드롭다운 메뉴 출력 */
+.NavSection:hover .Dropdown,
+.NavSection.hover .Dropdown {
+  display: block;
+}
+
+
+/* 로그인 버튼, 검색버튼, 전체 메뉴 버튼 */
+.HeaderBtn {
+  display: flex;
+  gap: 20px;
+  padding-right: 50px;
+}
+
+.LoginBtn {
+  font-family: "Pretendard-ExtraLight";
+  font-size: 16px;
+  width: 80px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.MypageBtn{
+  font-family: "Pretendard-ExtraLight";
+  font-size: 16px;
+  width: 90px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ShoppingCart {
+  margin: auto;
+  cursor: pointer;
+}
+
+.ShoppingCart img{
+  width: 25px;
+}
+.Search {
+  margin: auto;
+  cursor: pointer;
+}
+.Search img {
+  width: 25px;
+}
+/* 전체 메뉴 버튼 */
+.AllMenuBtn {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  display: flex;
+  padding-top: 10px;
+}
+/* 전체 메뉴 */
+.AllMenu {
+  z-index: 200;
+  position: absolute;
+  /* 전체메뉴 드롭다운 메인 페이지에서 보이도록 수정하기 */
+  top: 100px;
+  display: flex;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1), 0 1px 0 #ddd inset;
+  width: 100%;
+  justify-content: center;
+  overflow: hidden; /* 자식 요소가 부모의 영역을 넘어가지 않도록 설정 */
+  height: 0; /* 초기 높이를 0으로 설정 */
+  transition: height 0.5s ease-in-out; /* 높이 변경 시 애니메이션 적용 */
+
+}
+.AllMenu.active {
+  height: 420px; /* 활성화되었을 때의 높이 설정 (적절히 조정) */
+}
+
+/* 햄버거 메뉴 애니메이션 */
+.menuTrigger,
+.menuTrigger span {
+  display: inline-block;
+  transition: all 0.4s;
+  box-sizing: border-box;
+}
+
+.menuTrigger {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  padding-top: 5px;
+}
+
+.menuTrigger span {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: rgb(37, 37, 37);
+  border-radius: 4px;
+  width: 25px;
+}
+
+.menuTrigger span:nth-of-type(1) {
+  top: 0;
+}
+
+.menuTrigger span:nth-of-type(2) {
+  top: 7px;
+}
+
+.menuTrigger span:nth-of-type(3) {
+  top: 14px;
+}
+
+/* 2th bar 사라지고,  1st 3rd bar 회전하며 X  */
+
+.menuTrigger.active-1 span:nth-of-type(1) {
+  transform: translateY(9px) rotate(-45deg);
+}
+
+.menuTrigger.active-1 span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.menuTrigger.active-1 span:nth-of-type(3) {
+  transform: translateY(-5px) translateX(1px) rotate(45deg);
+}
+
+/* 전체 메뉴의 각 카테고리별 메뉴 */
+.MenuBox {
+  padding: 50px;
+}
+
+.MenuBox h2 {
+  height: 50px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #303030;
+  font-family: "Pretendard-Light";
+}
+.MenuBox h2::after {
+  display: block;
+  content: "";
+  width: 19px;
+  height: 2px;
+  margin: 20px 0;
+  background: #cd0600;
+}
+.MenuBox ul {
+  padding: 0%;
+}
+.MenuBox ul li {
+  margin-bottom: 15px;
+}
+
+.MenuBox ul li a {
+  display: block;
+  font-size: 16px;
+  color: #6e6e6e;
+}
+

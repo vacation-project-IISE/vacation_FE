@@ -1,0 +1,49 @@
+.signup{
+font-size: 24px;
+font-weight: 700;
+margin-top: 20px;
+}
+
+.SignupInputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+}
+.signupTitle{
+   font-size: 14px;
+   float: left;
+   font-weight: 600;
+   width: 80%;
+}
+.signUpInput {
+  width: 80%;
+  margin-top: 8px;
+  border: none;
+  border-bottom: 1px solid rgb(207, 207, 207); 
+  outline: none; 
+}
+
+.errorMessage {
+  color: red; /* 오류 메시지를 빨간색으로 표시 */
+  font-size: 12px;
+  margin: 4px 0 0; /* 위쪽 여백 최소화 */
+  width: 80%;
+  position: absolute;
+  bottom: -16px; /* 입력 필드 바로 아래에 고정 */
+}
+.signupButton {
+  width:80px;
+  height:30px;
+  font-size: 10px;
+  background-color: black;
+  color: white;
+  z-index: 1400;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px;
+}

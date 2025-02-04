@@ -1,0 +1,663 @@
+@font-face {
+  font-family: "Pretendard-ExtraLight";
+  src: url("../../fonts/Pretendard-ExtraLight.otf") format("woff");
+}
+@font-face {
+  font-family: "Pretendard-Light";
+  src: url("../../fonts/Pretendard-Light.otf") format("woff");
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("../../fonts/Pretendard-Regular.otf") format("woff");
+}
+
+.AboutPage {
+  position: relative;
+  width: 100%;
+}
+.AboutTop {
+  display: flex;
+  width: 100%;
+  height: 342px;
+  text-align: center;
+  background-image: url("/public/img/aboutImg.jpg");
+  background-repeat: no-repeat;
+  background-position: 50%;
+  flex-direction: column;
+  padding-top: 100px;
+}
+
+.AboutTop h2 {
+  color: white;
+  font-family: "Pretendard-Light";
+  font-size: 34px;
+  padding-top: 120px;
+  margin: 0px;
+}
+
+.AboutTop h2::after {
+  display: block;
+  content: "";
+  width: 30px;
+  height: 4px;
+  margin: 5px auto 10px;
+  background: #c40f39;
+}
+
+.AboutTop p {
+  color: white;
+  font-family: "Pretendard-ExtraLight";
+  margin: 0px;
+}
+.BtnBox {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 400px;
+}
+
+.Title1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 38px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-top: 100px;
+}
+
+.Title1::after {
+  display: block;
+
+  content: "";
+  width: 30px;
+  height: 4px;
+  margin: 5px auto 95px;
+  background: #c40f39;
+}
+.Title1 span {
+  color: #c40f39;
+}
+
+.ConWrap {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.CeoImg img {
+  position: relative;
+  z-index: 5;
+}
+.RedBorder {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  background: #c40f39;
+}
+
+.Slg {
+  position: absolute;
+  right: 0;
+  top: 58px;
+  z-index: 10;
+  width: 662px;
+  height: 293px;
+  background: rgba(227, 227, 227, 1) url("/public/img/Slg.png") no-repeat;
+}
+
+.TextArea {
+  padding: 90px 0 0 162px;
+  font-size: 36px;
+  font-family: "Pretendard-ExtraLight";
+  line-height: 140%;
+}
+.TextArea span {
+  color: #c40f39;
+  font-weight: 600;
+}
+
+.CeoMessage {
+  overflow: hidden;
+}
+.MessageLeft {
+  float: left;
+  width: 50%;
+}
+.MessageRight {
+  float: left;
+  width: 50%;
+}
+.CeoMessage {
+  padding-bottom: 150px;
+}
+.CeoMessage p {
+  font-family: "Pretendard-ExtraLight";
+  font-size: 15px;
+  line-height: 180%;
+  color: #777;
+  margin-bottom: 15px;
+}
+.CeoMessage p span {
+  color: #333;
+}
+.CeoMessage p.Sign {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+  color: #333;
+  font-size: 16px;
+}
+
+.Sign img {
+  vertical-align: bottom;
+  margin-left: 20px;
+}
+
+.BtnTop {
+  width: 46px;
+  height: 46px;
+  position: fixed;
+  right: 3%;
+  bottom: 30%;
+  z-index: 10;
+  border: 2px solid #c40f39;
+  cursor: pointer;
+}
+
+/*  */
+/*  */
+/* 회사정보 */
+.InfoWrap1 {
+  width: 1398px;
+  margin: auto;
+}
+
+.NumTitle {
+  font-family: "Pretendard-ExtraLight";
+  font-weight: 300;
+  font-size: 23px;
+  color: #000;
+  margin: 0 0 30px 0;
+  line-height: 35px;
+}
+
+.NumTitle span.Num {
+  display: inline-block;
+  vertical-align: top;
+  width: 29px;
+  height: 29px;
+  margin: 5px 5px 0 0;
+  text-align: center;
+  line-height: 29px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 17px;
+  color: #fff;
+  background: #c40f39;
+}
+
+.Subslidiary {
+  display: flex;
+  gap: 21px;
+  justify-content: space-between;
+}
+.CompanyBox {
+  width: 330px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.CompanyLogo {
+  width: 100%;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CompanyLogo img {
+  display: inline-block;
+  width: 110px;
+  object-fit: contain;
+}
+
+.CompanyImg {
+  width: 100%;
+  height: 330px;
+}
+
+.CompanyImg img {
+  width: 100%;
+}
+
+.CompanyTxt {
+  padding: 35px;
+}
+.CompanyTxt p {
+  font-family: "Pretendard-ExtraLight";
+  font-size: 22px;
+  color: #111;
+  line-height: 1.5;
+  height: 60px;
+  letter-spacing: -0.015em;
+}
+
+.MoveBtn {
+  margin-top: 25px;
+  height: 55px;
+}
+
+.MoveBtn a {
+  font-family: "Pretendard-ExtraLight";
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 18px 18px 18px 69px;
+  box-sizing: border-box;
+  font-size: 15px;
+  color: #767676;
+  border: 1px solid #ddd;
+  background: #fff;
+  transition: all ease-in-out 0.1s;
+  position: relative;
+  line-height: 1;
+  text-decoration: none;
+}
+.MoveBtn a:hover {
+  color: #fff;
+  border: 1px solid #c40f39;
+  background: #c40f39;
+}
+.MoveBtn a::after {
+  content: "";
+  display: block;
+  width: 18px;
+  height: 18px;
+  background: url(/public/img/MoveBtnArrow.png) no-repeat 0 0;
+  background-size: contain;
+  position: absolute;
+  right: 68px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.MoveBtn a:hover::after {
+  background: url(/public/img/MoveBtnArrowWhite.png) no-repeat 0 0;
+  background-size: contain;
+}
+.InfoWrap2 {
+  width: 1400px;
+  margin: 130px auto;
+  padding-bottom: 150px;
+}
+
+.InfoBox {
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.OverSea01 {
+  width: 100%;
+  box-shadow: 0px -1px 0 #ddd inset;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 40px 4%;
+}
+
+.TitArea {
+  font-family: "Montserrat", sans-serif;
+  font-size: 17px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.InfoBox > div .TitArea span {
+  display: inline-block;
+  color: #c40f39;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.InfoBox > div dl {
+  overflow: hidden;
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+.InfoBox > div dl dt {
+  font-family: "Pretendard-ExtraLight";
+  float: left;
+  width: 90px;
+  font-size: 14px;
+  color: #666;
+}
+
+.InfoBox > div dl dd {
+  float: left;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #999;
+  line-height: 180%;
+  margin-left: 0px;
+}
+
+.InfoBox > div dl dd a {
+  color: #7d7d7d;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.OverSea02 {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 40px 4%;
+}
+
+.OverSea03 {
+  border-top: 1px solid #ddd;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 40px 4%;
+}
+.OverSea04 {
+  border-top: 1px solid #ddd;
+  padding: 40px 4%;
+}
+
+/* 회사연혁 */
+
+.History {
+  height: 3800px;
+  padding-bottom: 150px;
+}
+
+.History .CenterLine {
+  position: absolute;
+  left: 50%;
+  top: 590px;
+  z-index: 2;
+  width: 1px;
+  height: 78%;
+  background: #ddd;
+}
+
+.History .HistoryBox:nth-child(2n + 1) .HistoryContent {
+  width: 50%;
+  float: left;
+}
+/* 짝수번째 박스 오른쪽으로 */
+.History .HistoryBox:nth-child(2n) .HistoryContent {
+  width: 50%;
+  float: right;
+  position: relative;
+}
+/* 홀수번째 텍스트 오른쪽정렬*/
+.History .HistoryBox:nth-child(2n + 1) {
+  width: 100%;
+  text-align: right;
+  position: relative;
+}
+/* 짝수번째 텍스트 왼쪽정렬*/
+.History .HistoryBox:nth-child(2n) {
+  width: 100%;
+  text-align: left;
+  float: right;
+  margin-top: 30px;
+  padding-top: 60px;
+  background: #f8f8f8;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+}
+
+.History .HistoryContent .TitleArea {
+  position: relative;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ddd;
+  padding-right: 60px;
+}
+
+.History .HistoryBox:nth-child(2n) .HistoryContent .TitleArea {
+  position: relative;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #ddd;
+  padding-left: 60px;
+}
+
+.History .HistoryContent .TitleArea .Tit {
+  font-family: "Pretendard-ExtraLight";
+  font-size: 33px;
+  color: #333;
+  line-height: 130%;
+  font-weight: 300;
+}
+.History .HistoryContent .TitleArea .Tit span {
+  color: #c40f39;
+}
+
+.History .HistoryBox .TitleArea .Year {
+  position: absolute;
+  top: 62px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  right: 300px;
+  /* width: 100px; */
+}
+.History .HistoryBox .TitleArea .Year:nth-child(2) {
+  left: 240px;
+}
+.History .HistoryBox .TitleArea .Year:nth-child(3) {
+  right: 300px;
+}
+
+/* 홀수번째 점 */
+.History .HistoryBox:nth-child(2n + 1) .HistoryContent .TitleArea .Red {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  background: #c40f39;
+  z-index: 3;
+}
+/* 짝수번째 점 */
+.History .HistoryBox:nth-child(2n) .HistoryContent .TitleArea .Red {
+  position: absolute;
+  left: -1px;
+  bottom: -1px;
+  width: 5px;
+  height: 5px;
+  background: #c40f39;
+  z-index: 3;
+}
+
+/* 홀수번째 설명 */
+.History .HistoryBox:nth-child(2n + 1) .HistoryContent .TextArea {
+  font-size: 15px;
+  padding: 0px 60px 0 0;
+  margin-bottom: 10px;
+}
+
+/* 홀수번째 설명 연도 */
+.History .HistoryBox:nth-child(2n + 1) .HistoryContent .TextArea span {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  color: #c40f39;
+  font-weight: 500;
+  line-height: 130%;
+  margin-left: 15px;
+}
+/* 짝수번째 설명 */
+.History .HistoryBox:nth-child(2n) .HistoryContent .TextArea {
+  font-size: 15px;
+  padding: 0 0 0 60px;
+  margin-bottom: 10px;
+}
+
+/* 짝수번째 설명 연도*/
+.History .HistoryBox:nth-child(2n) .HistoryContent .TextArea span {
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  color: #c40f39;
+  font-weight: 500;
+  line-height: 130%;
+  margin-right: 15px;
+}
+
+.History .HistoryBox:nth-child(2n) .HistoryImg {
+  width: 46%;
+  margin-top: 110px;
+  float: left;
+}
+.History .HistoryBox:nth-child(2n) .HistoryImg img {
+  min-width: 600px;
+  margin-left: auto;
+}
+
+.History .HistoryBox:nth-child(2n + 1) .HistoryImg {
+  width: 46%;
+  margin-top: 110px;
+  float: right;
+}
+.History .HistoryBox:nth-child(2n + 1) .HistoryImg img {
+  min-width: 600px;
+}
+
+/* 윤리강령 */
+/*  */
+/*  */
+
+.ConDiscript {
+  font-family: "Pretendard-ExtraLight";
+  word-break: keep-all;
+  margin-bottom: 25px;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: justify;
+}
+.ConductBox {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 찾아오시는 길 */
+/*  */
+/*  */
+
+.Location {
+  overflow: hidden;
+    width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 150px;
+}
+
+.Location .MapInfo {
+  overflow: hidden;
+  display: flex;
+}
+
+.Location .MapInfo .TxtArea {
+  background: #363636;
+  width: 34.9%;
+  height: 600px;
+  padding-left: 5%;
+}
+.LocationTit {
+  margin: 70px 0 0;
+}
+.LocationTit h4{
+  font-family: "Pretendard-ExtraLight";
+  font-size: 23px;
+  color: #fff;
+  font-weight: 300;
+  margin-top: 5px;
+}
+
+.LocationTit h4::after {
+  display: block;
+    content: "";
+    width: 25px;
+    height: 3px;
+    margin: 10px 0 35px;
+    background: #fff;
+}
+
+.Locationtxt {
+  display: flex;
+  color: #fff;
+  font-family: "Pretendard-ExtraLight";
+  gap: 20px;
+  height: 70px;
+}
+
+.Locationtxt .TxtTitle{
+  font-family: "Pretendard-Light";
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.Locationtxt .TxtContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.LocationImg{
+  width: 540px;
+  margin-top: 46px;
+}
+
+.Location .Traffic {
+  overflow: hidden;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.Location .Traffic .Tit {
+  padding-top: 60px;
+    width: 200px;
+    text-align: center;
+    font-size: 15px;
+    color: #c40f39;
+    font-weight: 500;
+    font-family: "Pretendard-Light";
+}
+.Location .Traffic >div {
+  overflow: hidden;
+    float: left;
+    width: 50%;
+    display: flex;
+    padding: 30px 0%;
+}
+.Location .Traffic .Car {
+  border-right:  1px solid #ddd;
+}
+.Location .Traffic .Car .Tit {
+background: url(/public/img/LocationCar.gif) no-repeat center top;;
+}
+.Location .Traffic .Public .Tit {
+  background: url(/public/img/LocationPublic.gif) no-repeat center top;;
+  }
+
+.Location .Traffic .Info {
+  width: 80%;
+  height: 82px;
+    display: table;
+    line-height: 180%;
+    font-size: 14px;
+}
+
+.Location .Traffic .Info ul li {
+  padding-left: 10px;
+  background: url(/public/img/ListDot.gif) no-repeat left 11px;
+  line-height: 180%;
+    font-size: 14px;
+    color: #777;
+}
+/*  */

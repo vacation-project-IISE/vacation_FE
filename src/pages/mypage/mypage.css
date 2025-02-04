@@ -1,0 +1,165 @@
+.MyPageWrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+}
+
+.left-box {
+  background-color: black;
+  width: 380px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.mypageicon {
+  width: 150px;
+  margin-top: 200px;
+}
+.left-box .myname p {
+  color: aliceblue;
+  font-size: 20px;
+}
+.left-box .my-email p {
+  color: white;
+  font-size: 28px;
+}
+.MyPageContent {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  padding-top: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.MyPageContent h1 {
+  font-family: "Pretendard-Light";
+  font-size: 30px;
+  font-weight: 600;
+}
+.wishlist {
+  margin-top: 20px;
+}
+
+.wishlist-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0;
+  list-style-type: none;
+  scrollbar-width: thin;
+}
+
+.wishlist-row li {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd; /* 칸 테두리 */
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  background-color: #fff; /* 배경 색상 */
+  padding: 10px;
+}
+
+.wishlist-row img {
+  width: 200px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+
+.wishlist-row p {
+  text-align: center;
+
+
+}
+.wishItem-cate {
+  font-size: 14px;
+  font-family: "Pretendard-ExtraLight";
+  color: #8f8f8f;
+  margin: 0px;
+}
+.wishItem-name {
+  font-size: 24px;
+  font-family: "Pretendard-Regular";
+  margin: 10px 0;
+color: black;
+}
+.wishItem-price {
+  font-size: 14px;
+  font-family: "Pretendard-ExtraLight";
+  margin: 0px;
+}
+/* 결제 내역 스타일 */
+.paylist {
+  margin-top: 40px;
+  font-family: "Pretendard-Light";
+}
+
+.paylist-table {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+  width: 100%; 
+}
+
+.paylist-header {
+  font-weight: bold;
+  background-color: #f0f0f0;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr 1fr; /* 열 비율 조정 */
+  padding: 10px;
+  align-items: center; 
+  text-align: center;
+}
+
+.paylist-header span {
+  text-align: center;
+}
+
+.paylist-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 2fr 1fr; /* 열 비율 조정 */
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  align-items: center; 
+  cursor: pointer;
+}
+
+.paylist-info {
+  display: contents; 
+}
+
+.paylist-item span {
+  text-align: center;
+}
+
+.paylist-name {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.product-array {
+  display: flex;
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: thin;
+}
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  margin: 5px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.product-item  .product-image {
+  width: 200px;
+}

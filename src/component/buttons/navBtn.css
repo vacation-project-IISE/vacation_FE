@@ -1,0 +1,31 @@
+@font-face {
+    font-family: "Pretendard-ExtraLight";
+    src: url("../../fonts/Pretendard-ExtraLight.otf") format("woff");
+  }
+
+.NavBtnWrap {
+  display: flex;
+  flex-wrap: nowrap;
+  max-width: 1400px;
+  height: 58px;
+}
+
+.NavBtnWrap button {
+    font-family: "Pretendard-ExtraLight";
+  width: 175px;
+  height: 58px;
+  font-size: 15px;
+  border: none;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+.SelectedBtn {
+    background-color: #c40f39;
+    color: white;
+  }
+  .OtherBtn {
+    background-color: #fff;
+    color: #666;
+
+  }

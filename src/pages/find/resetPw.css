@@ -1,0 +1,46 @@
+.resetPwTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 30px 0;
+}
+
+.resetContainer {
+    display: flex;
+    flex-direction: column;
+width: 80%;
+margin-top: 20px;
+}
+
+.resetContainer input {
+    border: none;
+    padding-bottom: 5px;
+    outline: none;
+}
+
+.resetPwbtn {
+    background-color: black;
+    color: #fff;
+    font-family:"Pretendard-Light" ;
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.resetConfirmText {
+    font-family:"Pretendard-Regular" ;
+    font-size: 15px;
+    margin-bottom: 8px;
+    margin-top: 30px;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 12px;
+    margin: 4px 0 0;
+    width: 80%;
+    position: absolute;
+    bottom: -16px;
+}
