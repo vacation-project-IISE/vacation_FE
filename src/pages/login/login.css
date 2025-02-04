@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .responsive-image {
     width: 100%; /* 페이지 너비에 맞게 이미지 크기 조정 */
     height: auto; /* 비율을 유지하면서 높이 자동 조정 */
@@ -163,3 +164,172 @@
     z-index: 1400;
     cursor: pointer;
   }
+=======
+/* login.css */
+
+.responsive-image {
+  width: 100%; /* 페이지 너비에 맞게 이미지 크기 조정 */
+  height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.background {
+  position: fixed; /* 고정 위치 */
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+}
+.square-box {
+  width: 350px;
+  height: 400px;
+  background-color: white;
+  color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+
+}
+.monamiLogo{
+  width: 200px; 
+  height: 50px;
+
+}
+.img-password{
+  width: 25px;
+  height:25px;
+  z-index: 1500;
+
+
+}
+.img-id{
+  width: 30px;
+  height:30px;
+  z-index: 1500;
+  background-color: white;
+
+
+}
+.line1{
+  width:260px;
+
+  z-index:1501;
+}
+.line2{
+ 
+
+  width:260px;
+ 
+  z-index:1501;
+}
+.line3{
+  width: 280px;
+  height: 1px;
+
+}
+.welcome{
+  width: 180px;
+  height: 13px;
+  bottom:430px;
+  z-index: 1600;
+  position: absolute;
+
+}
+.text-options {
+  display: flex;
+  justify-content: space-between;
+gap: 20px;
+  margin-left:4px;
+
+
+}
+
+.text-options a {
+  font-size: 10px;
+}
+.link {
+  color: black; 
+  text-decoration: none;
+  font-size: 8px; 
+}
+
+.link:hover {
+  text-decoration: underline; 
+}
+.line4{
+
+  z-index: 1500;
+  width:170px;
+}
+.input-container {
+ width: 70%;
+  margin: 30px 0 20px 0 ;
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+}
+
+.login-id {
+  width: 220px;
+  font-size: 14px;
+  border-style: hidden;
+  outline: none;
+  font-size: 12px;
+}
+.login-pw {
+  width: 220px;
+
+  border-style: hidden;
+  outline: none;
+  font-size: 12px;
+}
+
+.login-button{
+  width:80px;
+  height:30px;
+  font-size: 10px;
+  background-color: black;
+  color: white;
+  z-index: 1400;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.IdContainer {
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.PwContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Inputcontainer {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0 ;
+  gap: 5px;
+}
+>>>>>>> sieun

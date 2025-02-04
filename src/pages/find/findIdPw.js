@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 function FindIdPw() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
   const [selectedOption, setSelectedOption] = useState("findId");
   const [inputEmail, setInputEmail] = useState("");
   const [inputId, setInputId] = useState("");
@@ -15,24 +14,25 @@ function FindIdPw() {
   const [idErrorMessage, setIdErrorMessage] = useState("");
   const [findingId, setFindingId] = useState(false);
   const [findingPw, setFindingPw] = useState(false);
+  const [authNumber, setAuthNumber] = useState(null); // 인증번호 상태
 
   // ✅ 인증번호 입력 시 오류 메시지 초기화
-    useEffect(() => {
-      setErrorMessage("");
+  useEffect(() => {
+    setErrorMessage("");
   }, [inputCode]);
-  
+
   // 이메일 검증 함수
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  var generateRandomNumber = function (min, max) {
-    var ranNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    return ranNum;
+
+  // 난수 생성 함수
+  const generateRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  const [authNumber, setAuthNumber] = useState(null);
-
+  // 인증번호 전송 함수
   const HandleSendClick = async () => {
     try {
       if (
@@ -63,24 +63,25 @@ function FindIdPw() {
         if (hasError) return;
       }
 
-      // 새로운 인증번호 생성 후 상태 업데이트
+      // ✅ 인증번호 초기화 후 생성
+      setAuthNumber(null);
       const newAuthNumber = generateRandomNumber(111111, 999999);
       setAuthNumber(newAuthNumber);
 
-      const response = await fetch(
+      const endpoint =
         selectedOption === "findId"
           ? "http://localhost:4000/api/email/findId"
-          : "http://localhost:4000/api/email/findPw",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: inputEmail,
-            user_id: selectedOption === "findPw" ? inputId : undefined,
-            authNumber: newAuthNumber,
-          }),
-        }
-      );
+          : "http://localhost:4000/api/email/findPw";
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: inputEmail,
+          user_id: selectedOption === "findPw" ? inputId : undefined,
+          authNumber: newAuthNumber,
+        }),
+      });
 
       if (response.ok) {
         alert("인증번호를 전송하였습니다!");
@@ -96,8 +97,9 @@ function FindIdPw() {
     }
   };
 
+  // 인증하기 버튼 클릭 핸들러
   const HandleConfirmCode = () => {
-    if (parseInt(inputCode, 10) === authNumber) { // authNumber를 상태에서 가져옴
+    if (parseInt(inputCode, 10) === authNumber) {
       if (selectedOption === "findId") {
         alert("아이디 찾기 인증에 성공하였습니다!");
         setFindingId(true);
@@ -111,6 +113,7 @@ function FindIdPw() {
       alert("인증번호가 일치하지 않습니다. 다시 시도해주세요.");
     }
   };
+
   // 로그인 화면으로 돌아가기
   const HandleBackBtn = () => {
     navigate("/login");
@@ -173,7 +176,7 @@ function FindIdPw() {
               <button className="SendCodeBtn" onClick={HandleSendClick}>
                 인증번호 전송
               </button>
-              <div className="FindText" onClick={HandleSendClick}>인증번호 입력 </div>
+              <div className="FindText">인증번호 입력</div>
               <input
                 type="text"
                 placeholder="6자리 숫자를 입력해주세요"

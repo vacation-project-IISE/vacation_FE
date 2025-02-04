@@ -84,6 +84,11 @@ a {
   cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+/* home.css */
+
+>>>>>>> sieun
 .image-container::after {
   content: attr(data-category) "\A"attr(data-product);
   font-family: "Pretendard-Light";
@@ -507,7 +512,11 @@ a {
   font-weight: 100;
   margin: 0 0 0 100px;
   z-index: 1700; /* h3 요소도 이미지보다 높은 z-index를 가짐 */
+<<<<<<< HEAD
   font-family: "Noto Sans KR";
+=======
+  /* font-family: "Noto Sans KR"; */
+>>>>>>> sieun
 }
 .visual .textarea h3:before {
   display: block;
@@ -522,3 +531,7 @@ a {
   margin-left: 120px;
   font-family: "Noto Sans KR" f;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> sieun
