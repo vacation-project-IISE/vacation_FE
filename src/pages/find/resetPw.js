@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ResetPw() {
+  // 브랜치 수정
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [inputPw, setInputPw] = useState("");
