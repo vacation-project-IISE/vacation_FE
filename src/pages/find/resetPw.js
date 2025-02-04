@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ResetPw() {
-  // 브랜치 수정
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [inputPw, setInputPw] = useState("");
@@ -20,7 +19,6 @@ function ResetPw() {
 
   // 비밀번호 재설정 버튼 클릭 핸들러
   const handleResetPassword = async () => {
-    console.log("비밀번호 재설정 버튼 클릭: ", inputPw, confirmPw);
     let hasError = false;
 
     // 비밀번호 유효성 검증
@@ -40,20 +38,26 @@ function ResetPw() {
     }
 
     if (hasError) return;
-
     
-    setUserId(localStorage.getItem("userId")); // 수정된 key 이름 확인
+    const userId = localStorage.getItem("userId");
     try {
       const response = await fetch("http://localhost:4000/api/email/resetPW", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user_id: userId, user_pwd: inputPw }),
+        body: JSON.stringify({ user_id: userId, newPassword: inputPw }),
       });
   
+      console.log(response);
       console.log("서버 응답 코드:", response.status); // 응답 코드 확인
   
+       // 응답이 JSON인지 확인
+    let responseData = null;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      responseData = await response.json();
+    }
     
       if (response.ok) {
         alert("비밀번호가 성공적으로 재설정되었습니다!");

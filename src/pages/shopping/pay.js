@@ -56,13 +56,7 @@ function Pay() {
   const handlePayment = () => {
     if (!address || !zonecode) {
       alert("주소를 먼저 입력해 주세요!");
-<<<<<<< HEAD
-    }
-   
-    else {
-=======
     } else {
->>>>>>> sieun
       // 결제 처리 로직, KakaoPay 컴포넌트의 onclickPay 호출
       document.querySelector(".KakaopayBtn").click();
 

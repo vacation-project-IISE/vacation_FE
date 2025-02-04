@@ -53,15 +53,7 @@ function Login() {
   return (
     <div>
       <Header />
-<<<<<<< HEAD
-      <img
-        src={`img/monami_background.png`}
-        alt="로그인 배경 이미지"
-        className="background"
-      />
-=======
      
->>>>>>> sieun
       <div className="square-box">
         <img
           src={`img/monamiLogo.png`}
@@ -69,11 +61,8 @@ function Login() {
           className="monamiLogo"
         />
         <div className="input-container">
-<<<<<<< HEAD
-=======
           <div className="IdContainer">
             <div className="Inputcontainer">
->>>>>>> sieun
           <img src={`img/People.png`} alt="아이디 이미지" className="img-id" />
           <input
             type="text"
@@ -82,15 +71,11 @@ function Login() {
             value={userId}
             onChange={e => setUserId(e.target.value)} // 이메일 입력 상태 업데이트
           />
-<<<<<<< HEAD
-          <img src={"img/line.png"} alt="아이디라인" className="line1" />
-=======
           </div>
           <img src={"img/line.png"} alt="아이디라인" className="line1" />
           </div>
          <div className="PwContainer">
           <div className="Inputcontainer">
->>>>>>> sieun
           <img
             src={`img/Password.png`}
             alt="비번이미지"
@@ -103,21 +88,13 @@ function Login() {
             value={password}
             onChange={e => setPassword(e.target.value)} // 비밀번호 입력 상태 업데이트
           />
-<<<<<<< HEAD
-          <img src={"img/line.png"} alt="비번라인" className="line2" />
-=======
           </div>
           <img src={"img/line.png"} alt="비번라인" className="line2" />
           </div>
->>>>>>> sieun
         </div>
         {errorMessage && ( // 오류 메시지 표시
           <div className="error-message">{errorMessage}</div>
         )}
-<<<<<<< HEAD
-        <img src={"img/line.png"} alt="sns라인" className="line4" />
-=======
->>>>>>> sieun
         <img src={"img/welcome.png"} alt="상단웰컴" className="welcome" />
         <img src={"img/line3 (1).png"} alt="상단라인" className="line3" />
         <button className="login-button" onClick={handleLoginClick}>
@@ -131,23 +108,14 @@ function Login() {
             아이디 / 비밀번호 찾기
           </a>
         </div>
-<<<<<<< HEAD
-        <label className="sns">SNS계정으로 로그인</label>
-      </div>
-=======
       </div>
       <img
         src={`img/monami_background.png`}
         alt="로그인 배경 이미지"
         className="background"
       />
->>>>>>> sieun
     </div>
   );
 }
 
 export default Login;
-<<<<<<< HEAD
-=======
-
->>>>>>> sieun
