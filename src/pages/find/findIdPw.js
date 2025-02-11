@@ -9,7 +9,7 @@ function FindIdPw() {
   const [inputEmail, setInputEmail] = useState("");
   const [inputId, setInputId] = useState("");
   const [inputCode, setInputCode] = useState("");
-  const [inputPw, setInputPw] = useState("");
+  const [findUserId, setFindUserId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [idErrorMessage, setIdErrorMessage] = useState("");
   const [findingId, setFindingId] = useState(false);
@@ -84,6 +84,13 @@ function FindIdPw() {
       });
 
       if (response.ok) {
+        const data = await response.json(); // JSON 파싱
+        setFindUserId(data.user_id); // user_id 값 가져오기
+      
+        if (userId) {
+          console.log("Received user_id:", findUserId); 
+        }
+      
         alert("인증번호를 전송하였습니다!");
         setErrorMessage("");
       } else {
@@ -232,23 +239,13 @@ function FindIdPw() {
           {findingId && (
             <div className="ResultContainer">
               <div className="ResultFindText">아이디는 아래와 같습니다!</div>
-              <div className="FoundEmail">{inputEmail}</div>
+              <div className="FoundEmail">{findUserId}</div>
               <button className="ToLoginBtn" onClick={HandleBackBtn}>
                 로그인하기
               </button>
             </div>
           )}
 
-          {/* 비밀번호 찾기 성공 */}
-          {findingPw && (
-            <div className="ResultContainer">
-              <div className="ResultFindText">비밀번호는 아래와 같습니다!</div>
-              <div className="FoundEmail">********</div>
-              <button className="ToLoginBtn" onClick={HandleBackBtn}>
-                로그인하기
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </div>
