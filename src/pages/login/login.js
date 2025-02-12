@@ -48,7 +48,6 @@ function Login() {
           localStorage.setItem("userId", user_id); // user_id 저장
           localStorage.setItem("token_expiry", expiryTime.toString());
           console.log("로그인 성공: 토큰과 user_id 저장됨");
-          setIsLogin(true);
           alert("로그인 성공!");
           navigate("/"); // 홈으로 이동
           setTimeout(() => handleLogout(), 360000);
