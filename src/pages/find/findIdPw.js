@@ -9,7 +9,7 @@ function FindIdPw() {
   const [inputEmail, setInputEmail] = useState("");
   const [inputId, setInputId] = useState("");
   const [inputCode, setInputCode] = useState("");
-  const [findUserId, setFindUserId] = useState("");
+  const [foundUserId, setFoundUserId] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [idErrorMessage, setIdErrorMessage] = useState("");
   const [findingId, setFindingId] = useState(false);
@@ -82,27 +82,28 @@ function FindIdPw() {
           authNumber: newAuthNumber,
         }),
       });
+      const responseData = await response.json();
+            console.log("서버 응답 데이터:", responseData); // ✅ 서버 응답 확인
+            if (responseData.ok) {
+              alert("인증번호를 전송하였습니다!");
+              setErrorMessage("");
 
-      if (response.ok) {
-        const data = await response.json(); // JSON 파싱
-        setFindUserId(data.user_id); // user_id 값 가져오기
-      
-        if (userId) {
-          console.log("Received user_id:", findUserId); 
-        }
-      
-        alert("인증번호를 전송하였습니다!");
-        setErrorMessage("");
-      } else {
-        alert("등록된 이메일이 아닙니다. 다시 시도해주세요.");
+              // ✅ 서버에서 받은 user_id 저장
+              if (responseData.user_id) {
+                  setFoundUserId(responseData.user_id); // 상태에 저장
+              }
+          } else {
+              alert(
+                  responseData.message ||
+                      "등록된 이메일이 아닙니다. 다시 시도해주세요."
+              );
+          }
+      } catch (error) {
+          setErrorMessage("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+          console.error("Error:", error);
       }
-
-      console.log("서버 응답 코드:", response.status);
-    } catch (error) {
-      setErrorMessage("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
-      console.error("Error:", error);
-    }
   };
+
 
   // 인증하기 버튼 클릭 핸들러
   const HandleConfirmCode = () => {
@@ -239,7 +240,7 @@ function FindIdPw() {
           {findingId && (
             <div className="ResultContainer">
               <div className="ResultFindText">아이디는 아래와 같습니다!</div>
-              <div className="FoundEmail">{findUserId}</div>
+              <div className="FoundEmail">{foundUserId}</div>
               <button className="ToLoginBtn" onClick={HandleBackBtn}>
                 로그인하기
               </button>
