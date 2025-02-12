@@ -16,14 +16,7 @@ function Header() {
     setIsLogin(!!token); // 토큰이 있으면 true, 없으면 false
   }, []);
 
-  // 로그아웃 처리 함수
-  const handleLogout = () => {
-    // 토큰 제거
-    localStorage.removeItem("token");
-    setIsLogin(false);
-    navigate("/login");
-  };
-
+  
   const handleMenuClick = () => {
     setIsActive(!isActive);
   };

@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 function ResetPw() {
   const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [confirmPw, setConfirmPw] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // 비밀번호 유효성 에러 메시지
-  const [PwErrorMessage, setPwErrorMessage] = useState(""); // 비밀번호 확인 에러 메시지
+  const [pwErrorMessage, setPwErrorMessage] = useState(""); // 비밀번호 확인 에러 메시지
 
   // 비밀번호 유효성 검증 함수
   const validatePassword = (password) => {
@@ -17,32 +18,58 @@ function ResetPw() {
   };
 
   // 비밀번호 재설정 버튼 클릭 핸들러
-  const handleResetPassword = () => {
+  const handleResetPassword = async () => {
+    let hasError = false;
+
     // 비밀번호 유효성 검증
-    if (!validatePassword(inputPw)) {
+    if (!inputPw || !validatePassword(inputPw)) {
       setErrorMessage("영문, 숫자를 포함해 8자리 이상을 입력해주세요.");
-      setPwErrorMessage(""); // 비밀번호 확인 에러 초기화
-      return;
+      hasError = true;
+    } else {
+      setErrorMessage("");
     }
 
     // 비밀번호 확인 값 검증
-    if (inputPw !== confirmPw) {
+    if (!confirmPw || inputPw !== confirmPw) {
       setPwErrorMessage("비밀번호를 다시 확인해주세요.");
-      setErrorMessage(""); // 유효성 에러 초기화
-      return;
+      hasError = true;
+    } else {
+      setPwErrorMessage("");
     }
 
-    // 에러 메시지 초기화
-    setErrorMessage("");
-    setPwErrorMessage("");
-
-    // 성공 알림 및 리다이렉트
-    alert("비밀번호가 성공적으로 재설정되었습니다!");
-
-    // 여기에 백엔드 연결 코드 써야함 !!
-
+    if (hasError) return;
     
-    navigate("/login");
+    const userId = localStorage.getItem("userId");
+    try {
+      const response = await fetch("http://localhost:4000/api/email/resetPW", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: userId, newPassword: inputPw }),
+      });
+  
+      console.log(response);
+      console.log("서버 응답 코드:", response.status); // 응답 코드 확인
+  
+       // 응답이 JSON인지 확인
+    let responseData = null;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      responseData = await response.json();
+    }
+    
+      if (response.ok) {
+        alert("비밀번호가 성공적으로 재설정되었습니다!");
+        navigate("/login");
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "비밀번호 재설정 실패");
+      }
+    } catch (error) {
+      console.error("로그인 요청 실패:", error);
+      setErrorMessage("서버와의 연결에 실패했습니다.");
+    }
   };
 
   return (
@@ -79,8 +106,8 @@ function ResetPw() {
               onChange={(e) => setConfirmPw(e.target.value)}
             />
             <img src={"img/line.png"} alt="LineImg" />
-            {PwErrorMessage && (
-              <div className="errorMessage">{PwErrorMessage}</div>
+            {pwErrorMessage && (
+              <div className="errorMessage">{pwErrorMessage}</div>
             )}
 
             {/* 비밀번호 재설정 버튼 */}
@@ -95,4 +122,3 @@ function ResetPw() {
 }
 
 export default ResetPw;
-
