@@ -1,6 +1,7 @@
 import Footer from "../../component/footer/footer.js";
 import Header from "../../component/header/header.js";
-import React, { useState } from "react";
+import React  from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import "./home.css";
 
@@ -8,6 +9,39 @@ function Home() {
   // 상태 추가: 선택된 카테고리를 관리
   const [activeCategory, setActiveCategory] = useState("premium-pen");
   const [isPopupVisible, setIsPopupVisible] = useState(true); // 팝업 표시 상태 관리
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+  
+
+  // 로그인 상태 확인 (로컬스토리지에서 가져오기)
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const expiry = localStorage.getItem("token_expiry");
+
+    if (token && expiry) {
+      if (Date.now() >= Number(expiry)) {
+        handleLogout(); // 만료된 경우 즉시 로그아웃
+        console.log("토큰 확인 후 로그아웃!")
+      } else {
+        setIsLogin(true);
+        console.log("토큰 없어서 로그아웃안함!")
+        // 남은 시간 계산 후 로그아웃 예약
+        const remainingTime = Number(expiry) - Date.now();
+        setTimeout(() => handleLogout(), remainingTime);
+      }
+    }
+  }, []);
+
+   // 자동 로그아웃 함수
+   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token_expiry");
+    setIsLogin(false);
+    alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+    navigate("/login");
+  };
+
 
   // 카테고리 변경 함수
   const handleCategoryChange = category => {

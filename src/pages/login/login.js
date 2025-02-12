@@ -1,6 +1,6 @@
 import Header from "../../component/header/header.js";
 import "./login.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
@@ -8,6 +8,19 @@ function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
+
+  
+  // 자동 로그아웃 함수
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token_expiry");
+    setIsLogin(false);
+    alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+    navigate("/login");
+  };
+  
 
   // 로그인 버튼 클릭 시 호출되는 함수
   const handleLoginClick = async () => {
@@ -30,11 +43,15 @@ function Login() {
 
 
         if (token && user_id) {
+          const expiryTime = Date.now() + 360000;
           localStorage.setItem("token", token); // 토큰 저장
           localStorage.setItem("userId", user_id); // user_id 저장
+          localStorage.setItem("token_expiry", expiryTime.toString());
           console.log("로그인 성공: 토큰과 user_id 저장됨");
+          setIsLogin(true);
           alert("로그인 성공!");
           navigate("/"); // 홈으로 이동
+          setTimeout(() => handleLogout(), 360000);
         } else {
           console.error("로그인 성공했지만 토큰 또는 user_id 없음");
           alert("로그인에 문제가 발생했습니다. 다시 시도해주세요.");
