@@ -96,7 +96,7 @@ function Login() {
           <div className="error-message">{errorMessage}</div>
         )}
         <img src={"img/welcome.png"} alt="상단웰컴" className="welcome" />
-        <img src={"img/line3 (1).png"} alt="상단라인" className="line3" />
+        {/* <img src={"img/line3 (1).png"} alt="상단라인" className="line3" /> */}
         <button className="login-button" onClick={handleLoginClick}>
           로그인
         </button>
