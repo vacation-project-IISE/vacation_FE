@@ -43,25 +43,25 @@ function FindIdPw() {
         return;
       }
 
-            if (selectedOption === "findPw") {
-                let hasError = false;
+      if (selectedOption === "findPw") {
+        let hasError = false;
 
-                if (!inputId) {
-                    setIdErrorMessage("아이디를 입력해주세요.");
-                    hasError = true;
-                } else {
-                    setIdErrorMessage("");
-                }
+        if (!inputId) {
+          setIdErrorMessage("아이디를 입력해주세요.");
+          hasError = true;
+        } else {
+          setIdErrorMessage("");
+        }
 
-                if (!inputEmail || !validateEmail(inputEmail)) {
-                    setErrorMessage("이메일을 올바르게 입력해주세요.");
-                    hasError = true;
-                } else {
-                    setErrorMessage("");
-                }
+        if (!inputEmail || !validateEmail(inputEmail)) {
+          setErrorMessage("이메일을 올바르게 입력해주세요.");
+          hasError = true;
+        } else {
+          setErrorMessage("");
+        }
 
-                if (hasError) return;
-            }
+        if (hasError) return;
+      }
 
       // ✅ 인증번호 초기화 후 생성
       setAuthNumber(null);
@@ -127,52 +127,46 @@ function FindIdPw() {
     navigate("/login");
   };
 
-    // 아이디 찾기 버튼 클릭 시 상태 초기화
-    const handleFindIdClick = () => {
-        setSelectedOption("findId");
-        setFindingId(false);
-        setFindingPw(false);
-        setErrorMessage("");
-        setIdErrorMessage("");
-    };
+  // 아이디 찾기 버튼 클릭 시 상태 초기화
+  const handleFindIdClick = () => {
+    setSelectedOption("findId");
+    setFindingId(false);
+    setFindingPw(false);
+    setErrorMessage("");
+    setIdErrorMessage("");
+  };
 
-    return (
-        <div>
-            <Header />
-            <img
-                src={`img/monami_background.png`}
-                alt="로그인 배경 이미지"
-                className="background"
-            />
-            <div className="FindContainer">
-                <div className="squareBox">
-                    {/* 상단 버튼 */}
-                    {!findingId && !findingPw && (
-                        <div className="SelectIdPw">
-                            <button
-                                onClick={handleFindIdClick}
-                                style={{
-                                    color:
-                                        selectedOption === "findId"
-                                            ? "black"
-                                            : "#c5c5c5",
-                                }}
-                            >
-                                아이디 찾기
-                            </button>
-                            <button
-                                onClick={() => setSelectedOption("findPw")}
-                                style={{
-                                    color:
-                                        selectedOption === "findPw"
-                                            ? "black"
-                                            : "#c5c5c5",
-                                }}
-                            >
-                                비밀번호 찾기
-                            </button>
-                        </div>
-                    )}
+  return (
+    <div>
+      <Header />
+      <img
+        src={`img/monami_background.png`}
+        alt="로그인 배경 이미지"
+        className="background"
+      />
+      <div className="FindContainer">
+        <div className="squareBox">
+          {/* 상단 버튼 */}
+          {!findingId && !findingPw && (
+            <div className="SelectIdPw">
+              <button
+                onClick={handleFindIdClick}
+                style={{
+                  color: selectedOption === "findId" ? "black" : "#c5c5c5",
+                }}
+              >
+                아이디 찾기
+              </button>
+              <button
+                onClick={() => setSelectedOption("findPw")}
+                style={{
+                  color: selectedOption === "findPw" ? "black" : "#c5c5c5",
+                }}
+              >
+                비밀번호 찾기
+              </button>
+            </div>
+          )}
 
           {/* 아이디 찾기 입력 UI */}
           {!findingId && selectedOption === "findId" && (
@@ -203,54 +197,44 @@ function FindIdPw() {
             </div>
           )}
 
-                    {/* 비밀번호 찾기 입력 UI */}
-                    {!findingPw && selectedOption === "findPw" && (
-                        <div className="inputContainer">
-                            <div className="FindText">아이디 입력</div>
-                            <input
-                                type="text"
-                                placeholder="아이디를 입력해주세요"
-                                onChange={(e) => setInputId(e.target.value)}
-                            />
-                            <img src={"img/line.png"} alt="LineImg" />
-                            {idErrorMessage && (
-                                <div className="errorMessage">
-                                    {idErrorMessage}
-                                </div>
-                            )}
-                            <div className="FindText">이메일 주소 입력</div>
-                            <input
-                                type="text"
-                                placeholder="example@ex.com"
-                                onChange={(e) => setInputEmail(e.target.value)}
-                            />
-                            <img src={"img/line.png"} alt="LineImg" />
-                            {errorMessage && (
-                                <div className="errorMessage">
-                                    {errorMessage}
-                                </div>
-                            )}
-                            <button
-                                className="SendCodeBtn"
-                                onClick={HandleSendClick}
-                            >
-                                인증번호 전송
-                            </button>
-                            <div className="FindText">인증번호 입력</div>
-                            <input
-                                type="text"
-                                placeholder="6자리 숫자를 입력해주세요"
-                                onChange={(e) => setInputCode(e.target.value)}
-                            />
-                            <img src={"img/line.png"} alt="LineImg" />
-                            <button
-                                className="SendCodeBtn"
-                                onClick={HandleConfirmCode}
-                            >
-                                인증하기
-                            </button>
-                        </div>
-                    )}
+          {/* 비밀번호 찾기 입력 UI */}
+          {!findingPw && selectedOption === "findPw" && (
+            <div className="inputContainer">
+              <div className="FindText">아이디 입력</div>
+              <input
+                type="text"
+                placeholder="아이디를 입력해주세요"
+                onChange={(e) => setInputId(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              {idErrorMessage && (
+                <div className="errorMessage">{idErrorMessage}</div>
+              )}
+              <div className="FindText">이메일 주소 입력</div>
+              <input
+                type="text"
+                placeholder="example@ex.com"
+                onChange={(e) => setInputEmail(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              {errorMessage && (
+                <div className="errorMessage">{errorMessage}</div>
+              )}
+              <button className="SendCodeBtn" onClick={HandleSendClick}>
+                인증번호 전송
+              </button>
+              <div className="FindText">인증번호 입력</div>
+              <input
+                type="text"
+                placeholder="6자리 숫자를 입력해주세요"
+                onChange={(e) => setInputCode(e.target.value)}
+              />
+              <img src={"img/line.png"} alt="LineImg" />
+              <button className="SendCodeBtn" onClick={HandleConfirmCode}>
+                인증하기
+              </button>
+            </div>
+          )}
 
           {/* 아이디 찾기 성공 */}
           {findingId && (

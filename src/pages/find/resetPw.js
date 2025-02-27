@@ -22,36 +22,23 @@ function ResetPw() {
   // 비밀번호 재설정 버튼 클릭 핸들러
   const handleResetPassword = async () => {
     let hasError = false;
-    const userId = localStorage.getItem("userId"); // userId 가져오기
-    console.log("localStorage에서 가져온 userId:", userId); // 추가한 로그
-  
-    if (!userId) {
-      alert("사용자 ID가 존재하지 않습니다. 다시 로그인해주세요.");
-      return;
-    }
-  
+
     // 비밀번호 유효성 검증
-    if (!inputPw) {
-      setErrorMessage("비밀번호를 입력해주세요.");
-      hasError = true;
-    } else if (!validatePassword(inputPw)) {
-      setErrorMessage("비밀번호는 영문, 숫자를 포함해 8자리 이상이어야 합니다.");
+    if (!inputPw || !validatePassword(inputPw)) {
+      setErrorMessage("영문, 숫자를 포함해 8자리 이상을 입력해주세요.");
       hasError = true;
     } else {
       setErrorMessage("");
     }
-  
+
     // 비밀번호 확인 값 검증
-    if (!confirmPw) {
-      setPwErrorMessage("비밀번호 확인을 입력해주세요.");
-      hasError = true;
-    } else if (inputPw !== confirmPw) {
-      setPwErrorMessage("비밀번호가 일치하지 않습니다.");
+    if (!confirmPw || inputPw !== confirmPw) {
+      setPwErrorMessage("비밀번호를 다시 확인해주세요.");
       hasError = true;
     } else {
       setPwErrorMessage("");
     }
-  
+
     if (hasError) return;
     
     try {
@@ -66,25 +53,25 @@ function ResetPw() {
       console.log(response);
       console.log("서버 응답 코드:", response.status); // 응답 코드 확인
   
-      // JSON 응답 처리
-      let responseData = null;
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        responseData = await response.json();
-      }
-  
+       // 응답이 JSON인지 확인
+    let responseData = null;
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      responseData = await response.json();
+    }
+    
       if (response.ok) {
         alert("비밀번호가 성공적으로 재설정되었습니다!");
         navigate("/login");
       } else {
-        alert(responseData?.message || "비밀번호 재설정 실패");
+        const errorData = await response.json();
+        alert(errorData.message || "비밀번호 재설정 실패");
       }
     } catch (error) {
-      console.error("비밀번호 재설정 요청 실패:", error);
+      console.error("로그인 요청 실패:", error);
       setErrorMessage("서버와의 연결에 실패했습니다.");
     }
   };
-  
 
   return (
     <div>
