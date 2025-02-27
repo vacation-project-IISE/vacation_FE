@@ -2,10 +2,12 @@ import Header from "../../component/header/header.js";
 import "./resetPw.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function ResetPw() {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
+  const location = useLocation();
+  const userId = location.state?.userId || ""; 
   const [inputPw, setInputPw] = useState("");
   const [confirmPw, setConfirmPw] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // 비밀번호 유효성 에러 메시지
@@ -51,7 +53,7 @@ function ResetPw() {
     }
   
     if (hasError) return;
-  
+    
     try {
       const response = await fetch("http://localhost:4000/api/email/resetPW", {
         method: "POST",
