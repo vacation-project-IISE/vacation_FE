@@ -18,7 +18,7 @@ function Home() {
     const token = localStorage.getItem("token");
     const expiry = localStorage.getItem("token_expiry");
 
-    if (token && expiry) {
+    if (token && expiry && isLogin === true) {
       if (Date.now() >= Number(expiry)) {
         handleLogout(); // 만료된 경우 즉시 로그아웃
         console.log("토큰 확인 후 로그아웃!")
