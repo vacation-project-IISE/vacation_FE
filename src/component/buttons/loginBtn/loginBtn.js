@@ -23,6 +23,8 @@ function LoginBtn() {
       // 로그아웃 처리
       setIsLogin(false);
       localStorage.removeItem("token"); // 사용자 토큰 제거
+      localStorage.removeItem("userId");
+      localStorage.removeItem("token_expiry");
     } else {
       // 로그인 페이지로 이동
       navigate("/login");
