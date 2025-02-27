@@ -114,7 +114,7 @@ function FindIdPw() {
       } else if (selectedOption === "findPw") {
         alert("비밀번호 찾기 인증에 성공하였습니다!");
         setFindingPw(true);
-        navigate("/resetPw");
+        navigate("/resetPw", { state: { userId: inputId } });
       }
       setErrorMessage(""); // 인증번호 에러 메시지 초기화
     } else {
