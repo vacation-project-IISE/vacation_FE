@@ -43,14 +43,14 @@ function Login() {
 
 
         if (token && user_id) {
-          const expiryTime = Date.now() + 6000;
+          const expiryTime = Date.now() + 360000;
           localStorage.setItem("token", token); // 토큰 저장
           localStorage.setItem("userId", user_id); // user_id 저장
           localStorage.setItem("token_expiry", expiryTime.toString());
           console.log("로그인 성공: 토큰과 user_id 저장됨");
           alert("로그인 성공!");
           navigate("/"); // 홈으로 이동
-          setTimeout(() => handleLogout(), 6000);
+          setTimeout(() => handleLogout(), 360000);
         } else {
           console.error("로그인 성공했지만 토큰 또는 user_id 없음");
           alert("로그인에 문제가 발생했습니다. 다시 시도해주세요.");
