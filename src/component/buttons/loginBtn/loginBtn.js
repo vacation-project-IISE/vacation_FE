@@ -12,11 +12,6 @@ function LoginBtn() {
     setIsLogin(!!token); // 토큰이 있으면 true, 없으면 false로 설정
   }, []);
 
-  // isLogin 상태 변경 시 확인
-  useEffect(() => {
-    console.log("isLogin 상태:", isLogin);
-  }, [isLogin]);
-
   // 로그인/로그아웃 처리 함수
   const handleLogin = () => {
     if (isLogin) {
